@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import GenerateDiatonicChords from "./ChordGenerator";
-
-const generateDiatonicChordsDisplay = (scale) => {
-    return GenerateDiatonicChords(scale);
-}
+import { useScaleSettings } from "../ScaleSettingsContext";
 
 const ScaleDisplay = ({scale}) => {
+    const { includeSevenths } = useScaleSettings();
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -14,11 +12,19 @@ const ScaleDisplay = ({scale}) => {
                 {isOpen ? "▼" : "▶"} <strong>{scale.name}:</strong> {scale.notes.join(", ")} 
             </div>
             {isOpen && (
-                <ul>
-                    {GenerateDiatonicChords(scale).map((chord, index) => (
-                        <li key={index}><strong>{chord.romanNumeral}</strong> - <strong>{chord.chordName}</strong> ({chord.chordNotes.join(", ")})</li>
+                <div className="chords" style={{ marginTop: "0.5rem" }}>
+                    {GenerateDiatonicChords(scale, includeSevenths).map((chord, chordIndex) => (
+                        <div key={chordIndex} className="chord">
+                            <strong>{chord.chordName}</strong>
+                            <div className="chord-notes">
+                                {chord.chordNotes.map((note, noteIndex) => (
+                                    <div key={noteIndex}>{note}</div>
+                                ))}
+                            </div>
+                            <strong>{chord.romanNumeral}</strong>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
         </li>
     );

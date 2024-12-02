@@ -8,7 +8,7 @@ input {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
-    width: 300px;
+   /*  width: 300px; */
 }
 
 button {
@@ -27,3 +27,46 @@ li {
     margin: 5px 0;
 }
 
+/* Horizontal layout for chord blocks */
+div.chords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  /* Individual chord block styling */
+  div.chord {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+     /* padding: 0.4rem; */
+     padding-left: 0.7rem;
+     padding-right: 0.7rem;
+/*    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9; */
+    width: 50px;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Hover effect for chord blocks */
+  div.chord:hover {
+    background-color: #eaeaea;
+  }
+  
+  /* Chord header (Roman numeral and chord name) */
+  div.chord-header {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Vertical layout for notes inside a chord block */
+  div.chord-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  

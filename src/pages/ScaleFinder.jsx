@@ -1,49 +1,35 @@
 import { useState } from "react"
 import './ScaleFinder.css'
-import ScaleDisplay from "./ScaleDisplay";
 import ScaleGroupDisplay from "./ScaleGroupDisplay";
-
-// Map notes to integers (for comparison)
-const noteToInt = {
-    C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3,
-    E: 4, Fb: 4, "E#": 5, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8,
-    Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11, Cb: 11, "B#": 0,
-  };
+import { useScaleSettings } from "../ScaleSettingsContext";
+import { noteToInt, formatNote, formatNotes, convertNotesToInt, scaleNotesToInt } from "../Helpers";
+import { scales } from "../data/ScaleData";
 
 // Map integers to notes (for display) 
-const intToNote = {
+/* const intToNote = {
     0: "C", 1: "C#", 2: "D", 3: "D#", 4: "E",
     5: "F", 6: "F#", 7: "G", 8: "G#", 9: "A",
     10: "A#", 11: "B",
-  };
+  }; */
 
-const scales = [
+/* const scales = [
     { type: "Major", name: "C Major", notes: ["C", "D", "E", "F", "G", "A", "B"] },
     { type: "Minor", name: "A Minor", notes: ["A", "B", "C", "D", "E", "F", "G"] },
     { type: "Harmonic Minor", name: "A Harmonic Minor", notes: ["A", "B", "C", "D", "E", "F", "G#"] },
     { type: "Double Harmonic Major", name: "C Double Harmonic Major", notes: ["C", "Db", "E", "F", "G", "Ab", "B"] },
-];
+]; */
 
-//   const scales = [
-//     { name: "C Major", notes: ["C", "D", "E", "F", "G", "A", "B"] },
-//     { name: "G Major", notes: ["G", "A", "B", "C", "D", "E", "F#"] },
-//     { name: "D Major", notes: ["D", "E", "F#", "G", "A", "B", "C#"] },
-//     { name: "A Major", notes: ["A", "B", "C#", "D", "E", "F#", "G#"] },
-//     { name: "E Major", notes: ["E", "F#", "G#", "A", "B", "C#", "D#"] },
-//     { name: "B Major", notes: ["B", "C#", "D#", "E", "F#", "G#", "A#"] },
-//     { name: "F# Major", notes: ["F#", "G#", "A#", "B", "C#", "D#", "E#"] },
-//     { name: "Db Major", notes: ["Db", "Eb", "F", "Gb", "Ab", "Bb", "C"] },
-//     { name: "Ab Major", notes: ["Ab", "Bb", "C", "Db", "Eb", "F", "G"] },
-//     { name: "Eb Major", notes: ["Eb", "F", "G", "Ab", "Bb", "C", "D"] },
-//     { name: "Bb Major", notes: ["Bb", "C", "D", "Eb", "F", "G", "A"] },
-//     { name: "F Major", notes: ["F", "G", "A", "Bb", "C", "D", "E"] },
-//     { name: "Gb Major", notes: ["Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F"]},
-//     { name: "A Harmonic Minor", notes: ["A", "B", "C", "D", "E", "F", "G#"] },
-//     { name: "E Harmonic Minor", notes: ["E", "F#", "G", "A", "B", "C", "D#"] },
-//     { name: "C Double Harmonic Major", notes: ["C", "Db", "E", "F", "G", "Ab", "B"] },
-//   ];
+/* const modes = {
+    "Major": { "Ionian": [0, 0, 0, 0, 0, 0, 0],
+                "Dorian": [0, 0, "b", 0, 0, "b", 0],
+                "Phrygian": [0, "b", "b", 0, 0, "b", "b"],
+                "Lydian": [0, 0, 0, "#", 0, 0, 0],
+                "Mixolydian": [0, 0, 0, 0, 0, 0, "b"],
+                "Aeolian": [0, 0, "b", 0, 0, "b", "b"],
+                "Locrian": [0, "b", "b", 0, "b", "b", "b"] },
+}; */
 
-const formatNote = (note) => {
+/* const formatNote = (note) => {
     return note.trim().charAt(0).toUpperCase() + note.trim().slice(1); //.toLowerCase();
 }
 
@@ -60,44 +46,29 @@ const convertNotesToInt = (notes) => {
     }).filter((num) => num !== undefined);
 }
 
-
-
 // Helper function to convert scale notes to integers
 const scaleNotesToInt = (notes) => notes.map((note) => noteToInt[note]);
-
-// Roman numeral patterns for different scale types
-const romanNumeralsByScaleType = {
-    "Major": ["I", "ii", "iii", "IV", "V", "vi", "vii°"],
-    "Minor": ["i", "ii°", "bIII", "iv", "v", "bVI", "bVII"],
-    "Harmonic Minor": ["i", "ii°", "bIII+", "iv", "V", "bVI", "vii°"],
-    "Double Harmonic Major": ["I", "bii°", "iii", "IV+", "V", "bVI", "vii°"],
-  };
-
-
-//function generateDiatonicChords(scaleNotes, scaleType) {
-//
-//}
-
+ */
 const ScaleFinder = () => {
     const [ inputNotes, setInputNotes ] = useState("");
-    const [ matchingScales, setMatchingScales ] = useState([]);
-    const [ enharmonicCheck, setEnharmonicCheck ] = useState(true);
+    const { includeSevenths, setIncludeSevenths, 
+            enharmonicEquivalence, setEnharmonicEquivalence,
+            romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted } = useScaleSettings();
     const [ groupedScales, setGroupedScales ] = useState({});
 
     const findScales = () => {
         console.log("raw input: " + inputNotes);
-        const input = (enharmonicCheck) ? convertNotesToInt(inputNotes.split(",")) : formatNotes(inputNotes.split(","));
+        const input = (enharmonicEquivalence) ? convertNotesToInt(inputNotes.split(",")) : formatNotes(inputNotes.split(","));
         console.log("Inputted notes are: ", input);
-        console.log("Enharmonic state is: " + enharmonicCheck);
+        console.log("Enharmonic state is: " + enharmonicEquivalence);
 
         if(input.length === 0) {
             setGroupedScales({});
-            //setMatchingScales([]);
             return;
         }
 
         const matches = scales.filter((scale) => {
-            const scaleToCompare = (enharmonicCheck) ? scaleNotesToInt(scale.notes) : scale.notes;
+            const scaleToCompare = (enharmonicEquivalence) ? scaleNotesToInt(scale.notes) : scale.notes;
             return input.every((note) => scaleToCompare.includes(note));
         });
 
@@ -108,42 +79,53 @@ const ScaleFinder = () => {
             return acc;
         }, {});
   
-        //setMatchingScales(matches);
         setGroupedScales(grouped);
     }
 
     return (
-        <div className="App">
-            <h1>Scale Finder</h1>
-            <p>Enter musical notes separated by commas</p>
-            <input 
-                type="text"
-                value={inputNotes}
-                onChange={(e) => setInputNotes(e.target.value)}
-                placeholder="Enter notes here..."
-            />
-            <button onClick={findScales}>Find Scales</button>
-            <input 
-                type="checkbox" 
-                checked={enharmonicCheck}
-                onChange={() => setEnharmonicCheck(!enharmonicCheck)} />
-            Enharmonic Check
-            <div>
-                <h2>Matching Scales:</h2>
-                {/* Skip all this JSX if there are no scale matches */}
-                {Object.keys(groupedScales).length > 0 ? (
-                    Object.entries(groupedScales).map(([type, scales]) => (
-                        <ScaleGroupDisplay
-                            key={type}
-                            type={type}
-                            scales={scales}
-                        />
-                    ))
-                    ) : (
-                    <p>No matching scales found.</p>
-                )}
+        
+            <div className="App">
+                <h1>Scale Finder</h1>
+                <p>Enter musical notes separated by commas</p>
+                <input 
+                    type="text"
+                    value={inputNotes}
+                    onChange={(e) => setInputNotes(e.target.value)}
+                    placeholder="Enter notes here..."
+                />
+                <button onClick={findScales}>Find Scales</button>
+                <input 
+                    type="checkbox" 
+                    checked={enharmonicEquivalence}
+                    onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)} />
+                Enharmonic Check
+                <input 
+                    type="checkbox" 
+                    checked={includeSevenths}
+                    onChange={() => setIncludeSevenths(!includeSevenths)} />
+                Include Sevenths
+                <input 
+                    type="checkbox" 
+                    checked={romanNumeralsMajorAdjusted}
+                    onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)} />
+                Roman Numerals Major Adjusted
+                <div>
+                    <h2>Matching Scales:</h2>
+                    {/* Skip all this JSX if there are no scale matches */}
+                    {Object.keys(groupedScales).length > 0 ? (
+                        Object.entries(groupedScales).map(([type, scales]) => (
+                            <ScaleGroupDisplay
+                                key={type}
+                                type={type}
+                                scales={scales}
+                            />
+                        ))
+                        ) : (
+                        <p>No matching scales found.</p>
+                    )}
+                </div>
             </div>
-        </div>
+        
     );
 }
 
