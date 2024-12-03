@@ -1,4 +1,4 @@
-.App {
+div.scaleFinder {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     margin: 20px;
@@ -32,7 +32,7 @@ div.chords {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    /* gap: 1rem; */
   }
   
   /* Individual chord block styling */
@@ -67,6 +67,12 @@ div.chords {
   div.chord-notes {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
   }
+   
+  .settings-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   

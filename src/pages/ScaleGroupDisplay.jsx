@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ScaleDisplay from "./ScaleDisplay";
+import './ScaleGroupDisplay.css'
 
 const ScaleGroupDisplay = ({type, scales}) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     return (
-        <div>
+        <div className="scaleGroup">
             <h2 onClick={() => setIsOpen(!isOpen)}>
                 {isOpen ? "▼" : "▶"} {type} Scales ({scales.length})
             </h2>

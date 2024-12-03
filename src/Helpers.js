@@ -24,3 +24,23 @@ export const convertNotesToInt = (notes) => {
 
 // Helper function to convert scale notes to integers
 export const scaleNotesToInt = (notes) => notes.map((note) => noteToInt[note]);
+
+export const shiftScale = (scale, shiftBy) => {
+    const shiftedNotes = shiftArr(scale.notes, shiftBy);
+    const newScale = { ...scale, notes: shiftedNotes };
+    return newScale;
+}
+
+const shiftArr = (arr, shiftBy) => {
+/*     if (!Array.isArray(arr) || typeof shiftBy !== "number") {
+      throw new Error("Invalid input. Provide an array and a number.");
+    } */
+  
+    const length = arr.length;
+    if (length === 0) return arr; // Handle empty array
+  
+    // Normalize shiftBy to ensure it's within bounds
+    const normalizedShift = ((shiftBy % length) + length) % length;
+  
+    return arr.slice(normalizedShift).concat(arr.slice(0, normalizedShift));
+  }
