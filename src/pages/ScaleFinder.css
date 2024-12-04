@@ -75,4 +75,65 @@ div.chords {
     justify-content: center;
   }
 
-  
+
+
+  .scaleHeaderContainer {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Centered div + Right-aligned div */
+    align-items: center; /* Vertically center the items */
+    /* padding: 0 20px; */
+    position: relative; /* For grid alignment */
+    /* gap: 20px;  *//* Adds spacing between items */
+}
+
+/* .scaleHeaderCentered {
+    justify-self: center;
+    text-align: center;
+} */
+
+.scaleHeaderCentered {
+  grid-column: 1 / -1; /* Span across all columns */
+  justify-self: center; /* Center horizontally in the container */
+  width: 350px;
+  position: absolute; /* Make it completely independent of other content */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center it horizontally and vertically */
+}
+
+.modeSelectRightAligned {
+    text-align: right;
+    display: flex;
+    flex-direction: column; /* Stack content inside the right-aligned div */
+    align-items: flex-end; /* Align to the right */
+    /* gap: 10px; */ /* Space between internal elements */
+}
+
+/* 
+@media (max-width: 700px) {
+    .scaleHeaderContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto; 
+        align-items: center;
+    }
+
+    .modeSelectRightAligned {
+        justify-self: center; 
+        text-align: center; 
+
+    }
+ */
+/*     .scaleHeaderCentered {
+      display: flex;
+      flex-direction: column;
+      justify-self: center;
+      text-align: center;
+      width: 300px;
+    } */
+/* 
+    .modeSelectRightAligned {
+        align-items: center; 
+    }
+}
+
+ */

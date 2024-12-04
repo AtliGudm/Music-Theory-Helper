@@ -31,12 +31,21 @@ const ScaleDisplay = ({scale}) => {
 
     return (
         <li className="scaleDisplay">
-            <div style={{display: "inline"}} onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
-            </div> {getScaleNotesDisplay().notes.join(", ")}
+            <div className="scaleHeaderContainer"  /* style={{display: "flex"}} */>
+                <div className="scaleHeaderCentered">
+                    <div style={{display: "inline"}} onClick={() => setIsOpen(!isOpen)}>
+                        {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
+                    </div> {getScaleNotesDisplay().notes.join(", ")} 
+                </div>
+                    {isOpen && (
+                        <>
+                            <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
+                        </>
+                    )}
+            </div>
             {isOpen && (
                 <>
-                    <ModeSelector scaleType={scale.type} onModeChange={handleModeChange}/>
+                    {/* <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/> */}
                     <ChordsDisplay scale={getScaleNotesDisplay()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
                 </>
             )}
