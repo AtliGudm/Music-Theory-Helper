@@ -5,7 +5,6 @@ import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { modes } from '../data/ModesData';
 import { shiftScale } from '../Helpers'
-import './ScaleDisplay.css';
 
 
 const ScaleDisplay = ({scale}) => {
@@ -43,9 +42,8 @@ const ScaleDisplay = ({scale}) => {
                         </>
                     )}
             </div>
-            {isOpen && (
+             {isOpen && (
                 <>
-                    {/* <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/> */}
                     <ChordsDisplay scale={getScaleNotesDisplay()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
                 </>
             )}

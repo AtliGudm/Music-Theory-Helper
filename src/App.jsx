@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './pages/Navbar';
 import ScaleFinder from './pages/ScaleFinder';
 import { ScaleSettingsProvider } from "./ScaleSettingsContext";
 

@@ -1,7 +1,7 @@
 div.scaleFinder {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    margin: 20px;
+    /* margin: 20px; */
 }
 
 input {
@@ -17,16 +17,29 @@ button {
     cursor: pointer;
 }
 
-ul {
+
+/* div.scaleGroup
+{ 
+    background-color: #bfbfbf;
+} */
+
+h2.scaleGroupHeader {
+  background-color: #bfbfbf;
+  margin-block-end: 0.4em;
+}
+
+
+ ul {
     list-style-type: none;
-    padding: 0;
+    padding-inline-start: 0px;
+    /* padding: 0; */
 }
 
 li {
     font-size: 18px;
-    margin: 5px 0;
+    /* margin: 5px 0; */
 }
-
+  
 /* Horizontal layout for chord blocks */
 div.chords {
     display: flex;
@@ -83,7 +96,6 @@ div.chords {
     align-items: center; /* Vertically center the items */
     /* padding: 0 20px; */
     position: relative; /* For grid alignment */
-    /* gap: 20px;  *//* Adds spacing between items */
 }
 
 /* .scaleHeaderCentered {
@@ -91,15 +103,15 @@ div.chords {
     text-align: center;
 } */
 
-.scaleHeaderCentered {
-  grid-column: 1 / -1; /* Span across all columns */
-  justify-self: center; /* Center horizontally in the container */
+/* .scaleHeaderCentered {
+  grid-column: 1 / -1; 
+  justify-self: center; 
   width: 350px;
-  position: absolute; /* Make it completely independent of other content */
+  position: absolute; 
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center it horizontally and vertically */
-}
+  transform: translate(-50%, -50%); 
+} */
 
 .modeSelectRightAligned {
     text-align: right;
@@ -109,31 +121,13 @@ div.chords {
     /* gap: 10px; */ /* Space between internal elements */
 }
 
-/* 
-@media (max-width: 700px) {
-    .scaleHeaderContainer {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto; 
-        align-items: center;
-    }
-
-    .modeSelectRightAligned {
-        justify-self: center; 
-        text-align: center; 
-
-    }
- */
-/*     .scaleHeaderCentered {
-      display: flex;
-      flex-direction: column;
-      justify-self: center;
-      text-align: center;
-      width: 300px;
-    } */
-/* 
-    .modeSelectRightAligned {
-        align-items: center; 
-    }
+li.scaleDisplay
+{
+    /* border: 1px solid #ccc; */
+    border-bottom: 8px solid #ccc;;
+    border-radius: 4px;
+    /* background-color: #f9f9f9; */
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
- */

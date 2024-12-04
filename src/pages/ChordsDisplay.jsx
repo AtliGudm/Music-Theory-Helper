@@ -3,7 +3,7 @@ import GenerateDiatonicChords from "./ChordGenerator";
 
 const ChordsDisplay = ({scale, selectedMode, includeSevenths}) => {
     return (
-        <div className="chords" style={{ marginTop: "0.5rem" }}>
+        <div className="chords" style={{ marginTop: "0.8rem" }}>
             {GenerateDiatonicChords(scale, selectedMode, includeSevenths).map((chord, chordIndex) => (
                 <div key={chordIndex} className="chord">
                     <strong>{chord.chordName}</strong>
