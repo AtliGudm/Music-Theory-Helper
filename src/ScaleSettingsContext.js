@@ -7,7 +7,7 @@ const ScaleSettingsContext = createContext();
 export const ScaleSettingsProvider = ({ children }) => {
   const [includeSevenths, setIncludeSevenths] = useState(false);
   const [enharmonicEquivalence, setEnharmonicEquivalence] = useState(true); // Default to true
-  const [ romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted ] = useState(false);
+  const [ romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted ] = useState(true);
 
   return (
     <ScaleSettingsContext.Provider

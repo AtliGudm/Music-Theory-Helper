@@ -1,22 +1,21 @@
 import React, {useState} from "react";
-import GenerateDiatonicChords from "./ChordGenerator";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { modes } from '../data/ModesData';
 import { shiftScale } from '../Helpers'
+import ParallelModesDisplay from "./ParallelModesDisplay";
 
 
 const ScaleDisplay = ({scale}) => {
     const { includeSevenths } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
-    const [ modesOpen, setModesOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
 
     const getScaleDisplayName = () => {
         if(selectedMode == 0)
-            return (scale.name);
-        return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + "[" + scale.name + "]";
+            return (scale.root + " " + scale.type);
+        return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + "[" + scale.root + " " + scale.type + "]";
     }
 
     const getScaleNotesDisplay = () => {
@@ -30,21 +29,20 @@ const ScaleDisplay = ({scale}) => {
 
     return (
         <li className="scaleDisplay">
-            <div className="scaleHeaderContainer"  /* style={{display: "flex"}} */>
-                <div className="scaleHeaderCentered">
+            <div /* className="scaleHeaderContainer" */>
+                <div style={{marginBottom: "0.4rem"}} /* className="scaleHeaderCentered" */>
                     <div style={{display: "inline"}} onClick={() => setIsOpen(!isOpen)}>
                         {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
                     </div> {getScaleNotesDisplay().notes.join(", ")} 
                 </div>
                     {isOpen && (
-                        <>
-                            <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
-                        </>
+                        <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
                     )}
             </div>
-             {isOpen && (
+            {isOpen && (
                 <>
                     <ChordsDisplay scale={getScaleNotesDisplay()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
+                    <ParallelModesDisplay scale={scale}/>
                 </>
             )}
         </li>

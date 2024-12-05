@@ -12,7 +12,7 @@ const ScaleGroupDisplay = ({type, scales}) => {
             {isOpen && (
                 <ul>
                     {scales.map((_scale) => (
-                        <ScaleDisplay key={_scale.name} scale={_scale} />
+                        <ScaleDisplay key={_scale.root + " " + _scale.type} scale={_scale} />
                     ))}
                 </ul>
             )}

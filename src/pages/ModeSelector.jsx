@@ -10,7 +10,7 @@ const ModeSelector = ({scaleType, selectedMode, onModeChange}) => {
     return (
         <>
         {(scaleType != "Minor") && (
-            <div  className="modeSelectRightAligned"  /* style={{paddingLeft: "8px", display: "flex", justifyContent: "flex-end"}} */>
+            <div /* className="modeSelectRightAligned" */>
                 <div>
                 <label style={{paddingRight: "6px"}} htmlFor="mode-select"><strong>Mode:</strong></label>
                 <select style={{fontSize: "16px"}} id="mode-select" value={selectedMode} onChange={handleChange}>

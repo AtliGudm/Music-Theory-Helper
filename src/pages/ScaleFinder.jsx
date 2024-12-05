@@ -27,7 +27,7 @@ const ScaleFinder = () => {
         const input = (enharmonicEquivalence) ? convertNotesToInt(inputNotes.split(",")) : formatNotes(inputNotes.split(","));
 
         if(input.length === 0) {
-            setGroupedScales({});
+            setGroupedScales(groupScalesByType(scales));
             return;
         }
 
@@ -37,14 +37,18 @@ const ScaleFinder = () => {
         });
 
         // Group the matching scales by type
-        const grouped = matches.reduce((acc, scale) => {
+        const grouped = groupScalesByType(matches);
+  
+        setGroupedScales(grouped);
+    }
+
+    const groupScalesByType = (matchedScales) => {
+        return matchedScales.reduce((acc, scale) => {
             if (!acc[scale.type]) acc[scale.type] = [];
             acc[scale.type].push(scale);
             return acc;
         }, {});
-  
-        setGroupedScales(grouped);
-    }
+    } 
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -81,7 +85,6 @@ const ScaleFinder = () => {
                                  label={"Major Relative RNs"} />
             </div>
             <div>
-                {/* <h2>Matching Scales:</h2> */}
                 {/* Skip all this JSX if there are no scale matches */}
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, scales]) => (

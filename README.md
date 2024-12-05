@@ -10,3 +10,12 @@ I'ts still rough visually and is still not completely finished.
 
 
 Other features and tools will be added soon.
+
+TODO:
++Add fuzzy search for finding scales and modes of scales by name
++Add setting for how notes with double accidentals are displayed
++Greatly improve look
++Improve button clickable areas (Now it's not obvious/intuitive what you can click)
++Add Scales: Diminished, Whole Tone(Also leading?), Major and Minor Pentatonic, and maybe other exotic scales(not a priority)
++Add interactive piano to input notes
+++Use interactive piano to display chosen scale? Chosen chord even?
