@@ -25,7 +25,7 @@ const ParallelModesDisplay = ({scale}) => {
                                 notes: majorScaleToModify.notes.map((note, index) => modifyNote(note, modeAccidentals[index])) }
         return (
             <>
-                <p style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}><strong>{scale.root} {mode.mode}</strong>[{parallelRoot} {scale.type}]: {modifiedScale.notes.join(", ")}</p>
+                <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}><strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {modifiedScale.notes.join(", ")}</div>
                 <ModeSelector style={{display:"inline-flex"}} scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
                 <ChordsDisplay scale={modifiedScale} selectedMode={selectedMode} includeSevenths={includeSevenths} />
             </>
@@ -39,9 +39,11 @@ const ParallelModesDisplay = ({scale}) => {
 
     return (
         <>
-            <div style={{display: "inline", paddingTop:"10px"}} onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? "▼" : "▶"} <strong>Parallel Modes</strong>
-            </div>
+
+                <div className="parallelModesButton" style={{paddingTop:"10px"}} onClick={() => setIsOpen(!isOpen)}>
+                    {isOpen ? "▼" : "▶"} <strong>Parallel Modes</strong>
+                </div>
+
             {isOpen && (
                 <>
                     {/* <ModeSelector style={{display:"inline-flex"}} scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/> */}

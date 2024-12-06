@@ -10,8 +10,7 @@ const ModeSelector = ({scaleType, selectedMode, onModeChange}) => {
     return (
         <>
         {(scaleType != "Minor") && (
-            <div /* className="modeSelectRightAligned" */>
-                <div>
+            <div style={{marginTop: "12px"}}>
                 <label style={{paddingRight: "6px"}} htmlFor="mode-select"><strong>Mode:</strong></label>
                 <select style={{fontSize: "16px"}} id="mode-select" value={selectedMode} onChange={handleChange}>
                     {modes[scaleType].map((modeObj, index) => (
@@ -20,7 +19,6 @@ const ModeSelector = ({scaleType, selectedMode, onModeChange}) => {
                         </option>
                     ))}
                 </select>
-                </div>
             </div>
         )}
         </>

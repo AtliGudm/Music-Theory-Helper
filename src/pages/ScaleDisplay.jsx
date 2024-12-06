@@ -30,8 +30,8 @@ const ScaleDisplay = ({scale}) => {
     return (
         <li className="scaleDisplay">
             <div /* className="scaleHeaderContainer" */>
-                <div style={{marginBottom: "0.4rem"}} /* className="scaleHeaderCentered" */>
-                    <div style={{display: "inline"}} onClick={() => setIsOpen(!isOpen)}>
+                <div role="button" style={{marginBottom: "0.4rem"}} className="scaleHeader" onClick={() => setIsOpen(!isOpen)} /* className="scaleHeaderCentered" */>
+                    <div style={{display: "inline"}} >
                         {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
                     </div> {getScaleNotesDisplay().notes.join(", ")} 
                 </div>

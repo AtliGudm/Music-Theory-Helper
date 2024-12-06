@@ -21,3 +21,4 @@ TODO:
 - Add interactive piano to input notes
 - (Use interactive piano to display chosen scale? Chosen chord even?)
 - Create Unit/Integration Tests
+- Highlight matched notes in scales and chords

@@ -1,14 +1,12 @@
 div.scaleFinder {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     text-align: center;
-    /* margin: 20px; */
 }
 
 input {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
-   /*  width: 300px; */
 }
 
 button {
@@ -18,26 +16,45 @@ button {
 }
 
 
-/* div.scaleGroup
-{ 
-    background-color: #bfbfbf;
-} */
-
 h2.scaleGroupHeader {
-  background-color: #bfbfbf;
+  background-color: #7dc9ea; /* #B1F0F7; */
   margin-block-end: 0.4em;
+  color: black;
+  padding-block: 6px;
+  border-radius: 6px;
+  text-transform: uppercase;
 }
 
+.scaleHeader {
+  background-color: #FADA7A; /*  #F5F0CD; */
+  padding: 6px;
+  color: black;
+  margin-inline: 30px;
+  border-radius: 6px;
+}
+
+.parallelScaleHeader {
+  padding: 6px;
+  color: black;
+  border-radius: 6px;
+  margin-inline: 65px;
+  background-color: #ffc7c2;
+}
+
+.parallelModesButton {
+  padding-top: 10px;
+  border-top: 2px solid #7c7c7c;
+  margin-inline: 65px;
+  margin-bottom: 12px;
+}
 
  ul {
     list-style-type: none;
     padding-inline-start: 0px;
-    /* padding: 0; */
 }
 
 li {
     font-size: 18px;
-    /* margin: 5px 0; */
 }
   
 /* Horizontal layout for chord blocks */
@@ -45,7 +62,6 @@ div.chords {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* gap: 1rem; */
   }
   
   /* Individual chord block styling */
@@ -54,7 +70,6 @@ div.chords {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-     /* padding: 0.4rem; */
      padding-left: 0.7rem;
      padding-right: 0.7rem;
 /*    border: 1px solid #ccc;
@@ -118,16 +133,9 @@ div.chords {
     display: flex;
     flex-direction: column; /* Stack content inside the right-aligned div */
     align-items: flex-end; /* Align to the right */
-    /* gap: 10px; */ /* Space between internal elements */
 }
 
 li.scaleDisplay
 {
-    /* border: 1px solid #ccc; */
-    border-bottom: 8px solid #ccc;;
     border-radius: 4px;
-    /* background-color: #f9f9f9; */
-    padding-top: 8px;
-    padding-bottom: 8px;
 }
-

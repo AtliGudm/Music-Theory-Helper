@@ -84,7 +84,7 @@ const ScaleFinder = () => {
                                  onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
                                  label={"Major Relative RNs"} />
             </div>
-            <div>
+            <div style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {/* Skip all this JSX if there are no scale matches */}
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, scales]) => (
