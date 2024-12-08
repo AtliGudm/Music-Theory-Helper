@@ -1,6 +1,6 @@
 # Music-Theory-Helper
 
-This project was just made as a practice project to learn ReactJS. It's a bunch of tools to help with music theory and composing, there are a ton of programs that provide very similar features, but this is custom made to my specific requirements.
+This project was just made as a practice project to learn React and TypeScript. It's a bunch of tools to help with music theory and composing, there are a ton of programs that provide very similar features, but this is custom made to my specific requirements.
 
 It now only contains a Scale Finder, you input notes and it tells you what musical scales contain those notes. You can then see all of the diatonic chords of each scale and also it's relative mode.
 I'ts still rough visually and is still not completely finished.
@@ -11,8 +11,6 @@ I'ts still rough visually and is still not completely finished.
 Other features and tools will be added soon.
 
 TODO:
-- Improve look
-- Change project to use TypeScript
 - Add fuzzy search for finding scales and modes of scales by name
 - Add setting for how notes with double accidentals are displayed
 - Improve button clickable areas (Now it's not obvious/intuitive what you can click)

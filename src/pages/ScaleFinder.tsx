@@ -3,9 +3,9 @@ import './ScaleFinder.css'
 import ScaleGroupDisplay from "./ScaleGroupDisplay";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { formatNotes, convertNotesToInt, scaleNotesToInt } from "../Helpers";
-import { scales } from "../data/ScaleData";
+import { scales, Scale } from "../data/ScaleData";
 
-const CheckboxSetting = ({ id, label, checked, onChange }) => (
+const CheckboxSetting = ({ id, label, checked, onChange }: { id: string, label: string, checked: boolean, onChange: () => void }) => (
     <div>
         <input 
             type="checkbox" 
@@ -21,7 +21,7 @@ const ScaleFinder = () => {
     const { includeSevenths, setIncludeSevenths, 
             enharmonicEquivalence, setEnharmonicEquivalence,
             romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted } = useScaleSettings();
-    const [ groupedScales, setGroupedScales ] = useState({});
+    const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: Scale[] }>({});
 
     const findScales = () => {
         const input = (enharmonicEquivalence) ? convertNotesToInt(inputNotes.split(",")) : formatNotes(inputNotes.split(","));
@@ -31,9 +31,9 @@ const ScaleFinder = () => {
             return;
         }
 
-        const matches = scales.filter((scale) => {
-            const scaleToCompare = (enharmonicEquivalence) ? scaleNotesToInt(scale.notes) : scale.notes;
-            return input.every((note) => scaleToCompare.includes(note));
+        const matches: Scale[] = scales.filter((_scale) => {
+            const scaleToCompare = (enharmonicEquivalence) ? scaleNotesToInt(_scale.notes) : _scale.notes;
+            return input.every((note: string | number) => (scaleToCompare as (string | number)[]).includes(note));
         });
 
         // Group the matching scales by type
@@ -42,15 +42,15 @@ const ScaleFinder = () => {
         setGroupedScales(grouped);
     }
 
-    const groupScalesByType = (matchedScales) => {
-        return matchedScales.reduce((acc, scale) => {
-            if (!acc[scale.type]) acc[scale.type] = [];
-            acc[scale.type].push(scale);
+    const groupScalesByType = (matchedScales: Scale[]) => {
+        return matchedScales.reduce((acc: { [key: string]: Scale[] }, _scale: Scale) => {
+            if (!acc[_scale.type]) acc[_scale.type] = [];
+            acc[_scale.type].push(_scale);
             return acc;
         }, {});
     } 
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             findScales();
         }

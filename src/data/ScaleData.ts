@@ -1,4 +1,10 @@
-export const scales = [
+export interface Scale {
+    type: string;
+    root: string;
+    notes: string[];
+}
+
+export const scales: Scale[] = [
     { type: "Major", root: "C", notes: ["C", "D", "E", "F", "G", "A", "B"] },
     { type: "Major", root: "G", notes: ["G", "A", "B", "C", "D", "E", "F#"] },
     { type: "Major", root: "D", notes: ["D", "E", "F#", "G", "A", "B", "C#"] },
@@ -78,6 +84,6 @@ export const scales = [
     { type: "Double Harmonic Major", root: "F", notes: ["F", "Gb", "A", "Bb", "C", "Db", "E"] }
 ];
 
-export function getScale(type, root) {
+export function getScale(type: string, root: string): Scale | undefined {
     return scales.find(scale => scale.type === type && scale.root === root);
 }

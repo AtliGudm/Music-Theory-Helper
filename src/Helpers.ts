@@ -1,5 +1,7 @@
+import { Scale } from './data/ScaleData';
+
 // Map notes to integers (for comparison)
-export const noteToInt = {
+export const noteToInt: { [key: string]: number } = {
     C: 0, Dbb: 0,
     "C#": 1, Db: 1, "B##": 1,
     D: 2, Ebb: 2, "C##": 2,
@@ -15,33 +17,33 @@ export const noteToInt = {
     "B#": 0,
   };
 
-export const formatNote = (note) => {
+export const formatNote = (note: string) => {
     return note.trim().charAt(0).toUpperCase() + note.trim().slice(1); //.toLowerCase();
 }
 
-export const formatNotes = (notes) => {
+export const formatNotes = (notes: string[]) => {
     return notes.map((note) => {
         return formatNote(note);
     }).filter((num) => num !== undefined);
 }
 
-export const convertNotesToInt = (notes) => {
+export const convertNotesToInt = (notes: string[]) => {
     return notes.map((note) => {
         const formattedNote = formatNote(note);
-        return noteToInt[formattedNote];
+        return noteToInt[formattedNote]; // or handle undefined case appropriately
     }).filter((num) => num !== undefined);
 }
 
 // Helper function to convert scale notes to integers
-export const scaleNotesToInt = (notes) => notes.map((note) => noteToInt[note]);
+export const scaleNotesToInt = (notes: string[]) => notes.map((note) => noteToInt[note]);
 
-export const shiftScale = (scale, shiftBy) => {
+export const shiftScale = (scale: Scale, shiftBy: number) => {
     const shiftedNotes = shiftArr(scale.notes, shiftBy);
     const newScale = { ...scale, notes: shiftedNotes };
     return newScale;
 }
 
-const shiftArr = (arr, shiftBy) => {
+const shiftArr = (arr: string[], shiftBy: number) => {
 /*     if (!Array.isArray(arr) || typeof shiftBy !== "number") {
       throw new Error("Invalid input. Provide an array and a number.");
     } */
@@ -57,7 +59,7 @@ const shiftArr = (arr, shiftBy) => {
 
 
 
-export const getFifth = (note, steps = 1) => {
+export const getFifth = (note: string, steps: number = 1) => {
     // Circle of Fifths with enharmonic preferences
     const circleOfFifths = [
         "C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"
@@ -79,7 +81,7 @@ export const getFifth = (note, steps = 1) => {
     return circleOfFifths[resultIndex];
 }
 
-export const modifyNote = (note, accidental) => {
+export const modifyNote = (note: string, accidental: string | number) => {
     if(accidental == 0) {
         return note;
     }
@@ -123,5 +125,7 @@ export const modifyNote = (note, accidental) => {
             }
         }
     }
+    // Default return value if no conditions are met
+    throw new Error("Invalid note or accidental");
 }
 

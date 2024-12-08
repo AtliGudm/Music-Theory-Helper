@@ -1,7 +1,7 @@
-import React, {useState} from "react";
 import GenerateDiatonicChords from "./ChordGenerator";
+import { Scale } from "../data/ScaleData";
 
-const ChordsDisplay = ({scale, selectedMode, includeSevenths}) => {
+const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, selectedMode: number, includeSevenths: boolean}) => {
     return (
         <div className="chords" style={{ marginTop: "0.8rem", marginBottom: "1rem" }}>
             {GenerateDiatonicChords(scale, selectedMode, includeSevenths).map((chord, chordIndex) => (

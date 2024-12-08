@@ -1,30 +1,34 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { modes } from '../data/ModesData';
 import { shiftScale } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
+import { Scale } from "../data/ScaleData";
 
 
-const ScaleDisplay = ({scale}) => {
+const ScaleDisplay = ({scale} : {scale: Scale}) => {
     const { includeSevenths } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
 
     const getScaleDisplayName = () => {
-        if(selectedMode == 0)
+        console.log('selectedMode:', selectedMode);
+        console.log('_scale:', scale);
+        console.log('modes:', modes);
+        if(selectedMode === 0)
             return (scale.root + " " + scale.type);
         return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + "[" + scale.root + " " + scale.type + "]";
     }
 
     const getScaleNotesDisplay = () => {
-        return (selectedMode != 0) ? shiftScale(scale, selectedMode) : scale;
+        return (selectedMode !== 0) ? shiftScale(scale, selectedMode) : scale;
     }
 
-    const handleModeChange = (mode) => {
-        setSelectedMode(mode);
-        console.log('Selected mode:', mode);
+    const handleModeChange = (modeIndex: any) => {
+        setSelectedMode(modeIndex);
+        console.log('Selected mode:', modeIndex);
     };
 
     return (

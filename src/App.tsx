@@ -1,16 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import ScaleFinder from './pages/ScaleFinder';
 import { ScaleSettingsProvider } from "./ScaleSettingsContext";
 
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 
 function App() {
-
   return (
     <>
-    
       {/* <Navbar /> */}
       <ScaleSettingsProvider>
         <Routes>

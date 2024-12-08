@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import ScaleDisplay from "./ScaleDisplay";
+import { Scale } from "../data/ScaleData";
 
-const ScaleGroupDisplay = ({type, scales}) => {
+const ScaleGroupDisplay = ({type, scales} : {type: string, scales: Scale[]}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     return (

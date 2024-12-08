@@ -1,4 +1,14 @@
-export const modes = {
+export interface Mode {
+    mode: string;
+    fifthShift: number;
+    accidentals: (number | string)[];
+}
+
+export interface ModesData {
+    [key: string]: Mode[];
+}
+
+export const modes: ModesData = {
     "Major": [ 
         { mode: "Ionian", fifthShift: 0, accidentals: [0, 0, 0, 0, 0, 0, 0] },
         { mode: "Dorian", fifthShift: -2, accidentals: [0, 0, "b", 0, 0, 0, "b"] },
