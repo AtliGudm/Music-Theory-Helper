@@ -20,3 +20,4 @@ TODO:
 - Create Unit/Integration Tests
 - Highlight matched notes in scales and chords
 - Have option to see other chords diatonic to the scale, like sus2 and sus4 chords
+- Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale

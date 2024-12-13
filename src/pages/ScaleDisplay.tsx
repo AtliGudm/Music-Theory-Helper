@@ -14,9 +14,6 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
     const [ selectedMode, setSelectedMode ] = useState(0);
 
     const getScaleDisplayName = () => {
-        console.log('selectedMode:', selectedMode);
-        console.log('_scale:', scale);
-        console.log('modes:', modes);
         if(selectedMode === 0)
             return (scale.root + " " + scale.type);
         return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + "[" + scale.root + " " + scale.type + "]";

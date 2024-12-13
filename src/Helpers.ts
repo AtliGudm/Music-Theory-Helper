@@ -27,6 +27,11 @@ export const formatNotes = (notes: string[]) => {
     }).filter((num) => num !== undefined);
 }
 
+export const isMusicalNote = (note: string) => {
+    const formattedNote = formatNote(note);
+    return noteToInt.hasOwnProperty(formattedNote);
+}
+
 export const convertNotesToInt = (notes: string[]) => {
     return notes.map((note) => {
         const formattedNote = formatNote(note);

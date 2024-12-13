@@ -25,7 +25,8 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
         }
         const modifiedScale = { type: scale.type,
                                 root: scale.root,
-                                notes: majorScaleToModify.notes.map((note, index) => modifyNote(note, modeAccidentals[index])) }
+                                notes: majorScaleToModify.notes.map((note, index) => modifyNote(note, modeAccidentals[index])),
+                                order: scale.order}
         return (
             <>
                 <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}><strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {modifiedScale.notes.join(", ")}</div>

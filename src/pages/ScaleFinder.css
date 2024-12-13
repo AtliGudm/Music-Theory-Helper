@@ -3,13 +3,13 @@ div.scaleFinder {
     text-align: center;
 }
 
-input {
+.userInput {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
 }
 
-button {
+.searchButton {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -48,7 +48,7 @@ h2.scaleGroupHeader {
   margin-bottom: 12px;
 }
 
- ul {
+ul {
     list-style-type: none;
     padding-inline-start: 0px;
 }
@@ -65,7 +65,7 @@ div.chords {
   }
   
   /* Individual chord block styling */
-  div.chord {
+div.chord {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -77,56 +77,38 @@ div.chords {
     background-color: #f9f9f9; */
     width: 50px;
     transition: background-color 0.2s ease;
-  }
+}
   
   /* Hover effect for chord blocks */
-  div.chord:hover {
+div.chord:hover {
     background-color: #eaeaea;
-  }
+}
   
-  /* Chord header (Roman numeral and chord name) */
-  div.chord-header {
+/* Chord header (Roman numeral and chord name) */
+div.chord-header {
     font-weight: bold;
     text-align: center;
     margin-bottom: 0.5rem;
-  }
+}
   
-  /* Vertical layout for notes inside a chord block */
-  div.chord-notes {
+/* Vertical layout for notes inside a chord block */
+div.chord-notes {
     display: flex;
     flex-direction: column;
-  }
+}
    
-  .settings-container {
+.settings-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-  }
+}
 
-
-
-  .scaleHeaderContainer {
+.scaleHeaderContainer {
     display: grid;
     grid-template-columns: 1fr auto; /* Centered div + Right-aligned div */
     align-items: center; /* Vertically center the items */
-    /* padding: 0 20px; */
     position: relative; /* For grid alignment */
 }
-
-/* .scaleHeaderCentered {
-    justify-self: center;
-    text-align: center;
-} */
-
-/* .scaleHeaderCentered {
-  grid-column: 1 / -1; 
-  justify-self: center; 
-  width: 350px;
-  position: absolute; 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); 
-} */
 
 .modeSelectRightAligned {
     text-align: right;
@@ -139,3 +121,34 @@ li.scaleDisplay
 {
     border-radius: 4px;
 }
+
+
+.search
+{
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  min-width: 160px;
+  padding: 12px 16px;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  background-color: #eaeaea;
+}
+
+/* Links inside the dropdown */
+.dropdown-content div {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content div:hover {background-color: #ddd;}
+
+
