@@ -7,6 +7,7 @@ div.scaleFinder {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
+    min-width: 375px;
 }
 
 .searchButton {
@@ -23,7 +24,13 @@ h2.scaleGroupHeader {
   padding-block: 6px;
   border-radius: 6px;
   text-transform: uppercase;
+  cursor: pointer;
 }
+
+h2.scaleGroupHeader:hover {
+  background-color: #99d6f0;
+}
+
 
 .scaleHeader {
   background-color: #FADA7A; /*  #F5F0CD; */
@@ -31,6 +38,11 @@ h2.scaleGroupHeader {
   color: black;
   margin-inline: 30px;
   border-radius: 6px;
+  cursor: pointer;
+}
+
+.scaleHeader:hover {
+  background-color: #fbe49e;
 }
 
 .parallelScaleHeader {
@@ -45,7 +57,12 @@ h2.scaleGroupHeader {
   padding-top: 10px;
   border-top: 2px solid #7c7c7c;
   margin-inline: 65px;
-  margin-bottom: 12px;
+  padding-bottom: 12px;
+  cursor: pointer;
+}
+
+.parallelModesButton:hover {
+  background-color: #dfdfdf;
 }
 
 ul {

@@ -134,3 +134,53 @@ export const modifyNote = (note: string, accidental: string | number) => {
     throw new Error("Invalid note or accidental");
 }
 
+
+export const findScalesByNotes = (noteList: string[] = [], enharmonicEquivalence: boolean, scales: Scale[]) => {
+    const input = (enharmonicEquivalence) ? convertNotesToInt(noteList) : formatNotes(noteList);
+
+    const matches: Scale[] = scales.filter((scale) => {
+        const scaleToCompare = (enharmonicEquivalence) ? scaleNotesToInt(scale.notes) : scale.notes;
+        return (input as (string | number)[]).every((note) => (scaleToCompare as (string | number)[]).includes(note));
+    });
+
+    // Group the matching scales by type
+    return groupScalesByType(matches);
+}
+
+export const groupScalesByType = (matchedScales: Scale[]) => {
+    return matchedScales.reduce((acc: { [key: string]: Scale[] }, _scale: Scale) => {
+        if (!acc[_scale.type]) acc[_scale.type] = [];
+        acc[_scale.type].push(_scale);
+        return acc;
+    }, {});
+} 
+
+
+export const processTextInput2 = (inputText: string) => {
+    const splittedString = inputText.split(/[\s,]+/);
+    let musicalNotes: string[] = [];
+    let rebuiltInputString: string[] = [];
+    
+    splittedString.forEach((item) => {
+        if (isMusicalNote(item)) {
+            musicalNotes.push(formatNote(item));
+        } else if(item.length > 0) {
+            rebuiltInputString.push(item);
+        }
+    });
+    return {musicalNotes, rebuiltInputString};
+}
+
+export const processTextInput = (inputText: string) => {
+    const splittedString = inputText.split(/[\s,]+/);
+    let found: string = "";
+    let rebuiltInputString: string[] = [];
+    splittedString.forEach((item) => {
+        if (!found && isMusicalNote(item)) {
+            found = formatNote(item);
+        } else if(item.length > 0) {
+            rebuiltInputString.push(item);
+        }
+    });
+    return {found, rebuiltInputString};
+}
