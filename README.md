@@ -17,6 +17,6 @@ TODO:
 - Add interactive piano to input notes
 - (Use interactive piano to display chosen scale? Chosen chord even?)
 - Create Unit/Integration Tests
-- Highlight matched notes in scales and chords
+- Create additional settings dropdown
 - Have option to see other chords diatonic to the scale, like sus2 and sus4 chords
 - Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale

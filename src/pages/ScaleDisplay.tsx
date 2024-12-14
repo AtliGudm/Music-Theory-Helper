@@ -9,7 +9,7 @@ import { Scale } from "../data/ScaleData";
 
 
 const ScaleDisplay = ({scale} : {scale: Scale}) => {
-    const { includeSevenths } = useScaleSettings();
+    const { includeSevenths, highlightQueryNotes, queryNotes } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
 
@@ -19,8 +19,33 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
         return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + "[" + scale.root + " " + scale.type + "]";
     }
 
-    const getScaleNotesDisplay = () => {
+    const getScaleNotes = () => {
         return (selectedMode !== 0) ? shiftScale(scale, selectedMode) : scale;
+    }
+
+    const getScaleNotesDisplay = (scaleNotes: string[] | null) => {
+        if(scaleNotes == null) return "";
+        if(highlightQueryNotes && queryNotes.length > 0) {
+            let ouputString: any[] = [];
+            scaleNotes.forEach(item => {
+                if(queryNotes.includes(item)) {
+                    ouputString.push({style: "highlightedNote", note: item})
+                } else {
+                    ouputString.push({style: "standardNote", note: item})
+                }
+            });
+
+            return (<>
+                {ouputString.map((item, index) => (
+                    <>
+                    <span className={item.style}>{item.note}</span>
+                    <span>{index<ouputString.length-1 ? ", ": ""}</span> 
+                    </>
+                ))}
+                </>
+            );
+        }
+        return scaleNotes.join(", ");
     }
 
     const handleModeChange = (modeIndex: any) => {
@@ -34,7 +59,7 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
                 <div role="button" style={{marginBottom: "0.4rem"}} className="scaleHeader" onClick={() => setIsOpen(!isOpen)} /* className="scaleHeaderCentered" */>
                     <div style={{display: "inline"}} >
                         {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
-                    </div> {getScaleNotesDisplay().notes.join(", ")} 
+                    </div> {getScaleNotesDisplay(getScaleNotes()?.notes)} 
                 </div>
                     {isOpen && (
                         <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
@@ -42,8 +67,10 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
             </div>
             {isOpen && (
                 <>
-                    <ChordsDisplay scale={getScaleNotesDisplay()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
-                    <ParallelModesDisplay scale={scale}/>
+                    <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
+                    {scale.type !== "Minor" && 
+                        <ParallelModesDisplay scale={scale}/>
+                    }
                 </>
             )}
         </li>

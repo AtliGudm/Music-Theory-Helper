@@ -168,4 +168,11 @@ li.scaleDisplay
 /* Change color of dropdown links on hover */
 .dropdown-content div:hover {background-color: #ddd;}
 
+.highlightedNote {
+  font-weight: bold;
+  color: #da3003;
+}
 
+.standardNote {
+  font-weight: normal;
+}

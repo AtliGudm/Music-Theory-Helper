@@ -10,7 +10,7 @@ import { Scale } from "../data/ScaleData";
 const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
-    const { includeSevenths } = useScaleSettings();
+    const { includeSevenths, highlightQueryNotes, queryNotes } = useScaleSettings();
 
     const GetParallelScale = () => {
         const mode = modes[scale.type][selectedMode];
@@ -29,11 +29,38 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
                                 order: scale.order}
         return (
             <>
-                <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}><strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {modifiedScale.notes.join(", ")}</div>
+                <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}>
+                    <strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {getScaleNotesDisplay(modifiedScale.notes)}
+                </div>
                 <ModeSelector /* style={{display:"inline-flex"}} */ scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
                 <ChordsDisplay scale={modifiedScale} selectedMode={selectedMode} includeSevenths={includeSevenths} />
             </>
         );
+    }
+
+    const getScaleNotesDisplay = (scaleNotes: string[] | null) => {
+        if(scaleNotes == null) return "";
+        if(highlightQueryNotes && queryNotes.length > 0) {
+            let ouputString: any[] = [];
+            scaleNotes.forEach(item => {
+                if(queryNotes.includes(item)) {
+                    ouputString.push({style: "highlightedNote", note: item})
+                } else {
+                    ouputString.push({style: "standardNote", note: item})
+                }
+            });
+
+            return (<>
+                {ouputString.map((item, index) => (
+                    <>
+                    <span className={item.style}>{item.note}</span>
+                    <span>{index<ouputString.length-1 ? ", ": ""}</span> 
+                    </>
+                ))}
+                </>
+            );
+        }
+        return scaleNotes.join(", ");
     }
 
     const handleModeChange = (mode: number) => {
