@@ -10,6 +10,7 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [ romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted ] = useState(true);
   const [ highlightQueryNotes, setHighlightQueryNotes ] = useState(true);
   const [ queryNotes, setQueryNotes ] = useState([]);
+  const [ showNoteScaleDegree, setShowNoteScaleDegree ] = useState(true);
 
   return (
     <ScaleSettingsContext.Provider
@@ -23,7 +24,9 @@ export const ScaleSettingsProvider = ({ children }) => {
         highlightQueryNotes,
         setHighlightQueryNotes,
         queryNotes,
-        setQueryNotes
+        setQueryNotes,
+        showNoteScaleDegree,
+        setShowNoteScaleDegree
       }}
     >
       {children}

@@ -8,9 +8,7 @@ I'ts still rough visually and is still not completely finished.
 <img width="500" alt="Screenshot 2024-12-06 at 23 37 29" src="https://github.com/user-attachments/assets/4df9833f-7580-48f4-8293-fddc5f480f30">
 
 
-Other features and tools will be added soon.
-
-TODO:
+Future features:
 - Add modes to fuzzy search
 - Add setting for how notes with double accidentals are displayed
 - Add Scales: Diminished, Whole Tone(Also leading?), Major and Minor Pentatonic, and maybe other exotic scales(not a priority)
@@ -20,3 +18,9 @@ TODO:
 - Create additional settings dropdown
 - Have option to see other chords diatonic to the scale, like sus2 and sus4 chords
 - Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale
+- Start work on "The Modulator", a tool to help with modulating between keys/scales
+- Add Redux state management
+
+Fix:
+- Enharmonic check doesnt cause update/re-render anymore
+- Highlight enharmonic notes if the enharmonic checkbox is checked

@@ -113,11 +113,24 @@ div.chord-notes {
     display: flex;
     flex-direction: column;
 }
+
+.scale-note-display {
+  display: inline flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+div.scale-note-degree {
+  /* text-align: left; */
+  font-weight: bold;
+}
    
 .settings-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 8px;
 }
 
 .scaleHeaderContainer {

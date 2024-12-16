@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ScaleDisplay from "./ScaleDisplay";
 import { Scale } from "../data/ScaleData";
-
-const ScaleGroupDisplay = ({type, scales} : {type: string, scales: Scale[]}) => {
+// @ts-ignore
+const ScaleGroupDisplay = ({type, scales, enharmonicEquivalence} : {type: string, scales: Scale[], enharmonicEquivalence:boolean}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
@@ -12,8 +12,8 @@ const ScaleGroupDisplay = ({type, scales} : {type: string, scales: Scale[]}) => 
             </h2>
             {isOpen && (
                 <ul>
-                    {scales.map((_scale) => (
-                        <ScaleDisplay key={_scale.root + " " + _scale.type} scale={_scale} />
+                    {scales.map((_scale,index) => (
+                        <ScaleDisplay key={_scale.root+_scale.type+index} scale={_scale} />
                     ))}
                 </ul>
             )}

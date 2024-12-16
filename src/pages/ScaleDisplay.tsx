@@ -9,7 +9,7 @@ import { Scale } from "../data/ScaleData";
 
 
 const ScaleDisplay = ({scale} : {scale: Scale}) => {
-    const { includeSevenths, highlightQueryNotes, queryNotes } = useScaleSettings();
+    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
 
@@ -35,17 +35,46 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
                 }
             });
 
-            return (<>
-                {ouputString.map((item, index) => (
-                    <>
-                    <span className={item.style}>{item.note}</span>
-                    <span>{index<ouputString.length-1 ? ", ": ""}</span> 
+            if(showNoteScaleDegree) {
+                return (
+                    <div className="scale-note-display">
+                        {ouputString.map((item, index) => (
+                            <div className="chord-notes">
+                                <div className={item.style}>{item.note}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
+                                <div className={`scale-note-degree ${item.style}`}>{getModeAccidental(index)}{index+1}</div>
+                            </div>
+                        ))}
+                    </div>
+                );
+            }
+            else {
+                return (<>
+                    {ouputString.map((item, index) => (
+                        <>
+                        <span className={item.style}>{item.note}</span>
+                        <span>{index < ouputString.length - 1 ? ", ": ""}</span> 
+                        </>
+                    ))}
                     </>
-                ))}
-                </>
-            );
+                );
+            }
         }
-        return scaleNotes.join(", ");
+        return (!showNoteScaleDegree ? scaleNotes.join(", ") : (
+            <div className="scale-note-display">
+                {scaleNotes.map((item, index) => (
+                    <div className="chord-notes">
+                        <div>{item}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
+                        <div className="scale-note-degree">{getModeAccidental(index)}{index+1}</div>
+                    </div>
+                ))}
+            </div>
+        ));
+    }
+
+    const getModeAccidental = (index: number) => {
+        const modeAccidental = modes[scale.type][selectedMode].accidentals[index];
+        if(modeAccidental == 0) return "";
+        return modeAccidental;
     }
 
     const handleModeChange = (modeIndex: any) => {

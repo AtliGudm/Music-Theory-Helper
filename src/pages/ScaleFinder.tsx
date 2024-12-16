@@ -5,16 +5,13 @@ import { useScaleSettings } from "../ScaleSettingsContext";
 import { groupScalesByType, findScalesByNotes, processTextInput, processTextInput2 } from "../Helpers";
 import { scales, Scale } from "../data/ScaleData";
 import fuzzysort from "fuzzysort";
-import { CheckboxSetting } from "./CheckboxSetting";
+import ScaleFinderSettings from "./ScaleFinderSettings";
 import InputField from "./InputField";
+import { CheckboxSetting } from "./CheckboxSetting";
 
 
 const ScaleFinder = () => {
-    const { includeSevenths, setIncludeSevenths, 
-            enharmonicEquivalence, setEnharmonicEquivalence,
-            romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted,
-            highlightQueryNotes, setHighlightQueryNotes,
-            setQueryNotes } = useScaleSettings();
+    const { enharmonicEquivalence, setEnharmonicEquivalence, setQueryNotes } = useScaleSettings();
     const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: Scale[] }>({});
 
     const findScales = (queryText: string) => {
@@ -64,23 +61,11 @@ const ScaleFinder = () => {
             <InputField setGroupedScales={setGroupedScales} findScales={findScales}/>
             <div className="settings-container">
                 <CheckboxSetting id={"enharmonicEquivalence"} 
-                                 checked={enharmonicEquivalence}
-                                 onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
-                                 label={"Enharmonic Check"} />
-                <CheckboxSetting id={"includeSevenths"} 
-                                 checked={includeSevenths}
-                                 onChange={() => setIncludeSevenths(!includeSevenths)}
-                                 label={"Include 7ths"} />
-                <CheckboxSetting id={"romanNumeralsMajorAdjusted"} 
-                                 checked={romanNumeralsMajorAdjusted}
-                                 onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
-                                 label={"Major Relative RNs"} />
-                <CheckboxSetting id={"highlightQueryNotes"} 
-                                 checked={highlightQueryNotes}
-                                 onChange={() => setHighlightQueryNotes(!highlightQueryNotes)}
-                                 label={"Highlight Notes"} />
+                                    checked={enharmonicEquivalence}
+                                    onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
+                                    label={"Enharmonic Check"} />
+                <ScaleFinderSettings/>
             </div>
-
             <div style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, scales]) => (
@@ -88,6 +73,7 @@ const ScaleFinder = () => {
                             key={type}
                             type={type}
                             scales={scales}
+                            enharmonicEquivalence={enharmonicEquivalence}
                         />
                     ))
                     ) : (
