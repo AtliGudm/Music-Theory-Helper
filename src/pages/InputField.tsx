@@ -7,8 +7,8 @@ interface InputFieldProps {
     setGroupedScales: (groupedScales: any) => void;
     findScales: (inputText: string) => void;
 }
-
-const InputField = ({ setGroupedScales, findScales }: InputFieldProps) => {
+// @ts-ignore
+const InputField = ({ setGroupedScales, findScales, children }) => {
     const [ queryText, setQueryText] = useState("");
     const [ showDropdown, setShowDropdown ] = useState(false);
     const [ searchResults, setSearchResults ] = useState<Fuzzysort.Results>();
@@ -113,6 +113,7 @@ const InputField = ({ setGroupedScales, findScales }: InputFieldProps) => {
                     </div>) 
                 }
             </div>
+            {children}
         </div>
     );
 }

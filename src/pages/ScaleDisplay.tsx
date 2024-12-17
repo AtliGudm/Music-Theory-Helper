@@ -6,7 +6,7 @@ import { modes } from '../data/ModesData';
 import { shiftScale } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
 import { Scale } from "../data/ScaleData";
-
+import { getScaleNotesDisplay } from './HelperComponents';
 
 const ScaleDisplay = ({scale} : {scale: Scale}) => {
     const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree } = useScaleSettings();
@@ -22,7 +22,7 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
     const getScaleNotes = () => {
         return (selectedMode !== 0) ? shiftScale(scale, selectedMode) : scale;
     }
-
+/* 
     const getScaleNotesDisplay = (scaleNotes: string[] | null) => {
         if(scaleNotes == null) return "";
         if(highlightQueryNotes && queryNotes.length > 0) {
@@ -40,7 +40,7 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
                     <div className="scale-note-display">
                         {ouputString.map((item, index) => (
                             <div className="chord-notes">
-                                <div className={item.style}>{item.note}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
+                                <div className={item.style}>{item.note}</div>
                                 <div className={`scale-note-degree ${item.style}`}>{getModeAccidental(index)}{index+1}</div>
                             </div>
                         ))}
@@ -63,19 +63,19 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
             <div className="scale-note-display">
                 {scaleNotes.map((item, index) => (
                     <div className="chord-notes">
-                        <div>{item}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
+                        <div>{item}</div>
                         <div className="scale-note-degree">{getModeAccidental(index)}{index+1}</div>
                     </div>
                 ))}
             </div>
         ));
-    }
+    } */
 
-    const getModeAccidental = (index: number) => {
+/*     const getModeAccidental = (index: number) => {
         const modeAccidental = modes[scale.type][selectedMode].accidentals[index];
         if(modeAccidental == 0) return "";
         return modeAccidental;
-    }
+    } */
 
     const handleModeChange = (modeIndex: any) => {
         setSelectedMode(modeIndex);
@@ -88,7 +88,7 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
                 <div role="button" style={{marginBottom: "0.4rem"}} className="scaleHeader" onClick={() => setIsOpen(!isOpen)} /* className="scaleHeaderCentered" */>
                     <div style={{display: "inline"}} >
                         {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
-                    </div> {getScaleNotesDisplay(getScaleNotes()?.notes)} 
+                    </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode)} 
                 </div>
                     {isOpen && (
                         <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>

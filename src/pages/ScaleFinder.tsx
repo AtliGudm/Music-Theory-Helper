@@ -7,11 +7,10 @@ import { scales, Scale } from "../data/ScaleData";
 import fuzzysort from "fuzzysort";
 import ScaleFinderSettings from "./ScaleFinderSettings";
 import InputField from "./InputField";
-import { CheckboxSetting } from "./CheckboxSetting";
 
 
 const ScaleFinder = () => {
-    const { enharmonicEquivalence, setEnharmonicEquivalence, setQueryNotes } = useScaleSettings();
+    const { enharmonicEquivalence, setQueryNotes } = useScaleSettings();
     const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: Scale[] }>({});
 
     const findScales = (queryText: string) => {
@@ -58,14 +57,10 @@ const ScaleFinder = () => {
         <div className="scaleFinder">
             <h1>Scale Finder</h1>
             <p>Enter musical notes separated by commas (e.g. C, D, E...)</p>
-            <InputField setGroupedScales={setGroupedScales} findScales={findScales}/>
-            <div className="settings-container">
-                <CheckboxSetting id={"enharmonicEquivalence"} 
-                                    checked={enharmonicEquivalence}
-                                    onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
-                                    label={"Enharmonic Check"} />
+            <InputField setGroupedScales={setGroupedScales} findScales={findScales}>
                 <ScaleFinderSettings/>
-            </div>
+            </InputField>
+            
             <div style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, scales]) => (

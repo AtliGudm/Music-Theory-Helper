@@ -6,19 +6,20 @@ import { modes } from '../data/ModesData';
 import { getScale } from "../data/ScaleData";
 import { getFifth, modifyNote } from '../Helpers'
 import { Scale } from "../data/ScaleData";
+import { getScaleNotesDisplay } from "./HelperComponents";
 
 const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
-    const { includeSevenths, highlightQueryNotes, queryNotes } = useScaleSettings();
+    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree } = useScaleSettings();
 
     const GetParallelScale = () => {
         const mode = modes[scale.type][selectedMode];
         const fifthShift = mode.fifthShift;
         const parallelRoot = getFifth(scale.root, fifthShift);
         const modeAccidentals = mode.accidentals;
-        // The mode accidentals are always relative to the major scale, so we need to shift the scale
-
+        
+        // The mode accidentals are stored relative to the major scale, so we need to shift the scale
         const majorScaleToModify = getScale("Major", scale.root);
         if (!majorScaleToModify) {
             return <div>Error: Major scale could not be found.</div>;
@@ -30,37 +31,12 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
         return (
             <>
                 <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}>
-                    <strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {getScaleNotesDisplay(modifiedScale.notes)}
+                    <strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {getScaleNotesDisplay(modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode)}
                 </div>
                 <ModeSelector /* style={{display:"inline-flex"}} */ scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
                 <ChordsDisplay scale={modifiedScale} selectedMode={selectedMode} includeSevenths={includeSevenths} />
             </>
         );
-    }
-
-    const getScaleNotesDisplay = (scaleNotes: string[] | null) => {
-        if(scaleNotes == null) return "";
-        if(highlightQueryNotes && queryNotes.length > 0) {
-            let ouputString: any[] = [];
-            scaleNotes.forEach(item => {
-                if(queryNotes.includes(item)) {
-                    ouputString.push({style: "highlightedNote", note: item})
-                } else {
-                    ouputString.push({style: "standardNote", note: item})
-                }
-            });
-
-            return (<>
-                {ouputString.map((item, index) => (
-                    <>
-                    <span className={item.style}>{item.note}</span>
-                    <span>{index<ouputString.length-1 ? ", ": ""}</span> 
-                    </>
-                ))}
-                </>
-            );
-        }
-        return scaleNotes.join(", ");
     }
 
     const handleModeChange = (mode: number) => {
@@ -70,16 +46,11 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
 
     return (
         <>
-
-                <div className="parallelModesButton" style={{paddingTop:"10px"}} onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? "▼" : "▶"} <strong>Parallel Modes</strong>
-                </div>
-
+            <div className="parallelModesButton" style={{paddingTop:"10px"}} onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? "▼" : "▶"} <strong>Parallel Modes</strong>
+            </div>
             {isOpen && (
-                <>
-                    {/* <ModeSelector style={{display:"inline-flex"}} scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/> */}
-                    <GetParallelScale />
-                </>
+                <GetParallelScale />
             )}
         </>
     );

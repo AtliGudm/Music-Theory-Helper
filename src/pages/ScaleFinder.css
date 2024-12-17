@@ -126,11 +126,18 @@ div.scale-note-degree {
   font-weight: bold;
 }
    
-.settings-container {
+.settings-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
+}
+
+.settings-container {
+  /* background-color: #dedede; */
+  border-bottom: 2px solid rgb(175, 175, 175);
+  border-left: 2px solid rgb(175, 175, 175);
+  border-right: 2px solid rgb(175, 175, 175);
 }
 
 .scaleHeaderContainer {
