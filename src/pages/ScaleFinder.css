@@ -81,6 +81,11 @@ div.chords {
     justify-content: center;
   }
   
+div.chords-vertical {
+  display: inline-block;
+  text-align: left;
+}
+
   /* Individual chord block styling */
 div.chord {
     display: flex;
@@ -129,8 +134,10 @@ div.scale-note-degree {
 .settings-row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     gap: 8px;
+    padding-inline: 12px;
+    padding-block: 4px;
 }
 
 .settings-container {
@@ -196,3 +203,11 @@ li.scaleDisplay
 .standardNote {
   font-weight: normal;
 }
+
+.icon {
+  transform: scale(2); /* Makes the icon twice as large */
+  transform-origin: center; /* Ensures scaling happens from the center */
+  display: inline-block; /* Ensures it behaves like a regular inline element */
+}
+
+

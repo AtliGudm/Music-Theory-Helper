@@ -92,6 +92,7 @@ const InputField = ({ setGroupedScales, findScales, children }) => {
                 <input type="text" 
                     onChange={inputSearchChange} 
                     value={queryText} 
+                    placeholder="Enter notes separated by commas (e.g. C, D, E...)"
                     onKeyDown={handleKeyDown} 
                     className="userInput"
                     onFocus={() => setShowDropdown(true)}

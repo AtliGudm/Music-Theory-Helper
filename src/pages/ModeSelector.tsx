@@ -10,7 +10,7 @@ const ModeSelector = ({scaleType, selectedMode, onModeChange}: {scaleType: strin
     return (
         <>
         {(scaleType != "Minor") && (
-            <div style={{marginTop: "12px", display:"inline-flex"}}>
+            <div style={{marginTop: "12px"}}>
                 <label style={{paddingRight: "6px"}} htmlFor="mode-select"><strong>Mode:</strong></label>
                 <select style={{fontSize: "16px"}} id="mode-select" value={selectedMode} onChange={handleChange}>
                     {modes[scaleType].map((modeObj, index) => (

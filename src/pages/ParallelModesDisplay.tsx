@@ -11,7 +11,7 @@ import { getScaleNotesDisplay } from "./HelperComponents";
 const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
-    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree } = useScaleSettings();
+    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
 
     const GetParallelScale = () => {
         const mode = modes[scale.type][selectedMode];
@@ -31,7 +31,7 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
         return (
             <>
                 <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}>
-                    <strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {getScaleNotesDisplay(modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode)}
+                    <strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {getScaleNotesDisplay(modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode, enharmonicEquivalence)}
                 </div>
                 <ModeSelector /* style={{display:"inline-flex"}} */ scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
                 <ChordsDisplay scale={modifiedScale} selectedMode={selectedMode} includeSevenths={includeSevenths} />

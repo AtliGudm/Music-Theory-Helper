@@ -55,8 +55,8 @@ const ScaleFinder = () => {
 
     return (
         <div className="scaleFinder">
-            <h1>Scale Finder</h1>
-            <p>Enter musical notes separated by commas (e.g. C, D, E...)</p>
+            <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
+            {/* <p>Enter musical notes separated by commas (e.g. C, D, E...)</p> */}
             <InputField setGroupedScales={setGroupedScales} findScales={findScales}>
                 <ScaleFinderSettings/>
             </InputField>

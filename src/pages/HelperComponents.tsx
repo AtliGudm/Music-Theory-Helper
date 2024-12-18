@@ -1,4 +1,5 @@
 import { modes } from "../data/ModesData";
+import { convertNotesToInt } from "../Helpers";
 
 const getModeAccidental = (index: number, scaleType: string, selectedMode: number) => {
     const modeAccidental = modes[scaleType][selectedMode].accidentals[index];
@@ -11,15 +12,18 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
                               queryNotes: any, 
                               showNoteScaleDegree: any, 
                               scaleType: string, 
-                              selectedMode: number) => {
+                              selectedMode: number,
+                            enharmonicEquivalence: boolean) => {
     if(scaleNotes == null) return "";
     if(highlightQueryNotes && queryNotes.length > 0) {
         let ouputString: any[] = [];
-        scaleNotes.forEach(item => {
-            if(queryNotes.includes(item)) {
-                ouputString.push({style: "highlightedNote", note: item})
+        const bkhg = (enharmonicEquivalence) ? convertNotesToInt(scaleNotes) : scaleNotes;
+        const blah = (enharmonicEquivalence) ? convertNotesToInt(queryNotes) : queryNotes;
+        bkhg.forEach((item, index) => {
+            if(blah.includes(item)) {
+                ouputString.push({style: "highlightedNote", note: scaleNotes[index]})
             } else {
-                ouputString.push({style: "standardNote", note: item})
+                ouputString.push({style: "standardNote", note: scaleNotes[index]})
             }
         });
 
