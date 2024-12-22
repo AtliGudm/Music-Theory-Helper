@@ -37,7 +37,7 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
                     </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
                 </div>
                     {isOpen && (
-                        <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
+                        <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>
                     )}
             </div>
             {isOpen && (

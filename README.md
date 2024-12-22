@@ -8,14 +8,21 @@ It's still not completely finished.
 <img width="500" alt="Screenshot 2024-12-06 at 23 37 29" src="https://github.com/user-attachments/assets/4df9833f-7580-48f4-8293-fddc5f480f30">
 
 
-Future features:
+Next:
 - Add modes to fuzzy search
-- Add setting for how notes with double accidentals are displayed
 - Add Scales: Diminished, Whole Tone(Also leading?), Major and Minor Pentatonic, and maybe other exotic scales(not a priority)
-- Add interactive piano to input notes
-- (Use interactive piano to display chosen scale? Chosen chord even?)
-- Create Unit/Integration Tests
 - Have option to see other chords diatonic to the scale, like sus2 and sus4 chords
 - Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale
+- Add favorites/workarea functionality
+- Fix look of search dropdown
+
+Future features:
+- Add setting for how notes with double accidentals are displayed
+- Create Unit/Integration Tests
+- Add interactive piano to input notes
+- (Use interactive piano to display chosen scale? Chosen chord even?)
 - Start work on "The Modulator", a tool to help with modulating between keys/scales
 - Add Redux state management?
+- Have Relative/Parallel toggle?
+
+- Fix spacing and look of horizontal chord display

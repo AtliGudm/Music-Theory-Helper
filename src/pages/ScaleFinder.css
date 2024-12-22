@@ -169,8 +169,13 @@ li.scaleDisplay
 
 .search
 {
-  position: relative;
   display: inline-block;
+}
+
+.search-sticky-container {
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 
 .dropdown-content {
@@ -180,7 +185,7 @@ li.scaleDisplay
   padding: 12px 16px;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 150;
   background-color: #eaeaea;
 }
 
@@ -211,3 +216,128 @@ li.scaleDisplay
 }
 
 
+
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 600px;
+  border: 2px solid #8f8f8f;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
+  background-color: white;
+}
+
+.search-container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  color: #888;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.search-container button:hover {
+  color: #333;
+}
+
+.search-container .divider {
+  height: 30px;
+  width: 1px;
+  background-color: #8f8f8f;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.dropdown {
+  position: absolute;
+  top: 50px; /* Adjust the position below the search bar */
+  left: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown ul li {
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdown ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.settings-container2 {
+  width: 603px;
+  height: 60px;
+  border-radius: 0px 0px 17px 17px;
+  background-color: #ededed;;
+  top: -25px;
+  position: relative;
+  z-index: 50;
+}
+
+.settings-div {
+  /* display: flex; */
+  display: inline-block;
+  text-align: left;
+  padding-left: 14px;
+  padding-bottom: 4px;
+}
+
+.sticky-div {
+  display: inline-block;
+  position: sticky;
+  top: 10px;/* 10px; */
+  transition: filter 0.7s ease; 
+}
+
+.sticky-active {
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); */
+  filter: drop-shadow(0 1mm 1.5mm grey);
+}
+
+.settings-div > span {
+  padding-right: 16px;
+}
+
+.settings-div > span > input,label,i {
+  cursor: pointer;
+}
+
+.settings-div- {
+  padding-right: 0px;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -87,36 +87,38 @@ const InputField = ({ setGroupedScales, findScales, children }) => {
     }, []);
 
     return (
-        <div className="search">
-            <div ref={containerRef}>
-                <input type="text" 
-                    onChange={inputSearchChange} 
-                    value={queryText} 
-                    placeholder="Enter notes separated by commas (e.g. C, D, E...)"
-                    onKeyDown={handleKeyDown} 
-                    className="userInput"
-                    onFocus={() => setShowDropdown(true)}
-                    />
-                <button className="searchButton"
-                        onClick={() => {setShowDropdown(false); findScales(queryText)}}>
-                    Filter Scales
-                </button>
+        <div className="search-sticky-container">
+            <div className="search">
+                <div ref={containerRef}>
+                    <input type="text" 
+                        onChange={inputSearchChange} 
+                        value={queryText} 
+                        placeholder="Enter notes separated by commas (e.g. C, D, E...)"
+                        onKeyDown={handleKeyDown} 
+                        className="userInput"
+                        onFocus={() => setShowDropdown(true)}
+                        />
+                    <button className="searchButton"
+                            onClick={() => {setShowDropdown(false); findScales(queryText)}}>
+                        Filter Scales
+                    </button>
 
-                { queryText && searchResults?.total !== 0 && showDropdown &&
-                    (<div className="dropdown-content">
-                    {searchResults && searchResults.map(item => (
-                        <div key={item.target} onClick={() => searchResultClicked(item)}>
-                            {/* 
-                            // @ts-ignore */}
-                            {item.obj.root + " " + item.obj.type} <hr />
-                        </div>)
-                    )}
-                    </div>) 
-                }
+                    { queryText && searchResults?.total !== 0 && showDropdown &&
+                        (<div className="dropdown-content">
+                        {searchResults && searchResults.map(item => (
+                            <div key={item.target} onClick={() => searchResultClicked(item)}>
+                                {/* 
+                                // @ts-ignore */}
+                                {item.obj.root + " " + item.obj.type} <hr />
+                            </div>)
+                        )}
+                        </div>) 
+                    }
+                </div>
+                {children}
             </div>
-            {children}
         </div>
     );
 }
 
-export default InputField;
+//export default InputField;

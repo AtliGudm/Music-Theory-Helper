@@ -1,12 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import './ScaleFinder.css'
 import ScaleGroupDisplay from "./ScaleGroupDisplay";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { groupScalesByType, findScalesByNotes, processTextInput, processTextInput2 } from "../Helpers";
 import { scales, Scale } from "../data/ScaleData";
 import fuzzysort from "fuzzysort";
-import ScaleFinderSettings from "./ScaleFinderSettings";
-import InputField from "./InputField";
+import SearchBar from "./SearchBar";
 
 
 const ScaleFinder = () => {
@@ -52,15 +51,16 @@ const ScaleFinder = () => {
         const grouped = groupScalesByType(formattedResult);
         setGroupedScales(grouped);
     }
+   
+    useEffect(() => {
+        console.log("DID START");
+        findScales("");
+    }, []);
 
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
-            {/* <p>Enter musical notes separated by commas (e.g. C, D, E...)</p> */}
-            <InputField setGroupedScales={setGroupedScales} findScales={findScales}>
-                <ScaleFinderSettings/>
-            </InputField>
-            
+            <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} />    
             <div style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, scales]) => (
