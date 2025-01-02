@@ -1,68 +1,88 @@
 import { useState, useRef, useEffect } from "react";
-import { formatNote, processTextInput, groupScalesByType } from "../Helpers";
-import { scales, Scale } from "../data/ScaleData";
-import fuzzysort from "fuzzysort";
+import { processTextInput, groupScalesByType2 } from "../Helpers";
+import { Scale, getScale, getScales } from "../data/ScaleData";
 import ScaleFinderSettings from "./ScaleFinderSettings";
+import { findByName, SearchResult } from "../data/ModesData";
+import { modes } from "../data/ModesData";
+import { getFifth } from "../Helpers";
+
+export interface SearchResultContainer {
+  root: null | string,
+  type: string,
+  obj: SearchResult | string
+}
 
 // @ts-ignore
-const SearchBar = ({ setGroupedScales, findScales/* , children   */}) => {
+const SearchBar = ({ setGroupedScales, findScales, setQueryNotes}) => {
   const [ queryText, setQueryText] = useState("");
   const [ showDropdown, setShowDropdown ] = useState(false);
-  const [ searchResults, setSearchResults ] = useState<Fuzzysort.Results>();
-  const [isSticky, setIsSticky] = useState(false);
+  const [ searchResults2, setSearchResults2 ] = useState<SearchResultContainer[]>([]);
+  const [ isSticky, setIsSticky ] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const inputSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQueryText = e.target.value;
     setQueryText(e.target.value);
 
-    if (newQueryText.length === 0 || newQueryText.includes(",")) {
+    if (newQueryText.trim().length === 0 || newQueryText.includes(",")) {
         setShowDropdown(false);
         return;
     }
 
-    let found: string, rebuiltInputString: string[];
-    ({found, rebuiltInputString} = processTextInput(newQueryText));
+    const {found, rebuiltInputString} = processTextInput(newQueryText);
+    let result: SearchResultContainer[] = [];
 
-    let filteredScales = scales;
-    if(found) {
-        found = formatNote(found);
-        filteredScales = scales.filter((item) => {
-            return item.root === found;
-        });
-    } 
-    // The case when user only inputted a note, no other text
-    if(rebuiltInputString.length === 0)
-    {
-        let bldd = filteredScales.map((item) => {
-            return {target: item.type, obj: item, score: 0, indexes: [], totalScore: 0};
-        });
-        setShowDropdown(true);
-        // @ts-ignore
-        setSearchResults(bldd);
-        return;
+    if(found && rebuiltInputString.length === 0) {
+      const scaleNames = Object.keys(modes);
+      scaleNames.forEach(scaleName => {
+        result.push({root: found, type: "scale", obj: scaleName});
+      });
+    }
+    else {
+      const scales = findByName(rebuiltInputString.join(" "));
+      scales.forEach(item => {
+        result.push({root: (found) ? found : null, type: item.type, obj: item });
+      });
     }
 
-    // add order and weight property to scales 
-    if(found) {
-        const results = fuzzysort.go(rebuiltInputString.join(" "), filteredScales,{limit: 7, key: "type"});
-        setShowDropdown(results.total !== 0);
-        setSearchResults(results);
-    } else {
-        const results = fuzzysort.go(newQueryText, filteredScales,{limit: 7, keys: ["type", "order"]});
-        setShowDropdown(results.total !== 0);
-        // @ts-ignore 
-        setSearchResults(results);
+    if(result.length > 0) {
+      setShowDropdown(true);
+      setSearchResults2(result);
+      return;
     }
+    setShowDropdown(false);
   }
 
-  const searchResultClicked = (item: any) => { 
-      let scaleContainer: Scale[] = [];
-      scaleContainer.push(item.obj);
-      const grouped = groupScalesByType(scaleContainer);
-      setShowDropdown(false);
-      setGroupedScales(grouped);
-  }
+
+ const packageScale = (scale: Scale, item: any) =>{
+  return { scale: scale, 
+           selectedModeIndex: (item.type === "scale") ? 0 : item.obj.modeNumber, 
+           parentScale: (item.type === "scale") ? "" : item.obj.parentScale }
+} 
+
+const getScaleName = (item: any) => {
+  return (item.type === "mode") ? item.obj.parentScale : ((typeof item.obj === 'string') ? item.obj : item.obj.item.mode);
+}
+
+const searchResultClicked = (item: SearchResultContainer) => {
+    const scaleName = getScaleName(item);
+    let grouped: any = null;
+
+    if(item.root == null) {
+        const clickedScales = getScales(scaleName);
+        const packagedScales = clickedScales?.map(scale => packageScale(scale, item));
+        if (packagedScales) grouped = groupScalesByType2(packagedScales);
+    }
+    else {
+      let root = item.root;
+      if(item.type === "mode" && typeof item.obj !== 'string') root = getFifth(item.root, item.obj.item.fifthShift);
+      const clickedScale = getScale(scaleName, root);
+      if (clickedScale) grouped = groupScalesByType2([packageScale(clickedScale, item)]);
+    }
+    setShowDropdown(false);
+    setGroupedScales(grouped);
+    setQueryNotes([]);
+}
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -99,6 +119,13 @@ const SearchBar = ({ setGroupedScales, findScales/* , children   */}) => {
     };
   }, []);
 
+  const generateKey = (item: any) => {
+    let asdf = item.type;
+    if(typeof item.obj === 'string') asdf += item.obj;
+    else asdf += item.obj.item.mode;
+    return asdf;
+  }
+
   return (
     <div className={`sticky-div ${isSticky ? "sticky-active" : ""}`} ref={containerRef}>
       <div className="search-container">
@@ -115,12 +142,12 @@ const SearchBar = ({ setGroupedScales, findScales/* , children   */}) => {
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-      { queryText && searchResults?.total !== 0 && showDropdown &&
+      { queryText && searchResults2.length !== 0 && showDropdown &&
           (<div className="dropdown-content">
-          {searchResults && searchResults.map(item => (
-              <div key={item.target} onClick={() => searchResultClicked(item)}>
-                  {/* @ts-ignore */}
-                  {item.obj.root + " " + item.obj.type} <hr />
+          {searchResults2 && searchResults2.map(item => (
+              <div key={generateKey(item)} onClick={() => searchResultClicked(item)}>
+                  { /* @ts-ignore */}
+                  {(item.root != null ? item.root + " ": "") + ((typeof item.obj === 'string') ? item.obj : ('item' in item.obj ? item.obj.item.mode : ('type' in item.obj ? item.obj.type : item.obj.mode)) )} <hr />
               </div>)
           )}
           </div>) 

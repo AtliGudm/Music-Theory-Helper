@@ -1,4 +1,3 @@
-
 import { modes } from '../data/ModesData';
 
 const ModeSelector = ({scaleType, selectedMode, modeType, onModeChange}: {scaleType: string, selectedMode: number, modeType: string, onModeChange: (newSelectedMode: number) => void }) => {

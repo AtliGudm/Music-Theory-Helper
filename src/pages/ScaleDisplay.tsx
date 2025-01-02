@@ -1,22 +1,25 @@
-import {useState} from "react";
+import { useState } from "react";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { modes } from '../data/ModesData';
 import { shiftScale } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
-import { Scale } from "../data/ScaleData";
 import { getScaleNotesDisplay } from './HelperComponents';
 
-const ScaleDisplay = ({scale} : {scale: Scale}) => {
+// @ts-ignore
+const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => {
     const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
-    const [ selectedMode, setSelectedMode ] = useState(0);
 
     const getScaleDisplayName = () => {
         if(selectedMode === 0)
             return (scale.root + " " + scale.type);
-        return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + "[" + scale.root + " " + scale.type + "]";
+
+        if (scale.notes[selectedMode] && modes[scale.type] && modes[scale.type][selectedMode]) {
+            return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + " [" + scale.root + " " + scale.type + "]";
+        }
+        return scale.root + " " + scale.type;
     }
 
     const getScaleNotes = () => {
@@ -24,14 +27,14 @@ const ScaleDisplay = ({scale} : {scale: Scale}) => {
     }
 
     const handleModeChange = (modeIndex: any) => {
-        setSelectedMode(modeIndex);
+        changeModeCallback(scaleIndex, modeIndex);
         console.log('Selected mode:', modeIndex);
     };
 
     return (
         <li className="scaleDisplay">
-            <div /* className="scaleHeaderContainer" */>
-                <div role="button" style={{marginBottom: "0.4rem"}} className="scaleHeader" onClick={() => setIsOpen(!isOpen)} /* className="scaleHeaderCentered" */>
+            <div>
+                <div role="button" style={{marginBottom: "0.4rem"}} className="scaleHeader" onClick={() => setIsOpen(!isOpen)}>
                     <div style={{display: "inline"}} >
                         {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
                     </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 

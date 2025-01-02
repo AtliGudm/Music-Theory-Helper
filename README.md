@@ -9,12 +9,14 @@ It's still not completely finished.
 
 
 Next:
-- Add modes to fuzzy search
 - Add Scales: Diminished, Whole Tone(Also leading?), Major and Minor Pentatonic, and maybe other exotic scales(not a priority)
-- Have option to see other chords diatonic to the scale, like sus2 and sus4 chords
-- Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale
-- Add favorites/workarea functionality
 - Fix look of search dropdown
+- Make search box get text of chosen scale
+- Make search dropdown selectable with up/down keys and ENTER
+- Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale
+
+- Add favorites/pinned functionality
+- Have option to see other chords diatonic to the scale, like sus2 and sus4 chords
 
 Future features:
 - Add setting for how notes with double accidentals are displayed

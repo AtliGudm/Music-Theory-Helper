@@ -1,3 +1,4 @@
+import { modes } from './data/ModesData';
 import { Scale } from './data/ScaleData';
 
 // Map notes to integers (for comparison)
@@ -49,10 +50,6 @@ export const shiftScale = (scale: Scale, shiftBy: number) => {
 }
 
 const shiftArr = (arr: string[], shiftBy: number) => {
-/*     if (!Array.isArray(arr) || typeof shiftBy !== "number") {
-      throw new Error("Invalid input. Provide an array and a number.");
-    } */
-  
     const length = arr.length;
     if (length === 0) return arr; // Handle empty array
   
@@ -60,8 +57,7 @@ const shiftArr = (arr: string[], shiftBy: number) => {
     const normalizedShift = ((shiftBy % length) + length) % length;
   
     return arr.slice(normalizedShift).concat(arr.slice(0, normalizedShift));
-  }
-
+}
 
 
 export const getFifth = (note: string, steps: number = 1) => {
@@ -147,14 +143,28 @@ export const findScalesByNotes = (noteList: string[] = [], enharmonicEquivalence
     return groupScalesByType(matches);
 }
 
-export const groupScalesByType = (matchedScales: Scale[]) => {
-    return matchedScales.reduce((acc: { [key: string]: Scale[] }, _scale: Scale) => {
-        if (!acc[_scale.type]) acc[_scale.type] = [];
-        acc[_scale.type].push(_scale);
+export const groupScalesByType = (matchedScales: Scale[], selectedModeIndex: number = 0, parentScale: string | null = null) => {
+    return matchedScales.reduce((acc: { [key: string]: { scale: Scale[], selectedModeIndex: number, parentScale: string | null } }, _scale: Scale) => {
+        if (!acc[_scale.type]) acc[_scale.type] = {scale:[], selectedModeIndex: selectedModeIndex, parentScale: parentScale};
+        acc[_scale.type].scale.push(_scale);
         return acc;
     }, {});
 } 
 
+export const groupScalesByType2 = (matchedScales: {scale: Scale, selectedModeIndex: number, parentScale: string | null }[]) => {   
+    return matchedScales.reduce((acc: { [key: string]: { scale: Scale[], selectedModeIndex: number, parentScale: string | null } }, item) => {
+        if(item.selectedModeIndex === 0) {
+            if (!acc[item.scale.type]) acc[item.scale.type] = {scale:[], selectedModeIndex: item.selectedModeIndex, parentScale: item.parentScale};
+            acc[item.scale.type].scale.push(item.scale);
+        }
+        else {
+            const theMode = modes[item.scale.type][item.selectedModeIndex].mode;
+            if (!acc[theMode]) acc[theMode] = {scale:[], selectedModeIndex: item.selectedModeIndex, parentScale: item.parentScale};
+            acc[theMode].scale.push(item.scale);
+        }
+        return acc;
+    }, {});
+} 
 
 export const processTextInput2 = (inputText: string) => {
     const splittedString = inputText.split(/[\s,]+/);

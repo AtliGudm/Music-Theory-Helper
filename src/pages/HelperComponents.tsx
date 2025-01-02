@@ -2,7 +2,8 @@ import { modes } from "../data/ModesData";
 import { convertNotesToInt } from "../Helpers";
 
 const getModeAccidental = (index: number, scaleType: string, selectedMode: number) => {
-    const modeAccidental = modes[scaleType][selectedMode].accidentals[index];
+    const mode = modes[scaleType] && modes[scaleType][selectedMode];
+    const modeAccidental = mode ? mode.accidentals[index] : undefined;
     if(modeAccidental == 0) return "";
     return modeAccidental;
 }
@@ -31,7 +32,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
             return (
                 <div className="scale-note-display">
                     {ouputString.map((item, index) => (
-                        <div className="chord-notes">
+                        <div key={item+index} className="chord-notes">
                             <div className={item.style}>{item.note}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
                             <div className={`scale-note-degree ${item.style}`}>{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
                         </div>
@@ -54,7 +55,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
     return (!showNoteScaleDegree ? scaleNotes.join(", ") : (
         <div className="scale-note-display">
             {scaleNotes.map((item, index) => (
-                <div className="chord-notes">
+                <div key={item+index} className="chord-notes">
                     <div>{item}</div>
                     <div className="scale-note-degree">{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
                 </div>

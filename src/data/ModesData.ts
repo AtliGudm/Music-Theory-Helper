@@ -1,3 +1,5 @@
+import fuzzysort from 'fuzzysort';
+
 export interface Mode {
     mode: string;
     fifthShift: number;
@@ -8,9 +10,38 @@ export interface ModesData {
     [key: string]: Mode[];
 }
 
+export interface SearchResult {
+    type: 'mode' | 'scale', 
+    item: Mode, 
+    parentScale: string, 
+    score: number,
+    modeNumber: number
+}
+
+export function findByName(searchString: string, threshold: number = 0): SearchResult[] {
+    // Prepare the input for fuzzysort, embedding parent scale information
+    const searchableModes = Object.entries(modes).flatMap(([parentScale, scaleModes]) =>
+        scaleModes.map((mode, index) => ({
+            ...mode,      // Include mode properties
+            parentScale,  // Add the parent scale name (e.g., "Major")
+            modeNumber: index // Track the mode's position (0 for Ionian, 1 for Dorian, etc.)
+        }))
+    );
+
+    const modesResults = fuzzysort.go(searchString, searchableModes, { key: 'mode', threshold: threshold });
+
+    return modesResults.map(result => ({
+        type: result.obj.modeNumber  === 0 ? 'scale' : 'mode', // Since we are searching for modes
+        item: result.obj, // The matched mode object
+        parentScale: result.obj.parentScale, // Parent scale from the enriched object
+        score: result.score, // Fuzzy match score
+        modeNumber: result.obj.modeNumber // The mode's position in the parent scale
+    }));
+}
+
 export const modes: ModesData = {
     "Major": [ 
-        { mode: "Ionian", fifthShift: 0, accidentals: [0, 0, 0, 0, 0, 0, 0] },
+        { mode: "Major", fifthShift: 0, accidentals: [0, 0, 0, 0, 0, 0, 0] },
         { mode: "Dorian", fifthShift: -2, accidentals: [0, 0, "b", 0, 0, 0, "b"] },
         { mode: "Phrygian", fifthShift: -4, accidentals: [0, "b", "b", 0, 0, "b", "b"] },
         { mode: "Lydian", fifthShift: 1, accidentals: [0, 0, 0, "#", 0, 0, 0] },
@@ -39,6 +70,7 @@ export const modes: ModesData = {
         { mode: "Lydian #2", fifthShift: -3, accidentals: [0, "#", 0, "#", 0, 0, 0] },
         { mode: "Super Locrian bb7", fifthShift: -5, accidentals: [0, "b", "b", "b", "b", "b", "bb"] } 
     ],
+
     "Harmonic Major": [
         { mode: "Harmonic Major", fifthShift: 0, accidentals: [0, 0, 0, 0, 0, "b", 0] },
         { mode: "Dorian b5", fifthShift: -2, accidentals: [0, 0, "b", 0, "b", 0, "b"] },
@@ -57,27 +89,4 @@ export const modes: ModesData = {
         { mode: "Ionian #5 #2", fifthShift: 4, accidentals: [0, "#", 0, 0, "#", 0, 0] },
         { mode: "Locrian bb3 bb7", fifthShift: -5, accidentals: [0, "b", "bb", 0, "b", "b", "bb"] } 
     ]
-
-/*     "Major Pentatonic": [
-        { mode: "Major Pentatonic", fifthShift: 0, accidentals: [0, 0, 0, 0, 0, 0, 0] },
-        { mode: "Suspended Pentatonic", fifthShift: -2, accidentals: [0, 0, "b", 0, 0, 0, 0] },
-        { mode: "Blues Major", fifthShift: -4, accidentals: [0, 0, 0, "#", 0, 0, 0] },
-        { mode: "Minor Blues", fifthShift: -3, accidentals: [0, 0, "b", 0, 0, "b", 0] },
-    ], */
-
-/*     "Enigmatic": [
-        { mode: "Enigmatic", fifthShift: 0, accidentals: [0, "#", "b", "#", "#", "#", "#"] }
-    ],
-    "Neapolitan Major": [
-        { mode: "Neapolitan Major", fifthShift: 0, accidentals: ["b", 0, 0, 0, 0, "b", "b"] }
-    ],
-    "Neapolitan Minor": [
-        { mode: "Neapolitan Minor", fifthShift: 0, accidentals: ["b", 0, "b", 0, 0, "b", "b"] }
-    ],
-    "Leading Whole Tone": [
-        { mode: "Leading Whole Tone", fifthShift: 0, accidentals: [0, 0, 0, 0, 0, 0, "#"] }
-    ],
-    "Lydian Minor": [
-        { mode: "Lydian Minor", fifthShift: 0, accidentals: [0, 0, 0, "#", 0, "b", "b"] }
-    ], */
 };

@@ -88,3 +88,7 @@ export const scales: Scale[] = [
 export function getScale(type: string, root: string): Scale | undefined {
     return scales.find(scale => scale.type === type && scale.root === root);
 }
+
+export function getScales(type: string): Scale[] | undefined {
+    return scales.filter(scale => scale.type === type);
+}
