@@ -18,11 +18,17 @@ const SearchBar = ({ setGroupedScales, findScales, setQueryNotes}) => {
   const [ showDropdown, setShowDropdown ] = useState(false);
   const [ searchResults2, setSearchResults2 ] = useState<SearchResultContainer[]>([]);
   const [ isSticky, setIsSticky ] = useState(false);
+  const [ highlightedIndex, setHighlightedIndex ] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const inputSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputSearchChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQueryText = e.target.value;
-    setQueryText(e.target.value);
+    inputSearchChange(newQueryText);
+  }
+
+  const inputSearchChange = (newQueryText: string) => {
+    setQueryText(newQueryText);
+    setHighlightedIndex(-1);
 
     if (newQueryText.trim().length === 0 || newQueryText.includes(",")) {
         setShowDropdown(false);
@@ -65,6 +71,8 @@ const getScaleName = (item: any) => {
 }
 
 const searchResultClicked = (item: SearchResultContainer) => {
+    setQueryText(generateSearchResultViewText(item));
+
     const scaleName = getScaleName(item);
     let grouped: any = null;
 
@@ -85,9 +93,42 @@ const searchResultClicked = (item: SearchResultContainer) => {
 }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-        setShowDropdown(false);
-        findScales(queryText);
+    if(showDropdown) {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setHighlightedIndex((prevIndex) => {
+          if(prevIndex < searchResults2.length - 1) {
+            console.log("path-A:" + (prevIndex+1));
+            return prevIndex+1;
+          }
+          else {
+            console.log("path-B:" + (searchResults2.length - 1));
+            return searchResults2.length - 1;
+          }
+        })
+      } 
+      else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setHighlightedIndex((prevIndex) => {
+          if(prevIndex > 0) {
+            console.log("path-C:" + (prevIndex-1));
+            return prevIndex-1;
+          }
+          else {
+            console.log("patch-D:" + -1);
+            return -1;
+          }
+        })
+      } 
+      else if (e.key === "Enter") {
+          if(highlightedIndex > -1 && searchResults2 && searchResults2.length > 0) {
+            searchResultClicked(searchResults2[highlightedIndex]);
+          }
+          else {
+            setShowDropdown(false);
+            findScales(queryText);
+          }
+      }
     }
   };
 
@@ -126,28 +167,34 @@ const searchResultClicked = (item: SearchResultContainer) => {
     return asdf;
   }
 
+  const generateSearchResultViewText = (item: any) => {
+    return (item.root != null ? item.root + " ": "") + ((typeof item.obj === 'string') ? item.obj : ('item' in item.obj ? item.obj.item.mode : ('type' in item.obj ? item.obj.type : item.obj.mode)) );
+  }
+
   return (
     <div className={`sticky-div ${isSticky ? "sticky-active" : ""}`} ref={containerRef}>
       <div className="search-container">
-        <input type="text" 
-                          onChange={inputSearchChange} 
-                          value={queryText} 
-                          placeholder="Enter notes separated by commas (e.g. C, D, E...)"
-                          onKeyDown={handleKeyDown} 
-                          style={{paddingLeft: "18px"}}
-                          onFocus={() => setShowDropdown(true)}
-                          />
-        <button className="search-icon" title="Search" style={{paddingRight: "14px"}}
+      <button className="search-icon" title="Search" 
                 onClick={() => {setShowDropdown(false); findScales(queryText)}}>
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
+        <input type="text" 
+                          onChange={inputSearchChange2} 
+                          value={queryText} 
+                          placeholder="Enter notes separated by commas (e.g. C, D, E...)"
+                          onKeyDown={handleKeyDown} 
+                          onFocus={() => inputSearchChange(queryText)}
+                          />
       </div>
       { queryText && searchResults2.length !== 0 && showDropdown &&
           (<div className="dropdown-content">
-          {searchResults2 && searchResults2.map(item => (
-              <div key={generateKey(item)} onClick={() => searchResultClicked(item)}>
+          {searchResults2 && searchResults2.map((item, index) => (
+              <div key={generateKey(item)}
+                   onClick={() => searchResultClicked(item)}
+                   className={(index == highlightedIndex) ? "dropdown-highlight" : "dropdown-highlight2" }>
+                  { generateSearchResultViewText(item) }
                   { /* @ts-ignore */}
-                  {(item.root != null ? item.root + " ": "") + ((typeof item.obj === 'string') ? item.obj : ('item' in item.obj ? item.obj.item.mode : ('type' in item.obj ? item.obj.type : item.obj.mode)) )} <hr />
+                  { /* {(item.root != null ? item.root + " ": "") + ((typeof item.obj === 'string') ? item.obj : ('item' in item.obj ? item.obj.item.mode : ('type' in item.obj ? item.obj.type : item.obj.mode)) )} */ }
               </div>)
           )}
           </div>) 

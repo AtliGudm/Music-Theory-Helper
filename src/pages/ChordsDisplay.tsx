@@ -20,13 +20,13 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, se
             {GenerateDiatonicChords(scale, selectedMode, includeSevenths).map((chord, chordIndex) => (
                 chordDisplayOrientation === "horizontal" ? (
                     <div key={chordIndex} className="chord">
-                        <strong>{chord.chordName}</strong>
+                        <div className="horizontal-chord-name">{chord.chordName}</div>
                         <div className="chord-notes">
                             {chord.chordNotes.map((note, noteIndex) => (
-                                <div key={noteIndex}>{prepareNote(note)}</div>
+                                <div key={noteIndex} className="horizontal-note">{prepareNote(note)}</div>
                             ))}
                         </div>
-                        <strong>{chord.romanNumeral}</strong>
+                        <div className="horizontal-chord-roman-numeral">{chord.romanNumeral}</div>
                     </div>
                 ) : (
                     <div style={{paddingBlock: "4px"}} key={chordIndex}>

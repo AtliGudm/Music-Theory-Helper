@@ -97,7 +97,7 @@ div.chord {
 /*    border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f9f9f9; */
-    width: 50px;
+    width: 55px;
     transition: background-color 0.2s ease;
 }
   
@@ -181,12 +181,14 @@ li.scaleDisplay
 .dropdown-content {
   display: block;
   position: absolute;
-  min-width: 160px;
-  padding: 12px 16px;
-  min-width: 160px;
+  min-width: 300px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 150;
   background-color: #eaeaea;
+  margin-left: 33px;
+  border-left: 2px solid #8f8f8f;
+  border-right: 2px solid #8f8f8f;
+  border-bottom: 2px solid #8f8f8f;
 }
 
 /* Links inside the dropdown */
@@ -195,6 +197,10 @@ li.scaleDisplay
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  border-bottom: 2px solid #a6a6a6;
+  background-color: #ffffff;
+  cursor: pointer;
+  text-align: left;
 }
 
 /* Change color of dropdown links on hover */
@@ -234,7 +240,7 @@ li.scaleDisplay
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px;
+  padding: 10px; 
   color: #888;
   font-size: 18px;
   display: flex;
@@ -255,7 +261,9 @@ li.scaleDisplay
 
 .search-container input {
   flex: 1;
-  padding: 10px;
+  padding-block: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
   border: none;
   outline: none;
   font-size: 16px;
@@ -289,6 +297,14 @@ li.scaleDisplay
 
 .dropdown ul li:hover {
   background-color: #f0f0f0;
+}
+
+.dropdown-content div.dropdown-highlight {
+  background-color: #ddd;;
+}
+
+.dropdown-highlight2 {
+  background-color: #ef00dc;
 }
 
 .settings-container2 {
@@ -340,4 +356,25 @@ li.scaleDisplay
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+div.horizontal-chord-name {
+  font-weight: bold;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #686868;
+  margin-bottom: 6px;
+  min-width: 78px;
+}
+
+div.horizontal-chord-roman-numeral {
+  font-weight: bold;
+  padding-top: 4px;
+   border-top: 2px solid #686868;
+  margin-top: 6px;
+  min-width: 78px;
+}
+
+div.horizontal-note {
+  font-weight: normal;
+  text-align: left;
 }
