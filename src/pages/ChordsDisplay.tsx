@@ -3,7 +3,7 @@ import { Scale } from "../data/ScaleData";
 import { useScaleSettings } from "../ScaleSettingsContext";
 
 const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, selectedMode: number, includeSevenths: boolean}) => {
-    const { highlightQueryNotes, queryNotes, chordDisplayOrientation } = useScaleSettings();
+    const { highlightQueryNotes, queryNotes, chordDisplayOrientation, inludeSuspenedChords } = useScaleSettings();
     
     const prepareNote = (note: string) => {
         if(highlightQueryNotes && queryNotes.length > 0) {
@@ -17,12 +17,12 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, se
     return (
         <div className={ chordDisplayOrientation == "horizontal" ? "chords" : "chords-vertical" } 
             style={{ marginTop: "0.8rem", marginBottom: "1rem" }}>
-            {GenerateDiatonicChords(scale, selectedMode, includeSevenths).map((chord, chordIndex) => (
+            {GenerateDiatonicChords(scale, selectedMode, includeSevenths, inludeSuspenedChords).map((chord, chordIndex) => (
                 chordDisplayOrientation === "horizontal" ? (
                     <div key={chordIndex} className="chord">
                         <div className="horizontal-chord-name">{chord.chordName}</div>
                         <div className="chord-notes">
-                            {chord.chordNotes.map((note, noteIndex) => (
+                            {chord.chordNotes && chord.chordNotes.map((note, noteIndex) => (
                                 <div key={noteIndex} className="horizontal-note">{prepareNote(note)}</div>
                             ))}
                         </div>
@@ -32,7 +32,7 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, se
                     <div style={{paddingBlock: "4px"}} key={chordIndex}>
                         <strong>{chord.chordName} </strong>
                         <span>&#40;
-                            {chord.chordNotes.map((note, noteIndex) => (
+                            {chord.chordNotes && chord.chordNotes.map((note, noteIndex) => (
                                 <span key={noteIndex}>{prepareNote(note)}{noteIndex < chord.chordNotes.length-1 ? "-" : ""}</span>
                             ))}
                         &#41;</span>

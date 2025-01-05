@@ -9,7 +9,8 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
         romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted,
         highlightQueryNotes, setHighlightQueryNotes,
         showNoteScaleDegree,setShowNoteScaleDegree,
-        chordDisplayOrientation, setChordDisplayOrientation } = useScaleSettings();
+        chordDisplayOrientation, setChordDisplayOrientation,
+        inludeSuspenedChords, setInludeSuspenedChords } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (
@@ -65,6 +66,12 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
                                         checked={romanNumeralsMajorAdjusted}
                                         onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
                                         label={"Roman Numerals are relative to Major"} />
+                    </div>
+                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}>
+                        <CheckboxSetting id={"inludeSuspenedChords"} 
+                                        checked={inludeSuspenedChords}
+                                        onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
+                                        label={"Inlude Suspened Chords"} />
                     </div>
                     </>
                 )}

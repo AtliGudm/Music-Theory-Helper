@@ -3,7 +3,7 @@ import ScaleDisplay from "./ScaleDisplay";
 import { Scale } from "../data/ScaleData";
 
 const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null}) => {
-    const [ isOpen, setIsOpen ] = useState(true);
+    const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedModes, setSelectedModes ] = useState(() => Array(scales.length).fill(scaleGroupStartingMode));
 
     const changeModeCallback = (index: number, newValue: number) => {

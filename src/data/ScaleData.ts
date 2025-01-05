@@ -1,6 +1,6 @@
 export interface Scale {
     type: string;
-    root: string;
+    root: string | null;
     notes: string[];
     order: number;
 }
@@ -83,8 +83,38 @@ export const scales: Scale[] = [
     { type: "Double Harmonic Major", root: "Eb", notes: ["Eb", "Fb", "G", "Ab", "Bb", "Cb", "D"], order: 69 },
     { type: "Double Harmonic Major", root: "Bb", notes: ["Bb", "Cb", "D", "Eb", "F", "Gb", "A"], order: 70 },
     { type: "Double Harmonic Major", root: "F", notes: ["F", "Gb", "A", "Bb", "C", "Db", "E"], order: 71 },
-];
+    { type: "Whole Tone", root: null, notes: ["C", "D", "E", "F#", "G#", "A#"], order: 72 },
+    { type: "Whole Tone", root: null, notes: ["B", "Db", "Eb", "F", "G", "A"], order: 73 },
+    { type: "Half-Whole Diminished", root: "C", notes: ["C", "Db", "Eb", "E", "F#", "G", "A", "Bb"], order: 74 },
+    { type: "Half-Whole Diminished", root: "Db", notes: ["Db", "D", "E", "F", "G", "Ab", "Bb", "B"], order: 75 },
+    { type: "Half-Whole Diminished", root: "D", notes: ["D", "Eb", "F", "F#", "G#", "A", "B", "C"], order: 76 },
+    { type: "Major Pentatonic", root: "C", notes: ["C", "D", "E", "G", "A"], order: 77 },
+    { type: "Major Pentatonic", root: "G", notes: ["G", "A", "B", "D", "E"], order: 78 },
+    { type: "Major Pentatonic", root: "D", notes: ["D", "E", "F#", "A", "B"], order: 79 },
+    { type: "Major Pentatonic", root: "A", notes: ["A", "B", "C#", "E", "F#"], order: 80 },
+    { type: "Major Pentatonic", root: "E", notes: ["E", "F#", "G#", "B", "C#"], order: 81 },
+    { type: "Major Pentatonic", root: "B", notes: ["B", "C#", "D#", "F#", "G#"], order: 82 },
+    { type: "Major Pentatonic", root: "F#", notes: ["F#", "G#", "A#", "C#", "D#"], order: 83 },
+    { type: "Major Pentatonic", root: "Db", notes: ["Db", "Eb", "F", "Ab", "Bb"], order: 84 },
+    { type: "Major Pentatonic", root: "Ab", notes: ["Ab", "Bb", "C", "Eb", "F"], order: 85 },
+    { type: "Major Pentatonic", root: "Eb", notes: ["Eb", "F", "G", "Bb", "C"], order: 86 },
+    { type: "Major Pentatonic", root: "Bb", notes: ["Bb", "C", "D", "F", "G"], order: 87 },
+    { type: "Major Pentatonic", root: "F", notes: ["F", "G", "A", "C", "D"], order: 88 },
+    { type: "Minor Pentatonic", root: "C", notes: ["C", "Eb", "F", "G", "Bb"], order: 89 },
+    { type: "Minor Pentatonic", root: "G", notes: ["G", "Bb", "C", "D", "F"], order: 90 },
+    { type: "Minor Pentatonic", root: "D", notes: ["D", "F", "G", "A", "C"], order: 91 },
+    { type: "Minor Pentatonic", root: "A", notes: ["A", "C", "D", "E", "G"], order: 92 },
+    { type: "Minor Pentatonic", root: "E", notes: ["E", "G", "A", "B", "D"], order: 93 },
+    { type: "Minor Pentatonic", root: "B", notes: ["B", "D", "E", "F#", "A"], order: 94 },
+    { type: "Minor Pentatonic", root: "F#", notes: ["F#", "A", "B", "C#", "E"], order: 95 },
+    { type: "Minor Pentatonic", root: "Db", notes: ["Db", "Fb", "Gb", "Ab", "B"], order: 96 },
+    { type: "Minor Pentatonic", root: "Ab", notes: ["Ab", "Cb", "Db", "Eb", "Gb"], order: 97 },
+    { type: "Minor Pentatonic", root: "Eb", notes: ["Eb", "Gb", "Ab", "Bb", "Db"], order: 98 },
+    { type: "Minor Pentatonic", root: "Bb", notes: ["Bb", "Db", "Eb", "F", "Ab"], order: 99 },
+    { type: "Minor Pentatonic", root: "F", notes: ["F", "Ab", "Bb", "C", "Eb"], order: 100 },
 
+];
+// Half-Whole Diminished
 export function getScale(type: string, root: string): Scale | undefined {
     return scales.find(scale => scale.type === type && scale.root === root);
 }

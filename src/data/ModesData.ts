@@ -88,5 +88,17 @@ export const modes: ModesData = {
         { mode: "Mixolydian b5 b2", fifthShift: -1, accidentals: [0, "b", 0, 0, "b", 0, "b"] },
         { mode: "Ionian #5 #2", fifthShift: 4, accidentals: [0, "#", 0, 0, "#", 0, 0] },
         { mode: "Locrian bb3 bb7", fifthShift: -5, accidentals: [0, "b", "bb", 0, "b", "b", "bb"] } 
+    ],
+    "Whole Tone": [
+        {mode: "Whole Tone", fifthShift: 0, accidentals: [0,0,0,0,0,0]}
+    ],
+    "Half-Whole Diminished": [
+        {mode: "Half-Whole Diminished", fifthShift: 0, accidentals: [0,0,0,0, 0,0,0,0]}
+    ],
+    "Major Pentatonic": [
+        {mode: "Major Pentatonic", fifthShift: 0, accidentals: [0,0,0,0,0]}
+    ],
+    "Minor Pentatonic": [
+        {mode: "Minor Pentatonic", fifthShift: 0, accidentals: [0,0,0,0,0]}
     ]
 };

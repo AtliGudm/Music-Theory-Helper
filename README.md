@@ -9,11 +9,8 @@ It's still not completely finished.
 
 
 Next:
-- Add Scales: Diminished, Whole Tone(Also leading?), Major and Minor Pentatonic, and maybe other exotic scales(not a priority)
 - Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale
-
 - Add favorites/pinned functionality
-- Have option to see other chords diatonic to the scale, like sus2 and sus4 chords
 - Add correct flat and sharp sign
 
 Future features:

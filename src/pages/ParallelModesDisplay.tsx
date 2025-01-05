@@ -16,10 +16,12 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
     const GetParallelScale = () => {
         const mode = modes[scale.type][selectedMode];
         const fifthShift = mode.fifthShift;
+        // @ts-ignore
         const parallelRoot = getFifth(scale.root, fifthShift);
         const modeAccidentals = mode.accidentals;
         
         // The mode accidentals are stored relative to the major scale, so we need to shift the scale
+        // @ts-ignore
         const majorScaleToModify = getScale("Major", scale.root);
         if (!majorScaleToModify) {
             return <div>Error: Major scale could not be found.</div>;

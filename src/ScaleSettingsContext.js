@@ -12,6 +12,7 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [ queryNotes, setQueryNotes ] = useState([]);
   const [ showNoteScaleDegree, setShowNoteScaleDegree ] = useState(true);
   const [ chordDisplayOrientation, setChordDisplayOrientation ] = useState("horizontal");
+  const [ inludeSuspenedChords, setInludeSuspenedChords ] = useState(false);
 
   return (
     <ScaleSettingsContext.Provider
@@ -29,7 +30,9 @@ export const ScaleSettingsProvider = ({ children }) => {
         showNoteScaleDegree,
         setShowNoteScaleDegree,
         chordDisplayOrientation,
-        setChordDisplayOrientation
+        setChordDisplayOrientation,
+        inludeSuspenedChords,
+        setInludeSuspenedChords
       }}
     >
       {children}

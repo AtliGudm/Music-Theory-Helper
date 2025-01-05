@@ -13,13 +13,14 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => 
     const [ isOpen, setIsOpen ] = useState(false);
 
     const getScaleDisplayName = () => {
+        const root = (scale.root === null) ? "" : (scale.root + " ");
         if(selectedMode === 0)
-            return (scale.root + " " + scale.type);
+            return (root + " " + scale.type);
 
         if (scale.notes[selectedMode] && modes[scale.type] && modes[scale.type][selectedMode]) {
-            return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + " [" + scale.root + " " + scale.type + "]";
+            return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + " [" + root + " " + scale.type + "]";
         }
-        return scale.root + " " + scale.type;
+        return root + " " + scale.type;
     }
 
     const getScaleNotes = () => {
@@ -31,6 +32,13 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => 
         console.log('Selected mode:', modeIndex);
     };
 
+    const showParallelModeButton = () => {
+        if (scale.type === "Minor" || 
+            scale.type === "Whole Tone" || 
+            scale.type === "Half-Whole Diminished") return false;
+        return true;
+    }
+
     return (
         <li className="scaleDisplay">
             <div>
@@ -39,14 +47,14 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => 
                         {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
                     </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
                 </div>
-                    {isOpen && (
+                    {isOpen && showParallelModeButton() && (
                         <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>
                     )}
             </div>
             {isOpen && (
                 <>
                     <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
-                    {scale.type !== "Minor" && 
+                    { showParallelModeButton() && 
                         <ParallelModesDisplay scale={scale}/>
                     }
                 </>
