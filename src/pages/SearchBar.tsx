@@ -5,6 +5,7 @@ import ScaleFinderSettings from "./ScaleFinderSettings";
 import { findByName, SearchResult } from "../data/ModesData";
 import { modes } from "../data/ModesData";
 import { getFifth } from "../Helpers";
+import InputPianoKeyboard from "./InputPianoKeyboard";
 
 export interface SearchResultContainer {
   root: null | string,
@@ -19,6 +20,7 @@ const SearchBar = ({ setGroupedScales, findScales, setQueryNotes}) => {
   const [ searchResults2, setSearchResults2 ] = useState<SearchResultContainer[]>([]);
   const [ isSticky, setIsSticky ] = useState(false);
   const [ highlightedIndex, setHighlightedIndex ] = useState(-1);
+  const [ isTextInputOpen, setIsTextInputOpen ] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const inputSearchChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,16 +95,16 @@ const searchResultClicked = (item: SearchResultContainer) => {
 }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(showDropdown) {
+    if(showDropdown && isTextInputOpen) {
       if (e.key === "ArrowDown") {
         e.preventDefault();
         setHighlightedIndex((prevIndex) => {
           if(prevIndex < searchResults2.length - 1) {
-            console.log("path-A:" + (prevIndex+1));
+            //console.log("path-A:" + (prevIndex+1));
             return prevIndex+1;
           }
           else {
-            console.log("path-B:" + (searchResults2.length - 1));
+            //console.log("path-B:" + (searchResults2.length - 1));
             return searchResults2.length - 1;
           }
         })
@@ -111,11 +113,11 @@ const searchResultClicked = (item: SearchResultContainer) => {
         e.preventDefault();
         setHighlightedIndex((prevIndex) => {
           if(prevIndex > 0) {
-            console.log("path-C:" + (prevIndex-1));
+            //console.log("path-C:" + (prevIndex-1));
             return prevIndex-1;
           }
           else {
-            console.log("patch-D:" + -1);
+            //console.log("patch-D:" + -1);
             return -1;
           }
         })
@@ -175,16 +177,25 @@ const searchResultClicked = (item: SearchResultContainer) => {
     <div className={`sticky-div ${isSticky ? "sticky-active" : ""}`} ref={containerRef}>
       <div className="search-container">
       <button className="search-icon" title="Search" 
-                onClick={() => {setShowDropdown(false); findScales(queryText)}}>
-          <i className="fa-solid fa-magnifying-glass"></i>
+                onClick={() => setIsTextInputOpen(!isTextInputOpen)}>
+          <i className={(isTextInputOpen) ? "fa-solid fa-keyboard" : "fa-solid fa-font"}></i>
         </button>
-        <input type="text" 
-                          onChange={inputSearchChange2} 
-                          value={queryText} 
-                          placeholder="Enter notes separated by commas (e.g. C, D, E...)"
-                          onKeyDown={handleKeyDown} 
-                          onFocus={() => inputSearchChange(queryText)}
-                          />
+        {isTextInputOpen && (
+          <>
+          <input type="text" 
+                  onChange={inputSearchChange2} 
+                  value={queryText} 
+                  placeholder="Enter notes separated by commas (e.g. C, D, E...)"
+                  onKeyDown={handleKeyDown} 
+                  onFocus={() => inputSearchChange(queryText)}
+                  /> 
+          <button className="search-icon" title="Search" 
+                  onClick={() => {setShowDropdown(false); findScales(queryText)}}>
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </>
+        )}
+        {!isTextInputOpen && (<InputPianoKeyboard findScales={findScales} />)}
       </div>
       { queryText && searchResults2.length !== 0 && showDropdown &&
           (<div className="dropdown-content">

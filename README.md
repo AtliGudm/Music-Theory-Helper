@@ -16,8 +16,12 @@ Next:
 Future features:
 - Add setting for how notes with double accidentals are displayed
 - Create Unit/Integration Tests
-- Add interactive piano to input notes
 - (Use interactive piano to display chosen scale? Chosen chord even?)
 - Start work on "The Modulator", a tool to help with modulating between keys/scales
+- Save state in browser localstore
 
 - Fix how flat signs are being capitalized in modes like 'Dorian b5'
+- Fix how enharmonics are forced when using Piano Keyboard note input
+- Fix how Double Harmonic Major chord view can get glitched.
+- Fix how the state gets re-initialized when switching between text and piano note input
+- Find proper icons for text and piano input button

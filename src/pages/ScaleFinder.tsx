@@ -6,12 +6,13 @@ import { groupScalesByType, processTextInput, processTextInput2, findScalesByNot
 import { scales, Scale, getScales, getScale } from "../data/ScaleData";
 import SearchBar from "./SearchBar";
 import { findByName } from "../data/ModesData";
+import InputPianoKeyboard from "./InputPianoKeyboard";
 
 const ScaleFinder = () => {
     const { enharmonicEquivalence, setQueryNotes } = useScaleSettings();
     const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: { scale: Scale[], selectedModeIndex: number, parentScale: string | null }}>({});
 
-    const findScales = (queryText: string, threshold: number = 0) => {
+    const findScales = (queryText: string, threshold: number = 0, enharmonicEquivalenceOverride: boolean|null = null) => {
         if(queryText.length === 0) {
             setQueryNotes([]);
             const dfgg = groupScalesByType(scales);
@@ -22,7 +23,7 @@ const ScaleFinder = () => {
         const { musicalNotes, rebuiltInputString } = processTextInput2(queryText);
         if(rebuiltInputString.length === 0) {
             setQueryNotes(musicalNotes);
-            setGroupedScales(findScalesByNotes(musicalNotes, enharmonicEquivalence, scales));
+            setGroupedScales(findScalesByNotes(musicalNotes, (enharmonicEquivalenceOverride) ? enharmonicEquivalenceOverride : enharmonicEquivalence, scales));
             return;
         }
 
@@ -65,30 +66,6 @@ const ScaleFinder = () => {
             setGroupedScales({});
             setQueryNotes([]);
         }
-/*         if(musicalNotes.length === 0) { // TODO: Breyta þessu case fyrir modes
-            const results = fuzzysort.go(queryText, scales,{ keys: ["type", "order"], threshold: threshold });
-            setQueryNotes([]);
-            // @ts-ignore
-            formatSearchResults(results);
-        } else { // TODO: Breyta þessu case fyrir modes
-            const { found, rebuiltInputString } = processTextInput(queryText);
-            const filteredScales = scales.filter((item) => {
-                return item.root === found;
-            });
-            const results = fuzzysort.go(rebuiltInputString.join(" "), filteredScales,{key: "type", threshold: threshold});
-            setQueryNotes([]);
-            formatSearchResults(results);
-        } */
-    }
-
-    const formatSearchResults = (unformattedResults: Fuzzysort.Results) => {
-        let formattedResult: Scale[] = [];
-        unformattedResults.forEach(item => {
-            // @ts-ignore
-            formattedResult.push(item.obj);
-        })
-        const grouped = groupScalesByType(formattedResult);
-        setGroupedScales(grouped);
     }
 
     const packageScale = (scale: Scale, item: any) =>{
@@ -104,8 +81,9 @@ const ScaleFinder = () => {
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
+            {/* <InputPianoKeyboard findScales={findScales} /> */}
             <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes} />    
-            <div style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
+            <div className="scaleGrouContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, item]) => (
                         <ScaleGroupDisplay

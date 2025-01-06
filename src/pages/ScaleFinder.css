@@ -65,12 +65,12 @@ h2.scaleGroupHeader:hover {
   background-color: #dfdfdf;
 }
 
-ul {
+.scaleGrouContainer ul {
     list-style-type: none;
     padding-inline-start: 0px;
 }
 
-li {
+.scaleGrouContainer li {
     font-size: 18px;
 }
   
