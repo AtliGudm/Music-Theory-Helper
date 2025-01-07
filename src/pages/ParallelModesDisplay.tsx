@@ -13,6 +13,32 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
     const [ selectedMode, setSelectedMode ] = useState(0);
     const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
 
+    const getSourceTemplateScale = () => {
+        const type = scale.type;
+/*         if (type === "Major" ||
+            type === "Melodic Minor" ||
+            type === "Harmonic Minor" ||
+            type === "Harmonic Major" ||
+            type === "Double Harmonic Major") {
+                if (scale.root) {
+                    return getScale("Major", scale.root);
+                }
+        }
+        else  */
+        if(type === "Major Pentatonic" || type === "Minor Pentatonic") {
+            if (scale.root) {
+                return getScale("Major Pentatonic", scale.root);
+            }
+        }
+        else {
+            if (scale.root) {
+                return getScale("Major", scale.root);
+            }
+        }
+        
+        return undefined;
+    }
+
     const GetParallelScale = () => {
         const mode = modes[scale.type][selectedMode];
         const fifthShift = mode.fifthShift;
@@ -22,13 +48,13 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
         
         // The mode accidentals are stored relative to the major scale, so we need to shift the scale
         // @ts-ignore
-        const majorScaleToModify = getScale("Major", scale.root);
-        if (!majorScaleToModify) {
+        const scaleToModify = getSourceTemplateScale();
+        if (!scaleToModify) {
             return <div>Error: Major scale could not be found.</div>;
         }
         const modifiedScale = { type: scale.type,
                                 root: scale.root,
-                                notes: majorScaleToModify.notes.map((note, index) => modifyNote(note, modeAccidentals[index])),
+                                notes: scaleToModify.notes.map((note, index) => modifyNote(note, modeAccidentals[index])),
                                 order: scale.order}
         return (
             <>

@@ -19,13 +19,24 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
     
     // Sus2
     if (interval1 === 2 && interval2 === 5) {
-        quality = "sus2"
+        quality = "sus2";
+        quality += seventh === null ? "" : interval3 === 4 ? "maj7" : "7";
+        romanNumeral = romanNumeral.toUpperCase() + quality;
+    }
+    // Sus2(b5) 
+    else if (interval1 === 2 && interval2 === 4) {
+        quality = "sus2(b5)";
         quality += seventh === null ? "" : interval3 === 4 ? "maj7" : "7";
         romanNumeral = romanNumeral.toUpperCase() + quality;
     }
     // Major
     else if (interval1 === 4 && interval2 === 3) {
         quality = seventh === null ? "" : interval3 === 4 ? "maj7" : "7";
+        romanNumeral = romanNumeral.toUpperCase() + quality;
+    }
+    // Major(b5)
+    else if (interval1 === 4 && interval2 === 2) {
+        quality = seventh === null ? "(b5)" : interval3 === 4 ? "(b5)maj7" : "(b5)7";
         romanNumeral = romanNumeral.toUpperCase() + quality;
     }
     // Minor
@@ -36,7 +47,19 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
     }
     // Sus4
     else if (interval1 === 5 && interval2 === 2) {
-        quality = "sus4"
+        quality = "sus4";
+        quality += seventh === null ? "" : interval3 === 4 ? "maj7" : "7";
+        romanNumeral = romanNumeral.toUpperCase() + quality;
+    }
+    // aug(sus4) -> is actually minor chord in second inversion
+    else if (interval1 === 5 && interval2 === 3) {
+        quality = "aug(sus4)";
+        quality += seventh === null ? "" : interval3 === 4 ? "maj7" : "7";
+        romanNumeral = romanNumeral.toUpperCase() + quality;
+    }
+    // ??? -> is actually major chord in first inversion
+    else if (interval1 === 3 && interval2 === 5) {
+        quality = "???";
         quality += seventh === null ? "" : interval3 === 4 ? "maj7" : "7";
         romanNumeral = romanNumeral.toUpperCase() + quality;
     }
