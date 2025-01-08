@@ -126,9 +126,9 @@ export const scales: Scale[] = [
     { type: "Neapolitan Major", root: "F#", notes: ["F#", "G", "A", "B", "C#", "D#", "E#"], order: 107 },
     { type: "Neapolitan Major", root: "Db", notes: ["Db", "Ebb", "Fb", "Gb", "Ab", "Bb", "C"], order: 108 },
     { type: "Neapolitan Major", root: "Ab", notes: ["Ab", "Bbb", "Cb", "Db", "Eb", "F", "G"], order: 109 },
-    { type: "Neapolitan Major", root: "Eb", notes: ["Eb", "Fb", "Gb", "Ab", "Bb", "Cb", "D"], order: 110 },
-    { type: "Neapolitan Major", root: "Bb", notes: ["Bb", "Cb", "Db", "Eb", "F", "Gb", "A"], order: 111 },
-    { type: "Neapolitan Major", root: "F", notes: ["F", "Gb", "Ab", "Bb", "C", "Db", "E"], order: 112 },
+    { type: "Neapolitan Major", root: "Eb", notes: ["Eb", "Fb", "Gb", "Ab", "Bb", "C", "D"], order: 110 },
+    { type: "Neapolitan Major", root: "Bb", notes: ["Bb", "Cb", "Db", "Eb", "F", "G", "A"], order: 111 },
+    { type: "Neapolitan Major", root: "F", notes: ["F", "Gb", "Ab", "Bb", "C", "D", "E"], order: 112 },
     
     { type: "Neapolitan Minor", root: "C", notes:  ["C", "Db", "Eb", "F", "G", "Ab", "B"], order: 113 },
     { type: "Neapolitan Minor", root: "G", notes:  ["G", "Ab", "Bb", "C", "D", "Eb", "F#"], order: 114 },
@@ -168,7 +168,7 @@ export const scales: Scale[] = [
     { type: "Hungarian Major", root: "Eb", notes: ["Eb", "F#", "G", "A", "Bb", "C", "Db"], order: 146 },
     { type: "Hungarian Major", root: "Bb", notes: ["Bb", "C#", "D", "E", "F", "G", "Ab"], order: 147 },
     { type: "Hungarian Major", root: "F", notes: ["F", "G#", "A", "B", "C", "D", "Eb"], order: 148 },
-    
+     
 ];
 // Half-Whole Diminished
 export function getScale(type: string, root: string): Scale | undefined {

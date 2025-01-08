@@ -1,5 +1,6 @@
 import { modes } from "../data/ModesData";
-import { convertNotesToInt } from "../Helpers";
+import { convertNotesToInt, formatAccidentalsForDisplay, isLetter } from "../Helpers";
+import { useScaleSettings } from "../ScaleSettingsContext";
 
 const getModeAccidental = (index: number, scaleType: string, selectedMode: number) => {
     const mode = modes[scaleType] && modes[scaleType][selectedMode];
@@ -33,7 +34,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
                 <div className="scale-note-display">
                     {ouputString.map((item, index) => (
                         <div key={item+index} className="chord-notes">
-                            <div className={item.style}>{item.note}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
+                            <div className={item.style}>{formatAccidentalsForDisplay(item.note)}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
                             <div className={`scale-note-degree ${item.style}`}>{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
                         </div>
                     ))}
@@ -44,7 +45,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
             return (<>
                 {ouputString.map((item, index) => (
                     <>
-                    <span className={item.style}>{item.note}</span>
+                    <span className={item.style}>{formatAccidentalsForDisplay(item.note)}</span>
                     <span>{index < ouputString.length - 1 ? ", ": ""}</span> 
                     </>
                 ))}
@@ -52,14 +53,63 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
             );
         }
     }
-    return (!showNoteScaleDegree ? scaleNotes.join(", ") : (
-        <div className="scale-note-display">
-            {scaleNotes.map((item, index) => (
-                <div key={item+index} className="chord-notes">
-                    <div>{item}</div>
-                    <div className="scale-note-degree">{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
-                </div>
-            ))}
-        </div>
-    ));
+    return (!showNoteScaleDegree ? (
+        <FormatAccidentalsForDisplay textInput={scaleNotes.join(", ")} />
+        ) : (
+            <div className="scale-note-display">
+                {scaleNotes.map((item, index) => (
+                    <div key={item+index} className="chord-notes">
+                        <div><FormatAccidentalsForDisplay textInput={item} /></div>
+                        <div className="scale-note-degree">{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
+                    </div>
+                ))}
+            </div>
+        )
+    );
+}
+
+/* {formatAccidentalsForDisplay(item)} */
+/* formatAccidentalsForDisplay(scaleNotes.join(", ")))  */
+
+export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false} : {textInput: string | undefined, forceAccidental?: boolean}) => {
+    const { useAsciiAccidentals  } = useScaleSettings();
+    // ♭    ♮    ♯   
+    if(textInput) {
+        if(useAsciiAccidentals) return (<>{textInput}</>)
+        
+        let textArray = textInput.split('');
+        return (
+            <>
+            {textArray.map((item, i) => {
+                if (textArray[i] === "b") {
+                    if(forceAccidental) {
+                        return (<span key={i} className="flat-accidental">♭</span>);
+                    }
+                    else if (i + 1 < textArray.length) {
+                        if (textArray[i + 1] === "b"  || textArray[i + 1] == "m" || !isLetter(textArray[i + 1])) {
+                            return (<span key={i} className="flat-accidental">♭</span>);
+                        } else if (textArray[i + 1] >= '0' && textArray[i + 1] <= '9') {
+                            return (<span key={i} className="flat-accidental">♭</span>);
+                        }
+                    } else {
+                        return (<span key={i} className="flat-accidental">♭</span>);
+                    }
+                } else if (textArray[i] === "n") {
+                    if(forceAccidental) {
+                        return (<span key={i} className="flat-accidental">♮</span>);
+                    }
+                    else if (i + 1 < textArray.length) {
+                        if (textArray[i + 1] >= '0' && textArray[i + 1] <= '9') {
+                            return (<span key={i}>♮</span>);
+                        }
+                    }
+                } else if (textArray[i] === "#") {
+                    return (<span key={i} className="sharp-accidental">♯</span>);
+                }
+                return (<>{item}</>);
+            })}
+            </>
+        );
+    }
+    return (<></>);
 }

@@ -6,7 +6,7 @@ import { modes } from '../data/ModesData';
 import { getScale } from "../data/ScaleData";
 import { getFifth, modifyNote } from '../Helpers'
 import { Scale } from "../data/ScaleData";
-import { getScaleNotesDisplay } from "./HelperComponents";
+import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from "./HelperComponents";
 
 const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
     const [ isOpen, setIsOpen ] = useState(false);
@@ -39,6 +39,13 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
         return undefined;
     }
 
+    const GetParallelScaleHeader = ({mode, parallelRoot} : {mode: string, parallelRoot: string}) => {
+        const dfsg: string = scale.root + " " + mode + "[" + parallelRoot + " " + scale.type + "]:";
+        return (
+            <FormatAccidentalsForDisplay textInput={dfsg}/>
+        );
+    }
+
     const GetParallelScale = () => {
         const mode = modes[scale.type][selectedMode];
         const fifthShift = mode.fifthShift;
@@ -47,10 +54,9 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
         const modeAccidentals = mode.accidentals;
         
         // The mode accidentals are stored relative to the major scale, so we need to shift the scale
-        // @ts-ignore
         const scaleToModify = getSourceTemplateScale();
         if (!scaleToModify) {
-            return <div>Error: Major scale could not be found.</div>;
+            return <div>Error: Source template scale could not be found.</div>;
         }
         const modifiedScale = { type: scale.type,
                                 root: scale.root,
@@ -59,7 +65,7 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
         return (
             <>
                 <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem"}}>
-                    <strong>{scale.root} {mode.mode}[{parallelRoot} {scale.type}]:</strong> {getScaleNotesDisplay(modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode, enharmonicEquivalence)}
+                    <strong><GetParallelScaleHeader mode={mode.mode} parallelRoot={parallelRoot}/></strong> {getScaleNotesDisplay(modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode, enharmonicEquivalence)}
                 </div>
                 <ModeSelector modeType="Parallel" scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
                 <ChordsDisplay scale={modifiedScale} selectedMode={selectedMode} includeSevenths={includeSevenths} />

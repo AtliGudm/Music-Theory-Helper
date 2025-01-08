@@ -12,7 +12,7 @@ export interface SearchResultContainer {
   type: string,
   obj: SearchResult | string
 }
-
+// ♭    ♮    ♯   
 // @ts-ignore
 const SearchBar = ({ setGroupedScales, findScales, setQueryNotes}) => {
   const [ queryText, setQueryText] = useState("");
@@ -95,16 +95,13 @@ const searchResultClicked = (item: SearchResultContainer) => {
 }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(showDropdown && isTextInputOpen) {
       if (e.key === "ArrowDown") {
         e.preventDefault();
         setHighlightedIndex((prevIndex) => {
           if(prevIndex < searchResults2.length - 1) {
-            //console.log("path-A:" + (prevIndex+1));
             return prevIndex+1;
           }
           else {
-            //console.log("path-B:" + (searchResults2.length - 1));
             return searchResults2.length - 1;
           }
         })
@@ -113,11 +110,9 @@ const searchResultClicked = (item: SearchResultContainer) => {
         e.preventDefault();
         setHighlightedIndex((prevIndex) => {
           if(prevIndex > 0) {
-            //console.log("path-C:" + (prevIndex-1));
             return prevIndex-1;
           }
           else {
-            //console.log("patch-D:" + -1);
             return -1;
           }
         })
@@ -131,7 +126,6 @@ const searchResultClicked = (item: SearchResultContainer) => {
             findScales(queryText);
           }
       }
-    }
   };
 
   const handleClickOutside = (event: MouseEvent) => {

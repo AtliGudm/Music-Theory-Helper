@@ -364,6 +364,7 @@ div.horizontal-chord-name {
   border-bottom: 2px solid #686868;
   margin-bottom: 6px;
   min-width: 78px;
+  /* max-height: 25.22px; */
 }
 
 div.horizontal-chord-roman-numeral {
@@ -377,4 +378,29 @@ div.horizontal-chord-roman-numeral {
 div.horizontal-note {
   font-weight: normal;
   text-align: left;
+  /* max-height: 20.566px; */
+}
+
+.display-none {
+  display: none;
+}
+
+span.flat-accidental {
+  /* margin-inline: -5px; */
+  margin-left: -5px;
+  margin-right: -3px;
+  /* font-family: 'YourIconFontFamily', sans-serif; */
+  vertical-align: baseline; /* Adjust alignment to match text */
+  font-size: 1em; /* 0.8em; */
+  line-height: 1; /* Maintain consistent line-height */
+}
+
+span.sharp-accidental {
+  /* margin-inline: -5px; */
+  margin-left: 0px;
+  margin-right: 0px;
+  /* font-family: 'YourIconFontFamily', sans-serif; */
+  vertical-align: baseline; /* Adjust alignment to match text */
+  font-size: 1em; /* 0.8em; */
+  line-height: 1; /* Maintain consistent line-height */
 }

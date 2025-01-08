@@ -10,11 +10,12 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
         highlightQueryNotes, setHighlightQueryNotes,
         showNoteScaleDegree,setShowNoteScaleDegree,
         chordDisplayOrientation, setChordDisplayOrientation,
-        inludeSuspenedChords, setInludeSuspenedChords } = useScaleSettings();
+        inludeSuspenedChords, setInludeSuspenedChords,
+        useAsciiAccidentals, setUseAsciiAccidentals } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (
-        <div className={"settings-container2 "} style={{height: isOpen ? "110px" : "60px"}}>
+        <div className={"settings-container2 "} style={{height: isOpen ? "133px" : "60px"}}>
             <div style={{top: "33px", position: "relative", textAlign: "left"}} /* className={isOpen ? "settings-container" : ""} */ >
                 <div className="settings-div">
                     <span style={{paddingRight: "8px"}}><i onClick={() => setIsOpen(!isOpen)} className={isOpen ? "fa-solid fa-circle-chevron-up": "fa-solid fa-circle-chevron-down"}></i></span>
@@ -67,11 +68,17 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
                                         onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
                                         label={"Roman Numerals are relative to Major"} />
                     </div>
-                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}>
+                    <div className="settings-div" style={{textAlign: "left" , paddingLeft: "0px" }}>
                         <CheckboxSetting id={"inludeSuspenedChords"} 
                                         checked={inludeSuspenedChords}
                                         onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
-                                        label={"Inlude Suspened Chords"} />
+                                        label={"Include Suspened Chords"} />
+                    </div>
+                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}>
+                        <CheckboxSetting id={"useAsciiAccidentals"} 
+                                        checked={useAsciiAccidentals}
+                                        onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
+                                        label={"Use ASCII Accidentals"} />
                     </div>
                     </>
                 )}

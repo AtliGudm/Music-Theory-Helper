@@ -3,9 +3,9 @@ import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { modes } from '../data/ModesData';
-import { shiftScale } from '../Helpers'
+import { shiftScale, formatAccidentalsForDisplay } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
-import { getScaleNotesDisplay } from './HelperComponents';
+import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
 
 // @ts-ignore
 const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => {
@@ -39,12 +39,22 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => 
         return true;
     }
 
+/*     const GetHeader = () => {
+        return (
+            <>
+                <span>
+                    {getScaleDisplayName().localeC}
+                </span>
+            </>
+        );
+    } */
+
     return (
         <li className="scaleDisplay">
             <div>
                 <div role="button" style={{marginBottom: "0.4rem"}} className="scaleHeader" onClick={() => setIsOpen(!isOpen)}>
                     <div style={{display: "inline"}} >
-                        {isOpen ? "▼" : "▶"} <strong>{getScaleDisplayName()}:</strong>
+                        {isOpen ? "▼" : "▶"} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName()}/>:</strong>
                     </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
                 </div>
                     {isOpen && showParallelModeButton() && (

@@ -195,3 +195,36 @@ export const processTextInput = (inputText: string) => {
     return {found, rebuiltInputString};
 }
 
+export const formatAccidentalsForDisplay = (text: string) => {
+    // ♭    ♮    ♯   
+    let textArray = text.split('');
+    for(let i = 0; i < textArray.length; i++) {
+        if(textArray[i] == "b") {
+            if (i+1 < textArray.length) {
+                if(textArray[i+1] == "b" || textArray[i+1] == "m" || !isLetter(textArray[i+1])) {
+                    textArray[i] = "<span>♭</span>";
+                }
+                else if(textArray[i+1] >= '0' && textArray[i+1] <= '9') {
+                    textArray[i] = "<span>♭</span>";
+                }
+            }
+            else {
+                textArray[i] = "<span>♭</span>";
+            }
+        }
+        else if(textArray[i] == "n") {
+            if (i+1 < textArray.length) {
+                if(textArray[i+1] >= '0' && textArray[i+1] <= '9') {
+                    textArray[i] = "♮";
+                }
+            }
+        }
+    }
+    return textArray.join('');
+}
+
+
+
+export const isLetter = (c: string) => {
+    return c.toLowerCase() != c.toUpperCase();
+}

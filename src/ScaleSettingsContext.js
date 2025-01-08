@@ -13,6 +13,7 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [ showNoteScaleDegree, setShowNoteScaleDegree ] = useState(true);
   const [ chordDisplayOrientation, setChordDisplayOrientation ] = useState("horizontal");
   const [ inludeSuspenedChords, setInludeSuspenedChords ] = useState(false);
+  const [ useAsciiAccidentals, setUseAsciiAccidentals ] = useState(false);
 
   return (
     <ScaleSettingsContext.Provider
@@ -32,7 +33,9 @@ export const ScaleSettingsProvider = ({ children }) => {
         chordDisplayOrientation,
         setChordDisplayOrientation,
         inludeSuspenedChords,
-        setInludeSuspenedChords
+        setInludeSuspenedChords,
+        useAsciiAccidentals,
+        setUseAsciiAccidentals
       }}
     >
       {children}

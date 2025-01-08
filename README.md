@@ -20,8 +20,8 @@ Future features:
 - Start work on "The Modulator", a tool to help with modulating between keys/scales
 - Save state in browser localstore
 
+Fix:
 - Fix: flat signs are being capitalized in modes like 'Dorian b5'
 - Fix: how enharmonics are forced when using Piano Keyboard note input
-- Fix: the state gets re-initialized when switching between text and piano note input
-- Fix: no results when text input empty and ENTER is pressed
 - Find proper icons for text and piano input button
+- Revamp the Include Suspended Chords functionality

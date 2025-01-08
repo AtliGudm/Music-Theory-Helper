@@ -108,38 +108,38 @@ export const modes: ModesData = {
     ],
     "Neapolitan Major": [
         {mode: "Neapolitan Major", fifthShift: 0, accidentals: [0,"b","b",0,0,0,0]},
-        {mode: "Leading Whole Tone", fifthShift: 0, accidentals: [0,0,0,"#","#","#",0]},
-        {mode: "Lydian Augmented Dominant", fifthShift: 0, accidentals: [0,0,0,"#","#",0,"b"]},
-        {mode: "Lydian Dominant b6", fifthShift: 0, accidentals: [0,0,0,"#",0,"b","b"]},
-        {mode: "Major Locrian", fifthShift: 0, accidentals: [0,0,0,0,"b","b","b"]},
-        {mode: "Half-Diminished b4", fifthShift: 0, accidentals: [0,0,"b","b","b","b","b"]},
-        {mode: "Altered Dominant bb3", fifthShift: 0, accidentals: [0,"b","bb","b","b","b","b"]}
+        {mode: "Leading Whole Tone", fifthShift: 5, accidentals: [0,0,0,"#","#","#",0]},
+        {mode: "Lydian Augmented Dominant", fifthShift: 3, accidentals: [0,0,0,"#","#",0,"b"]},
+        {mode: "Lydian Dominant b6", fifthShift: 1, accidentals: [0,0,0,"#",0,"b","b"]},
+        {mode: "Major Locrian", fifthShift: -1, accidentals: [0,0,0,0,"b","b","b"]},
+        {mode: "Half-Diminished b4", fifthShift: -3, accidentals: [0,0,"b","b","b","b","b"]},
+        {mode: "Altered Dominant bb3", fifthShift: -5, accidentals: [0,"b","bb","b","b","b","b"]}
     ],
     "Neapolitan Minor": [
         {mode: "Neapolitan Minor", fifthShift: 0, accidentals: [0,"b","b",0,0,"b",0]},
-        {mode: "Lydian #6", fifthShift: 0, accidentals: [0,0,0,"#",0,"#",0]},
-        {mode: "Mixolydian Augmented", fifthShift: 0, accidentals: [0,0,0,0,"#",0,"b"]},
-        {mode: "Romani Minor", fifthShift: 0, accidentals: [0,0,"b","#",0,"b","b"]},
-        {mode: "Locrian Dominant", fifthShift: 0, accidentals: [0,"b",0,0,"b","b","b"]},
-        {mode: "Ionian #2", fifthShift: 0, accidentals: [0,"#",0,0,0,0,0]},
-        {mode: "Ultralocrian", fifthShift: 0, accidentals: [0,"b","bb","b","b","b","bb"]}
+        {mode: "Lydian #6", fifthShift: 5, accidentals: [0,0,0,"#",0,"#",0]},
+        {mode: "Mixolydian Augmented", fifthShift: 3, accidentals: [0,0,0,0,"#",0,"b"]},
+        {mode: "Romani Minor", fifthShift: 1, accidentals: [0,0,"b","#",0,"b","b"]},
+        {mode: "Locrian Dominant", fifthShift: -1, accidentals: [0,"b",0,0,"b","b","b"]},
+        {mode: "Ionian #2", fifthShift: 4, accidentals: [0,"#",0,0,0,0,0]},
+        {mode: "Ultralocrian", fifthShift: -5, accidentals: [0,"b","bb","b","b","b","bb"]}
     ],
     "Romanian Major": [
         {mode: "Romanian Major", fifthShift: 0, accidentals: [0,"b",0,"#",0,0,"b"]},
-        {mode: "Super Lydian Augmented n6", fifthShift: 0, accidentals: [0,"#","#","#","#",0,0]},
-        {mode: "Locrian n2 bb7", fifthShift: 0, accidentals: [0,0,"b",0,"b","b","bb"]},
-        {mode: "Istrian", fifthShift: 0, accidentals: [0,"b","b","b","b","bb","b"]},
-        {mode: "Jazz Minor b5", fifthShift: 0, accidentals: [0,0,"b",0,"b",0,0]},
-        {mode: "Superphrygian n6", fifthShift: 0, accidentals: [0,"b","b","b",0,0,"b"]},
-        {mode: "Lydian Augmented b3", fifthShift: 0, accidentals: [0,0,"b","#","#",0,0]}
+        {mode: "Super Lydian Augmented n6", fifthShift: 5, accidentals: [0,"#","#","#","#",0,0]},
+        {mode: "Locrian n2 bb7", fifthShift: -4, accidentals: [0,0,"b",0,"b","b","bb"]},
+        {mode: "Istrian", fifthShift: 6, accidentals: [0,"b","b","b","b","bb","b"]},
+        {mode: "Jazz Minor b5", fifthShift: -1, accidentals: [0,0,"b",0,"b",0,0]},
+        {mode: "Superphrygian n6", fifthShift: -3, accidentals: [0,"b","b","b",0,0,"b"]},
+        {mode: "Lydian Augmented b3", fifthShift: 2, accidentals: [0,0,"b","#","#",0,0]}
     ],
     "Hungarian Major": [
         {mode: "Hungarian Major", fifthShift: 0, accidentals: [0,"#",0,"#",0,0,"b"]},
-        {mode: "Altered Diminished bb6", fifthShift: 0, accidentals: [0,"b","b","b","b","bb","bb"]},
-        {mode: "Harmonic Minor b5", fifthShift: 0, accidentals: [0,0,"b",0,"b","b",0]},
-        {mode: "Altered Dominant n6", fifthShift: 0, accidentals: [0,"b","b","b","b",0,"b"]},
-        {mode: "Melodic Minor #5", fifthShift: 0, accidentals: [0,0,"b",0,"#",0,0]},
-        {mode: "Ukranian Dorian b2", fifthShift: 0, accidentals: [0,"b","b","#",0,0,"b"]},
-        {mode: "Lydian Augmented #3", fifthShift: 0, accidentals: [0,0,"#","#","#",0,0]}
+        {mode: "Altered Diminished bb6", fifthShift: 3, accidentals: [0,"b","b","b","b","bb","bb"]},
+        {mode: "Harmonic Minor b5", fifthShift: -4, accidentals: [0,0,"b",0,"b","b",0]},
+        {mode: "Altered Dominant n6", fifthShift: 6, accidentals: [0,"b","b","b","b",0,"b"]},
+        {mode: "Melodic Minor #5", fifthShift: -1, accidentals: [0,0,"b",0,"#",0,0]},
+        {mode: "Ukranian Dorian b2", fifthShift: -3, accidentals: [0,"b","b","#",0,0,"b"]},
+        {mode: "Lydian Augmented #3", fifthShift: 2, accidentals: [0,0,"#","#","#",0,0]}
     ]
 };
