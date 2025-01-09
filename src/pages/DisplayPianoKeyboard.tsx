@@ -11,8 +11,8 @@ const DisplayPianoKeyboard = ({selectedScale}:{selectedScale: Scale}) => {
     const sdfg = (noteInt: number) => {
         if (scaleNotes[currentIndex] == noteInt) {
             currentIndex++;
-            if(currentIndex === 1) return " selected-root-key";
-            return " selected-key";
+            //if(currentIndex === 1) return " selected-root-key";
+            return " highlighted-key";
         }
         return "";
     }

@@ -10,10 +10,10 @@ You can also see 7th chords, suspended chords, view chords vertically or horizon
 
 Next:
 - Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale
-- Add favorites/pinned functionality
+- Add setting for how notes with double accidentals are displayed
 
 Future features:
-- Add setting for how notes with double accidentals are displayed
+- Add favorites/pinned functionality
 - Create Unit/Integration Tests
 - Start work on "The Modulator", a tool to help with modulating between keys/scales
 

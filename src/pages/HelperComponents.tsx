@@ -1,5 +1,5 @@
 import { modes } from "../data/ModesData";
-import { convertNotesToInt, formatAccidentalsForDisplay, isLetter } from "../Helpers";
+import { convertNotesToInt, isLetter } from "../Helpers";
 import { useScaleSettings } from "../ScaleSettingsContext";
 
 const getModeAccidental = (index: number, scaleType: string, selectedMode: number) => {
@@ -16,6 +16,19 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
                               scaleType: string, 
                               selectedMode: number,
                             enharmonicEquivalence: boolean) => {
+
+    const FormatModeAccidentals = ({modeAccidental}: {modeAccidental: string | number | undefined }) => {
+        if(modeAccidental) {
+            if(modeAccidental == "0") {
+                return (<></>);
+            }
+            else {
+                return (<FormatAccidentalsForDisplay textInput={String(modeAccidental)} />);
+            }
+        }
+        return (<></>);
+    }
+    
     if(scaleNotes == null) return "";
     if(highlightQueryNotes && queryNotes.length > 0) {
         let ouputString: any[] = [];
@@ -35,7 +48,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
                     {ouputString.map((item, index) => (
                         <div key={item+index} className="chord-notes">
                             <div className={item.style}><FormatAccidentalsForDisplay textInput={item.note}/>{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
-                            <div className={`scale-note-degree ${item.style}`}>{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
+                            <div className={`scale-note-degree ${item.style}`}><FormatModeAccidentals modeAccidental={getModeAccidental(index, scaleType, selectedMode)}/>{index+1}</div>
                         </div>
                     ))}
                 </div>
@@ -60,7 +73,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
                 {scaleNotes.map((item, index) => (
                     <div key={item+index} className="chord-notes">
                         <div><FormatAccidentalsForDisplay textInput={item} /></div>
-                        <div className="scale-note-degree">{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
+                        <div className="scale-note-degree"><FormatModeAccidentals modeAccidental={getModeAccidental(index, scaleType, selectedMode)}/>{index+1}</div>
                     </div>
                 ))}
             </div>
@@ -73,7 +86,11 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
 
 export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false} : {textInput: string | undefined, forceAccidental?: boolean}) => {
     const { useAsciiAccidentals  } = useScaleSettings();
-    // ♭    ♮    ♯   
+    const flatIcon = "♭";
+    const sharpIcon = "♯";
+    const naturalIcon = "♮";
+    const doubleSharpIcon = "𝄪";
+    
     if(textInput) {
         if(useAsciiAccidentals) return (<>{textInput}</>)
         
@@ -83,28 +100,48 @@ export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false}
             {textArray.map((item, i) => {
                 if (textArray[i] === "b") {
                     if(forceAccidental) {
-                        return (<span key={i} className="flat-accidental">♭</span>);
+                        return (<span key={i} className="flat-accidental">{flatIcon}</span>);
                     }
                     else if (i + 1 < textArray.length) {
-                        if (textArray[i + 1] === "b"  || textArray[i + 1] == "m" || !isLetter(textArray[i + 1])) {
-                            return (<span key={i} className="flat-accidental">♭</span>);
-                        } else if (textArray[i + 1] >= '0' && textArray[i + 1] <= '9') {
-                            return (<span key={i} className="flat-accidental">♭</span>);
+                        if (textArray[i + 1] === "b") {
+                            return (<span key={i} className="first-flat-in-double-flat">{flatIcon}</span>);
+                        } 
+                        else if(textArray[i + 1] == "m" || !isLetter(textArray[i + 1])) {
+                            return (<span key={i} className="flat-accidental">{flatIcon}</span>);
+                        }
+                        else if (textArray[i + 1] >= '0' && textArray[i + 1] <= '9') {
+                            return (<span key={i} className="flat-accidental">{flatIcon}</span>);
                         }
                     } else {
-                        return (<span key={i} className="flat-accidental">♭</span>);
+                        return (<span key={i} className="flat-accidental">{flatIcon}</span>);
                     }
-                } else if (textArray[i] === "n") {
+                }
+                else if (textArray[i] === "n") {
                     if(forceAccidental) {
-                        return (<span key={i} className="flat-accidental">♮</span>);
+                        return (<span key={i} className="flat-accidental">{naturalIcon}</span>);
                     }
                     else if (i + 1 < textArray.length) {
                         if (textArray[i + 1] >= '0' && textArray[i + 1] <= '9') {
-                            return (<span key={i}>♮</span>);
+                            return (<span key={i}>{naturalIcon}</span>);
                         }
                     }
-                } else if (textArray[i] === "#") {
-                    return (<span key={i} className="sharp-accidental">♯</span>);
+                }
+                else if (textArray[i] === "#") {
+                    return (<span key={i} className="sharp-accidental">{sharpIcon}</span>);
+                }
+                else if (textArray[i] === "x") {
+                    if(forceAccidental) {
+                        return (<span key={i} className="double-sharp-accidental">{doubleSharpIcon}</span>);
+                    }
+                    else if (i + 1 < textArray.length) {
+                        if (textArray[i + 1] === "b"  || textArray[i + 1] == "m" || !isLetter(textArray[i + 1])) {
+                            return (<span key={i} className="double-sharp-accidental">{doubleSharpIcon}</span>);
+                        } else if (textArray[i + 1] >= '0' && textArray[i + 1] <= '9') {
+                            return (<span key={i} className="double-sharp-accidental">{doubleSharpIcon}</span>);
+                        }
+                    } else {
+                        return (<span key={i} className="double-sharp-accidental">{doubleSharpIcon}</span>);
+                    }
                 }
                 return (<>{item}</>);
             })}

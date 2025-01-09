@@ -113,7 +113,7 @@
     position: relative;
     height: 6rem;
     border-radius: 3px;
-    border: 1px solid #000;
+    border: 1.5px solid #000;
 }
 
 .black-key {
@@ -134,6 +134,15 @@ li.selected-key {
 
 li.black-key.selected-key {
     background: #b70000;
+}
+
+
+li.highlighted-key {
+    background: #7dd8ff;
+}
+
+li.black-key.highlighted-key {
+    background: #0d95ce;
 }
 
 li.selected-root-key {

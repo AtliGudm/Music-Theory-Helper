@@ -78,7 +78,7 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
                         <CheckboxSetting id={"useAsciiAccidentals"} 
                                         checked={useAsciiAccidentals}
                                         onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
-                                        label={"Use ASCII Accidentals"} />
+                                        label={"Use Plain Text Accidentals"} />
                     </div>
                     </>
                 )}

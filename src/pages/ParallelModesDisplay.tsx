@@ -40,7 +40,7 @@ const ParallelModesDisplay = ({scale}: {scale: Scale}) => {
     }
 
     const GetParallelScaleHeader = ({mode, parallelRoot} : {mode: string, parallelRoot: string}) => {
-        const dfsg: string = scale.root + " " + mode + "[" + parallelRoot + " " + scale.type + "]:";
+        const dfsg: string = scale.root + " " + mode + " [" + parallelRoot + " " + scale.type + "]:";
         return (
             <FormatAccidentalsForDisplay textInput={dfsg}/>
         );

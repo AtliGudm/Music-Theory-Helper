@@ -3,7 +3,7 @@ import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { modes } from '../data/ModesData';
-import { shiftScale, formatAccidentalsForDisplay } from '../Helpers'
+import { shiftScale } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
 import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
 import PianoKeysIcon from "../assets/PianoKeysIcon";
@@ -33,25 +33,24 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
         console.log('Selected mode:', modeIndex);
     };
 
-    const showParallelModeButton = () => {
+    const showRelativeModeButton = () => {
         if (scale.type === "Minor" || 
             scale.type === "Whole Tone" || 
-            scale.type === "Half-Whole Diminished") return false;
+            scale.type === "Half-Whole Diminished" ||
+            scale.type === "Minor Pentatonic"
+        ) return false;
         return true;
     }
 
-/*     const GetHeader = () => {
-        return (
-            <>
-                <span>
-                    {getScaleDisplayName().localeC}
-                </span>
-            </>
-        );
-    } 
-        
-    marginRight: "auto", position: "relative"
-    */
+    const showParallelModeButton = () => {
+        if (scale.type === "Minor" || 
+            scale.type === "Whole Tone" || 
+            scale.type === "Half-Whole Diminished" ||
+            scale.type === "Major Pentatonic" ||
+            scale.type === "Minor Pentatonic"
+        ) return false;
+        return true;
+    }
 
     return (
         <li className="scaleDisplay">
@@ -62,7 +61,6 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                          style={{marginRight: "auto"}}
                         >
                     <PianoKeysIcon width="30" height="30"/>
-                    {/* <i className={"fa-solid fa-keyboard"}></i> */}
                 </button>
                     <div style={{flexGrow: "2"}}
                         role="button" 
@@ -73,7 +71,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                         </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
                     </div>
                 </div>
-                    {isOpen && showParallelModeButton() && (
+                    {isOpen && showRelativeModeButton() && (
                         <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>
                     )}
             </div>
