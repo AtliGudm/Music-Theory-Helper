@@ -16,7 +16,6 @@ Future features:
 - Add setting for how notes with double accidentals are displayed
 - Create Unit/Integration Tests
 - Start work on "The Modulator", a tool to help with modulating between keys/scales
-- Save state in browser localstore
 
 Fix:
 - Fix: flat signs are being capitalized in modes like 'Dorian b5'
