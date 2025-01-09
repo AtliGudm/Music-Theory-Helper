@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ScaleDisplay from "./ScaleDisplay";
 import { Scale } from "../data/ScaleData";
 
-const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null}) => {
+const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (selectedScale: Scale) => void }) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedModes, setSelectedModes ] = useState(() => Array(scales.length).fill(scaleGroupStartingMode));
 
@@ -28,7 +28,12 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale} :
             {isOpen && (
                 <ul>
                     {scales.map((_scale,index) => (
-                        <ScaleDisplay key={_scale.root+_scale.type+index} selectedMode={selectedModes[index]} scaleIndex={index} changeModeCallback={changeModeCallback}  scale={_scale} />
+                        <ScaleDisplay key={_scale.root+_scale.type+index} 
+                                    selectedMode={selectedModes[index]} 
+                                    scaleIndex={index} 
+                                    changeModeCallback={changeModeCallback}  
+                                    scale={_scale} 
+                                    displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     ))}
                 </ul>
             )}

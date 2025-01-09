@@ -6,9 +6,10 @@ import { modes } from '../data/ModesData';
 import { shiftScale, formatAccidentalsForDisplay } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
 import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
+import PianoKeysIcon from "../assets/PianoKeysIcon";
 
 // @ts-ignore
-const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => {
+const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard}) => {
     const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
@@ -47,15 +48,30 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback}) => 
                 </span>
             </>
         );
-    } */
+    } 
+        
+    marginRight: "auto", position: "relative"
+    */
 
     return (
         <li className="scaleDisplay">
             <div>
-                <div role="button" style={{marginBottom: "0.4rem"}} className="scaleHeader" onClick={() => setIsOpen(!isOpen)}>
-                    <div style={{display: "inline"}} >
-                        {isOpen ? "▼" : "▶"} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName()}/>:</strong>
-                    </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
+                <div style={{marginBottom: "0.4rem", display: "flex", alignItems: "center", position: "relative"}} className="scaleHeader">
+                <button className="display-scale-on-keyboard-button" title="Search" 
+                         onClick={() => displayScaleOnKeyboard(scale)} 
+                         style={{marginRight: "auto"}}
+                        >
+                    <PianoKeysIcon width="30" height="30"/>
+                    {/* <i className={"fa-solid fa-keyboard"}></i> */}
+                </button>
+                    <div style={{flexGrow: "2"}}
+                        role="button" 
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="scaleHeader2">
+                        <div style={{display: "inline"}} >
+                            {isOpen ? "▼" : "▶"} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName()}/>:</strong>
+                        </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
+                    </div>
                 </div>
                     {isOpen && showParallelModeButton() && (
                         <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>

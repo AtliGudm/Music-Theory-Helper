@@ -2,15 +2,18 @@ import { useState, useEffect } from "react"
 import './ScaleFinder.css'
 import ScaleGroupDisplay from "./ScaleGroupDisplay";
 import { useScaleSettings } from "../ScaleSettingsContext";
-import { groupScalesByType, processTextInput, processTextInput2, findScalesByNotes, groupScalesByType2, getFifth } from "../Helpers";
+import { groupScalesByType, processTextInput, processTextInput2, findScalesByNotes, groupScalesByType2, getFifth, scaleNotesToInt } from "../Helpers";
 import { scales, Scale, getScales, getScale } from "../data/ScaleData";
 import SearchBar from "./SearchBar";
 import { findByName } from "../data/ModesData";
-import InputPianoKeyboard from "./InputPianoKeyboard";
+import DisplayPianoKeyboard from "./DisplayPianoKeyboard";
+import PianoKeysIcon from '../assets/PianoKeysIcon';
 
 const ScaleFinder = () => {
     const { enharmonicEquivalence, setQueryNotes } = useScaleSettings();
     const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: { scale: Scale[], selectedModeIndex: number, parentScale: string | null }}>({});
+    const [ selectedScale, setSelectedScale ] = useState<Scale>();
+    const [ isFooterVisible, setFooterVisible ] = useState(false);
 
     const findScales = (queryText: string, threshold: number = 0, enharmonicEquivalenceOverride: boolean|null = null) => {
         if(queryText.length === 0) {
@@ -78,6 +81,16 @@ const ScaleFinder = () => {
         findScales("");
     }, []);
 
+    const displayScaleOnKeyboard = (selectedScale: Scale) => {
+        console.log(selectedScale);
+        setSelectedScale(selectedScale);
+        if(!isFooterVisible) toggleFooter();
+    }
+
+    const toggleFooter = () => {
+        setFooterVisible(!isFooterVisible);
+    };
+
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
@@ -92,12 +105,22 @@ const ScaleFinder = () => {
                             scales={item.scale}
                             scaleGroupStartingMode={item.selectedModeIndex}
                             parentScale={item.parentScale}
+                            displayScaleOnKeyboard={displayScaleOnKeyboard}
                         />
                     ))
                     ) : (
                     <p>No matching scales found.</p>
                 )}
             </div>
+            <div className={"sticky-bottom " + (isFooterVisible ? "visible" : "")}>
+                <DisplayPianoKeyboard selectedScale={selectedScale || { type: "", root: "", notes: [], order: 0 }}/>
+            </div>
+            <button className="toggle-button"
+                    onClick={toggleFooter}
+                    style={{fontSize: "18px"}}>
+                <PianoKeysIcon width="40" height="40"/>
+                {/* <i className={"fa-solid fa-keyboard"}></i> */}
+            </button>
         </div>
     );
 }

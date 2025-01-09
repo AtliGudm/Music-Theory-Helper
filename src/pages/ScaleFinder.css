@@ -34,14 +34,20 @@ h2.scaleGroupHeader:hover {
 
 .scaleHeader {
   background-color: #FADA7A; /*  #F5F0CD; */
-  padding: 6px;
+  /* padding: 2px; */
   color: black;
   margin-inline: 30px;
   border-radius: 6px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
-.scaleHeader:hover {
+.scaleHeader2 {
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.scaleHeader2:hover {
   background-color: #fbe49e;
 }
 
@@ -311,7 +317,7 @@ li.scaleDisplay
   width: 603px;
   height: 60px;
   border-radius: 0px 0px 17px 17px;
-  background-color: #ededed;;
+  background-color: #dfdfdf;
   top: -25px;
   position: relative;
   z-index: 50;
@@ -330,6 +336,7 @@ li.scaleDisplay
   position: sticky;
   top: 10px;/* 10px; */
   transition: filter 0.7s ease; 
+  z-index: 5;
 }
 
 .sticky-active {
@@ -403,4 +410,62 @@ span.sharp-accidental {
   vertical-align: baseline; /* Adjust alignment to match text */
   font-size: 1em; /* 0.8em; */
   line-height: 1; /* Maintain consistent line-height */
+}
+
+.sticky-bottom {
+  position: fixed;
+  bottom: -136px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  /* padding: 10px; */
+  transition: bottom 0.3s ease, filter 0.7s ease;
+  pointer-events: none;
+}
+
+.sticky-bottom.visible {
+  bottom: -1px; /* Slide into view */
+  filter: drop-shadow(0 1mm 1.5mm grey);
+}
+
+.toggle-button {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  /* padding: 10px 15px; */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.display-scale-on-keyboard-button {
+  background: none;
+  border: none;
+  /* font-size: 18px; */
+  height: 100%;
+  cursor: pointer;
+  padding-left: 9px;
+}
+
+.piano-display-border {
+  background-color: #dfdfdf;
+    /* border: 2px solid gray; */
+    /*  padding: 5px;  */
+    padding-top: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 17px 17px 0px 0px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.piano-icon {
+  fill: black;
+}
+
+.piano-icon:hover {
+  fill: rgb(93, 93, 93);
 }

@@ -6,6 +6,7 @@ import { findByName, SearchResult } from "../data/ModesData";
 import { modes } from "../data/ModesData";
 import { getFifth } from "../Helpers";
 import InputPianoKeyboard from "./InputPianoKeyboard";
+import PianoKeysIcon from "../assets/PianoKeysIcon";
 
 export interface SearchResultContainer {
   root: null | string,
@@ -172,7 +173,9 @@ const searchResultClicked = (item: SearchResultContainer) => {
       <div className="search-container">
       <button className="search-icon" title="Search" 
                 onClick={() => setIsTextInputOpen(!isTextInputOpen)}>
-          <i className={(isTextInputOpen) ? "fa-solid fa-keyboard" : "fa-solid fa-font"}></i>
+          {/* <i className={(isTextInputOpen) ? "fa-solid fa-keyboard" : "fa-solid fa-font"}></i> */}
+          {isTextInputOpen ? (<PianoKeysIcon width="20" height="20"/>):(<i className="fa-solid fa-font"></i>)}
+          
         </button>
         {isTextInputOpen && (
           <>

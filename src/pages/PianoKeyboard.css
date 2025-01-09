@@ -15,11 +15,11 @@
     text-align: center;
 }
 
-.piano-container {
+/* .piano-container {
     display: flex;
     align-items: center;
     justify-content: center;
-} 
+}  */
 
 .piano-keys-list {
     list-style: none;
@@ -104,6 +104,7 @@
     align-items: center;
     justify-content: flex-start;
     overflow: auto;
+    pointer-events: visible;
 }
 
 .piano-keys {
@@ -132,5 +133,13 @@ li.selected-key {
 }
 
 li.black-key.selected-key {
-    background: darkred;
+    background: #b70000;
+}
+
+li.selected-root-key {
+    background: red;
+}
+
+li.black-key.selected-root-key {
+    background: #b70000;;
 }

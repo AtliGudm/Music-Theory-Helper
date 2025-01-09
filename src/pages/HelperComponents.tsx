@@ -34,7 +34,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
                 <div className="scale-note-display">
                     {ouputString.map((item, index) => (
                         <div key={item+index} className="chord-notes">
-                            <div className={item.style}>{formatAccidentalsForDisplay(item.note)}{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
+                            <div className={item.style}><FormatAccidentalsForDisplay textInput={item.note}/>{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
                             <div className={`scale-note-degree ${item.style}`}>{getModeAccidental(index, scaleType, selectedMode)}{index+1}</div>
                         </div>
                     ))}
@@ -45,7 +45,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
             return (<>
                 {ouputString.map((item, index) => (
                     <>
-                    <span className={item.style}>{formatAccidentalsForDisplay(item.note)}</span>
+                    <span className={item.style}><FormatAccidentalsForDisplay textInput={item.note}/></span>
                     <span>{index < ouputString.length - 1 ? ", ": ""}</span> 
                     </>
                 ))}
