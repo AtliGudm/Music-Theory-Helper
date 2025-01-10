@@ -17,9 +17,9 @@
     "jsx": "react-jsx",
     "noImplicitAny": true,
     "strictNullChecks": true,
-    //"strictPropertyInitialization": true,
+    "strictPropertyInitialization": false,
     //"noImplicitReturns": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": false
   },
   "include": ["src"]
 }

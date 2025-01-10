@@ -1,8 +1,26 @@
+import { Mode } from "./ModesData";
+
 export interface Scale {
     type: string;
     root: string | null;
     notes: string[];
     order: number;
+}
+
+export interface PayloadContainer{
+    scaleName: string;
+    payloadList: Payload[]; 
+}
+
+export interface Payload {
+    note: number;
+    degree: string;
+}
+
+export interface ParaScale {
+    mode: Mode;
+    parallelRoot: string;
+    modifiedScale: Scale;
 }
 
 export const scales: Scale[] = [
@@ -32,31 +50,31 @@ export const scales: Scale[] = [
     { type: "Minor", root: "Bb", notes: ["Bb", "C", "Db", "Eb", "F", "Gb", "Ab"],   order: 22 },
     { type: "Minor", root: "F", notes: ["F", "G", "Ab", "Bb", "C", "Db", "Eb"],   order: 23 },
 
-    { type: "Melodic Minor", root: "A", notes: ["A", "B", "C", "D", "E", "F#", "G#"], order: 24 },
-    { type: "Melodic Minor", root: "E", notes: ["E", "F#", "G", "A", "B", "C#", "D#"], order: 25 },
-    { type: "Melodic Minor", root: "B", notes: ["B", "C#", "D", "E", "F#", "G#", "A#"], order: 26 },
-    { type: "Melodic Minor", root: "F#", notes: ["F#", "G#", "A", "B", "C#", "D#", "E#"], order: 27 },
-    { type: "Melodic Minor", root: "Db", notes: ["Db", "Eb", "Fb", "Gb", "Ab", "Bb", "C"], order: 28 },
-    { type: "Melodic Minor", root: "Ab", notes: ["Ab", "Bb", "Cb", "Db", "Eb", "F", "G"], order: 29 },
-    { type: "Melodic Minor", root: "Eb", notes: ["Eb", "F", "Gb", "Ab", "Bb", "C", "D"], order: 30 },
-    { type: "Melodic Minor", root: "Bb", notes: ["Bb", "C", "Db", "Eb", "F", "G", "A"], order: 31 },
-    { type: "Melodic Minor", root: "F", notes: ["F", "G", "Ab", "Bb", "C", "D", "E"], order: 32 },
-    { type: "Melodic Minor", root: "C", notes: ["C", "D", "Eb", "F", "G", "A", "B"], order: 33 },
-    { type: "Melodic Minor", root: "G", notes: ["G", "A", "Bb", "C", "D", "E", "F#"], order: 34 },
-    { type: "Melodic Minor", root: "D", notes: ["D", "E", "F", "G", "A", "B", "C#"], order: 35 },
+    { type: "Melodic Minor", root: "C", notes: ["C", "D", "Eb", "F", "G", "A", "B"], order: 24 },
+    { type: "Melodic Minor", root: "G", notes: ["G", "A", "Bb", "C", "D", "E", "F#"], order: 25 },
+    { type: "Melodic Minor", root: "D", notes: ["D", "E", "F", "G", "A", "B", "C#"], order: 26 },
+    { type: "Melodic Minor", root: "A", notes: ["A", "B", "C", "D", "E", "F#", "G#"], order: 27 },
+    { type: "Melodic Minor", root: "E", notes: ["E", "F#", "G", "A", "B", "C#", "D#"], order: 28 },
+    { type: "Melodic Minor", root: "B", notes: ["B", "C#", "D", "E", "F#", "G#", "A#"], order: 29 },
+    { type: "Melodic Minor", root: "F#", notes: ["F#", "G#", "A", "B", "C#", "D#", "E#"], order: 30 },
+    { type: "Melodic Minor", root: "Db", notes: ["Db", "Eb", "Fb", "Gb", "Ab", "Bb", "C"], order: 31 },
+    { type: "Melodic Minor", root: "Ab", notes: ["Ab", "Bb", "Cb", "Db", "Eb", "F", "G"], order: 32 },
+    { type: "Melodic Minor", root: "Eb", notes: ["Eb", "F", "Gb", "Ab", "Bb", "C", "D"], order: 33 },
+    { type: "Melodic Minor", root: "Bb", notes: ["Bb", "C", "Db", "Eb", "F", "G", "A"], order: 34 },
+    { type: "Melodic Minor", root: "F", notes: ["F", "G", "Ab", "Bb", "C", "D", "E"], order: 35 },
 
-    { type: "Harmonic Minor", root: "A", notes: ["A", "B", "C", "D", "E", "F", "G#"], order: 36 },
-    { type: "Harmonic Minor", root: "E", notes: ["E", "F#", "G", "A", "B", "C", "D#"], order: 37 },
-    { type: "Harmonic Minor", root: "B", notes: ["B", "C#", "D", "E", "F#", "G", "A#"], order: 38 },
-    { type: "Harmonic Minor", root: "F#", notes: ["F#", "G#", "A", "B", "C#", "D", "E#"], order: 39 },
-    { type: "Harmonic Minor", root: "Db", notes: ["Db", "Eb", "Fb", "Gb", "Ab", "Bbb", "C"], order: 40 },
-    { type: "Harmonic Minor", root: "Ab", notes: ["Ab", "Bb", "Cb", "Db", "Eb", "Fb", "G"], order: 41 },
-    { type: "Harmonic Minor", root: "Eb", notes: ["Eb", "F", "Gb", "Ab", "Bb", "Cb", "D"], order: 42 },
-    { type: "Harmonic Minor", root: "Bb", notes: ["Bb", "C", "Db", "Eb", "F", "Gb", "A"], order: 43 },
-    { type: "Harmonic Minor", root: "F", notes: ["F", "G", "Ab", "Bb", "C", "Db", "E"], order: 44 },
-    { type: "Harmonic Minor", root: "C", notes: ["C", "D", "Eb", "F", "G", "Ab", "B"], order: 45 },
-    { type: "Harmonic Minor", root: "G", notes: ["G", "A", "Bb", "C", "D", "Eb", "F#"], order: 46 },
-    { type: "Harmonic Minor", root: "D", notes: ["D", "E", "F", "G", "A", "Bb", "C#"], order: 47 },
+    { type: "Harmonic Minor", root: "C", notes: ["C", "D", "Eb", "F", "G", "Ab", "B"], order: 36 },
+    { type: "Harmonic Minor", root: "G", notes: ["G", "A", "Bb", "C", "D", "Eb", "F#"], order: 37 },
+    { type: "Harmonic Minor", root: "D", notes: ["D", "E", "F", "G", "A", "Bb", "C#"], order: 38 },
+    { type: "Harmonic Minor", root: "A", notes: ["A", "B", "C", "D", "E", "F", "G#"], order: 39 },
+    { type: "Harmonic Minor", root: "E", notes: ["E", "F#", "G", "A", "B", "C", "D#"], order: 40 },
+    { type: "Harmonic Minor", root: "B", notes: ["B", "C#", "D", "E", "F#", "G", "A#"], order: 41 },
+    { type: "Harmonic Minor", root: "F#", notes: ["F#", "G#", "A", "B", "C#", "D", "E#"], order: 42 },
+    { type: "Harmonic Minor", root: "Db", notes: ["Db", "Eb", "Fb", "Gb", "Ab", "Bbb", "C"], order: 43 },
+    { type: "Harmonic Minor", root: "Ab", notes: ["Ab", "Bb", "Cb", "Db", "Eb", "Fb", "G"], order: 44 },
+    { type: "Harmonic Minor", root: "Eb", notes: ["Eb", "F", "Gb", "Ab", "Bb", "Cb", "D"], order: 45 },
+    { type: "Harmonic Minor", root: "Bb", notes: ["Bb", "C", "Db", "Eb", "F", "Gb", "A"], order: 46 },
+    { type: "Harmonic Minor", root: "F", notes: ["F", "G", "Ab", "Bb", "C", "Db", "E"], order: 47 },
 
     { type: "Harmonic Major" , root: "C", notes: ["C", "D", "E", "F", "G", "Ab", "B"], order: 48 },
     { type: "Harmonic Major" , root: "G", notes: ["G", "A", "B", "C", "D", "Eb", "F#"], order: 49 },

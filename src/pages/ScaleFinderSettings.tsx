@@ -11,7 +11,8 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
         showNoteScaleDegree,setShowNoteScaleDegree,
         chordDisplayOrientation, setChordDisplayOrientation,
         inludeSuspenedChords, setInludeSuspenedChords,
-        useAsciiAccidentals, setUseAsciiAccidentals } = useScaleSettings();
+        useAsciiAccidentals, setUseAsciiAccidentals,
+        showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (
@@ -79,6 +80,12 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
                                         checked={useAsciiAccidentals}
                                         onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
                                         label={"Use Plain Text Accidentals"} />
+                    </div>
+                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "0px"}}>
+                        <CheckboxSetting id={"showDisplayKeyboardDegrees"} 
+                                        checked={showDisplayKeyboardDegrees}
+                                        onChange={() => setShowDisplayKeyboardDegrees(!showDisplayKeyboardDegrees)}
+                                        label={"Display Piano Keyboard Degrees"} />
                     </div>
                     </>
                 )}

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import ScaleDisplay from "./ScaleDisplay";
-import { Scale } from "../data/ScaleData";
+import { Scale, PayloadContainer } from "../data/ScaleData";
 
-const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (selectedScale: Scale) => void }) => {
+const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedModes, setSelectedModes ] = useState(() => Array(scales.length).fill(scaleGroupStartingMode));
 

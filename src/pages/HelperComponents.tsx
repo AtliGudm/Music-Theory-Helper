@@ -1,13 +1,7 @@
 import { modes } from "../data/ModesData";
-import { convertNotesToInt, isLetter } from "../Helpers";
+import { convertNotesToInt, isLetter, getModeAccidental } from "../Helpers";
 import { useScaleSettings } from "../ScaleSettingsContext";
 
-const getModeAccidental = (index: number, scaleType: string, selectedMode: number) => {
-    const mode = modes[scaleType] && modes[scaleType][selectedMode];
-    const modeAccidental = mode ? mode.accidentals[index] : undefined;
-    if(modeAccidental == 0) return "";
-    return modeAccidental;
-}
 
 export const getScaleNotesDisplay = (scaleNotes: string[] | null, 
                               highlightQueryNotes: any, 

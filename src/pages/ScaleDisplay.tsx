@@ -2,18 +2,19 @@ import { useState } from "react";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
-import { modes } from '../data/ModesData';
-import { shiftScale } from '../Helpers'
+import { modes, getMode } from '../data/ModesData';
+import { shiftScale, DisplayScaleOnKeyboardPayload, getScaleDisplayName } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
 import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
 import PianoKeysIcon from "../assets/PianoKeysIcon";
+import { Scale, PayloadContainer } from "../data/ScaleData";
 
-// @ts-ignore
-const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard}) => {
+
+const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard} : {scale: Scale, selectedMode: number, scaleIndex: number, changeModeCallback : (index: number, newValue: number) => void, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
     const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
-    const getScaleDisplayName = () => {
+/*     const getScaleDisplayName = () => {
         const root = (scale.root === null) ? "" : (scale.root + " ");
         if(selectedMode === 0)
             return (root + " " + scale.type);
@@ -22,7 +23,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
             return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + " [" + root + " " + scale.type + "]";
         }
         return root + " " + scale.type;
-    }
+    } */
 
     const getScaleNotes = () => {
         return (selectedMode !== 0) ? shiftScale(scale, selectedMode) : scale;
@@ -52,12 +53,17 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
         return true;
     }
 
+    const callDisplayScaleOnKeyboard = () => {
+        const payload = DisplayScaleOnKeyboardPayload(scale, selectedMode);
+        displayScaleOnKeyboard(payload); 
+    }
+
     return (
         <li className="scaleDisplay">
             <div>
                 <div style={{marginBottom: "0.4rem", display: "flex", alignItems: "center", position: "relative"}} className="scaleHeader">
                 <button className="display-scale-on-keyboard-button" title="Search" 
-                         onClick={() => displayScaleOnKeyboard(scale)} 
+                         onClick={callDisplayScaleOnKeyboard} 
                          style={{marginRight: "auto"}}
                         >
                     <PianoKeysIcon width="30" height="30"/>
@@ -67,7 +73,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                         onClick={() => setIsOpen(!isOpen)}
                         className="scaleHeader2">
                         <div style={{display: "inline"}} >
-                            {isOpen ? "▼" : "▶"} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName()}/>:</strong>
+                            {isOpen ? "▼" : "▶"} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName(scale, selectedMode)}/>:</strong>
                         </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
                     </div>
                 </div>
@@ -79,7 +85,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                 <>
                     <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
                     { showParallelModeButton() && 
-                        <ParallelModesDisplay scale={scale}/>
+                        <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     }
                 </>
             )}

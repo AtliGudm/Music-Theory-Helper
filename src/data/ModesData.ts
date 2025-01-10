@@ -94,17 +94,17 @@ export const modes: ModesData = {
         {mode: "Whole Tone", fifthShift: 0, accidentals: [0,0,0,0,0,0]}
     ],
     "Half-Whole Diminished": [
-        {mode: "Half-Whole Diminished", fifthShift: 0, accidentals: [0,0,0,0, 0,0,0,0]}
+        {mode: "Half-Whole Diminished", fifthShift: 0, accidentals: [0,0,0,0, 0,0,0,0], degrees: [1,"b2","b3",3,"#4",5,6,"b7"]}
     ],
     "Major Pentatonic": [
         {mode: "Major Pentatonic", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,3,5,6]},
         {mode: "Suspended", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,4,5,"b7"]},
         {mode: "Blues Minor", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,"b3",4,"b6","b7"]},
-        {mode: "Blues Major", fifthShift: 0, accidentals: [0,0,0,0,0]},
+        {mode: "Blues Major", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,"bb3","bb4","bb6","bb7"]},
         {mode: "Aeolian Pentatonic", fifthShift: 0, accidentals: [0,"b",0,0,"b"], degrees: [1,"b3",4,5,"b7"]}
     ],
     "Minor Pentatonic": [
-        {mode: "Minor Pentatonic", fifthShift: 0, accidentals: [0,"b",0,0,"b"]}
+        {mode: "Minor Pentatonic", fifthShift: 0, accidentals: [0,"b",0,0,"b"], degrees: [1,"b3",4,5,"b7"]}
     ],
     "Neapolitan Major": [
         {mode: "Neapolitan Major", fifthShift: 0, accidentals: [0,"b","b",0,0,0,0]},
@@ -143,3 +143,7 @@ export const modes: ModesData = {
         {mode: "Lydian Augmented #3", fifthShift: 2, accidentals: [0,0,"#","#","#",0,0]}
     ]
 };
+
+export const getMode = (scaleType: string, modeIndex: number) => {
+    return modes[scaleType][modeIndex];
+}

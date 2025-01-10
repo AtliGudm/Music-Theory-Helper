@@ -37,6 +37,9 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [useAsciiAccidentals, setUseAsciiAccidentals] = useState(() =>
     getInitialState("useAsciiAccidentals", false)
   );
+  const [showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees] = useState(() =>
+    getInitialState("showDisplayKeyboardDegrees", true)
+  );
 
   // Effect to sync settings with localStorage
   useEffect(() => {
@@ -75,6 +78,10 @@ export const ScaleSettingsProvider = ({ children }) => {
     localStorage.setItem("useAsciiAccidentals", JSON.stringify(useAsciiAccidentals));
   }, [useAsciiAccidentals]);
 
+  useEffect(() => {
+    localStorage.setItem("showDisplayKeyboardDegrees", JSON.stringify(showDisplayKeyboardDegrees));
+  }, [showDisplayKeyboardDegrees]);
+
   return (
     <ScaleSettingsContext.Provider
       value={{
@@ -96,6 +103,8 @@ export const ScaleSettingsProvider = ({ children }) => {
         setInludeSuspenedChords,
         useAsciiAccidentals,
         setUseAsciiAccidentals,
+        showDisplayKeyboardDegrees,
+        setShowDisplayKeyboardDegrees
       }}
     >
       {children}

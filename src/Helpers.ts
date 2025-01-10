@@ -1,5 +1,5 @@
-import { modes } from './data/ModesData';
-import { Scale } from './data/ScaleData';
+import { modes, getMode } from './data/ModesData';
+import { Scale, PayloadContainer, ParaScale } from './data/ScaleData';
 
 // Map notes to integers (for comparison)
 export const noteToInt: { [key: string]: number } = {
@@ -219,37 +219,78 @@ export const processTextInput = (inputText: string) => {
     });
     return {found, rebuiltInputString};
 }
-/* 
-export const formatAccidentalsForDisplay = (text: string) => {
-    // ♭    ♮    ♯   
-    let textArray = text.split('');
-    for(let i = 0; i < textArray.length; i++) {
-        if(textArray[i] == "b") {
-            if (i+1 < textArray.length) {
-                if(textArray[i+1] == "b" || textArray[i+1] == "m" || !isLetter(textArray[i+1])) {
-                    textArray[i] = "<span>♭</span>";
-                }
-                else if(textArray[i+1] >= '0' && textArray[i+1] <= '9') {
-                    textArray[i] = "<span>♭</span>";
-                }
-            }
-            else {
-                textArray[i] = "<span>♭</span>";
-            }
-        }
-        else if(textArray[i] == "n") {
-            if (i+1 < textArray.length) {
-                if(textArray[i+1] >= '0' && textArray[i+1] <= '9') {
-                    textArray[i] = "♮";
-                }
-            }
-        }
-    }
-    return textArray.join('');
-} */
-
-
 
 export const isLetter = (c: string) => {
     return c.toLowerCase() != c.toUpperCase();
+}
+
+export const getModeAccidental = (index: number, scaleType: string, selectedMode: number) => {
+    const mode = modes[scaleType] && modes[scaleType][selectedMode];
+    const modeAccidental = mode ? mode.accidentals[index] : undefined;
+    if(modeAccidental == 0) return "";
+    return modeAccidental;
+}
+
+export const DisplayParallelScaleOnKeyboardPayload = (para: ParaScale) => {
+    let scaleName = "";
+    if(para.mode.mode === para.modifiedScale.type) {
+        scaleName = para.modifiedScale.root + " " + para.modifiedScale.type;
+    }
+    else {
+        scaleName = para.modifiedScale.root + " " + para.mode.mode + " [" + para.parallelRoot + " " + para.modifiedScale.type + "]";
+    }
+    let payload: PayloadContainer = {scaleName: scaleName, payloadList: []};
+
+    const scaleNotesNumbers = scaleNotesToInt(para.modifiedScale.notes);
+    scaleNotesNumbers.forEach((item, index) => {
+        const accidental = para.mode.accidentals[index];
+        payload.payloadList.push({note: item, degree: (accidental == "0") ? (index+1).toString() : accidental + (index+1).toString()});
+    });
+    return payload;
+}
+
+export const DisplayScaleOnKeyboardPayload = (scale: Scale, selectedMode: number) => {
+    const getScaleNotes = () => {
+        return (selectedMode !== 0) ? shiftScale(scale, selectedMode) : scale;
+    }
+    
+    let payload: PayloadContainer = {scaleName: getScaleDisplayName(scale, selectedMode), payloadList: []};
+    const scaleNotes = getScaleNotes();
+    const scaleNotesNumbers = scaleNotesToInt(scaleNotes.notes);
+    const mode = getMode(scale.type, selectedMode);
+    if('degrees' in mode) {
+        scaleNotesNumbers.forEach((item, index) => {
+            if (mode.degrees) {
+                payload.payloadList.push({note: item, degree: mode.degrees[index].toString()});
+            }
+        });
+    }
+    else if(scale.root == null) {
+        scaleNotesNumbers.forEach((item) => {
+                payload.payloadList.push({note: item, degree: ""});
+        });
+    }
+    else {
+        scaleNotesNumbers.forEach((item, index) => {
+            const accidental = getModeAccidental(index, scale.type, selectedMode);
+            if (accidental !== undefined) {
+                payload.payloadList.push({note: item, degree: (index === 0) ? "r" : `${accidental}${index + 1}`});
+            } else {
+                payload.payloadList.push({note: item, degree: (index === 0) ? "r" : `${index + 1}`});
+            }
+        });
+    }
+    return payload; 
+}
+
+
+export const getScaleDisplayName = (scale: Scale, selectedMode: number) => {
+    const root = (scale.root === null) ? "" : (scale.root + " ");
+    if(selectedMode === 0)
+        return (root + " " + scale.type);
+
+    if (scale.notes[selectedMode] && modes[scale.type] && modes[scale.type][selectedMode]) {
+        return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + " [" + root + " " + scale.type + "]";
+    }
+    return root + " " + scale.type;
 }
