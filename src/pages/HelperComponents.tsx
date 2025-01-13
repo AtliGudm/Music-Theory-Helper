@@ -1,4 +1,3 @@
-import { modes } from "../data/ModesData";
 import { convertNotesToInt, isLetter, getModeAccidental } from "../Helpers";
 import { useScaleSettings } from "../ScaleSettingsContext";
 
@@ -74,9 +73,6 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
         )
     );
 }
-
-/* {formatAccidentalsForDisplay(item)} */
-/* formatAccidentalsForDisplay(scaleNotes.join(", ")))  */
 
 export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false} : {textInput: string | undefined, forceAccidental?: boolean}) => {
     const { useAsciiAccidentals  } = useScaleSettings();

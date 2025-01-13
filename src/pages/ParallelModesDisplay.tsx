@@ -2,7 +2,7 @@ import {useState} from "react";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
-import { modes, Mode } from '../data/ModesData';
+import { modes } from '../data/ModesData';
 import { getScale, PayloadContainer, ParaScale } from "../data/ScaleData";
 import { getFifth, modifyNote, DisplayParallelScaleOnKeyboardPayload } from '../Helpers'
 import { Scale } from "../data/ScaleData";
@@ -50,7 +50,6 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
 
     const callDisplayScaleOnKeyboard = () => {
         const para: ParaScale = getParallelScale();
-        console.log(para);
         const payload = DisplayParallelScaleOnKeyboardPayload(para);
         displayScaleOnKeyboard(payload); 
     }
@@ -78,7 +77,6 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
 
     const handleModeChange = (mode: number) => {
         setSelectedMode(mode);
-        console.log('Selected mode:', modes[scale.type][mode]);
     };
 
     return (

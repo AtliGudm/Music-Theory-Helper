@@ -14,8 +14,7 @@ const pianoKeys:any[] = [["C", "W"],
                         ["A#", "B"],
                         ["B", "W"]];
 
-// @ts-ignore
-const InputPianoKeyboard = ({findScales}) => {
+const InputPianoKeyboard = ({findScales} : {findScales: (queryText: string, threshold?: number, enharmonicEquivalenceOverride?: boolean | null) => void}) => {
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
     
     const toggleKeySelection = (note:string) => {        
@@ -31,7 +30,6 @@ const InputPianoKeyboard = ({findScales}) => {
             selectedKeysCopy.push(note);
         }
 
-        console.log(selectedKeysCopy);
         const filteredKeys = getSelectedKeysReadyForSearch(selectedKeysCopy);
         findScales(filteredKeys.join(" "), 0, true);
         setSelectedKeys(selectedKeysCopy);
@@ -43,7 +41,6 @@ const InputPianoKeyboard = ({findScales}) => {
         const filtered =  dfgf.filter(function(item, pos) {
             return dfgf.indexOf(item) == pos;
         })
-        console.log(filtered);
         return filtered;
     }
 

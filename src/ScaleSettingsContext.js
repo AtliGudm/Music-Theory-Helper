@@ -40,6 +40,12 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees] = useState(() =>
     getInitialState("showDisplayKeyboardDegrees", true)
   );
+  const [forceScaleGroupOpen, setForceScaleGroupOpen] = useState(() =>
+    getInitialState("forceScaleGroupOpen", true)
+  );
+  const [searchBarFollow, setSearchBarFollow] = useState(() =>
+    getInitialState("searchBarFollow", true)
+  );
 
   // Effect to sync settings with localStorage
   useEffect(() => {
@@ -82,6 +88,14 @@ export const ScaleSettingsProvider = ({ children }) => {
     localStorage.setItem("showDisplayKeyboardDegrees", JSON.stringify(showDisplayKeyboardDegrees));
   }, [showDisplayKeyboardDegrees]);
 
+  useEffect(() => {
+    localStorage.setItem("forceScaleGroupOpen", JSON.stringify(forceScaleGroupOpen));
+  }, [forceScaleGroupOpen]);
+
+  useEffect(() => {
+    localStorage.setItem("searchBarFollow", JSON.stringify(searchBarFollow));
+  }, [searchBarFollow]);
+
   return (
     <ScaleSettingsContext.Provider
       value={{
@@ -104,7 +118,11 @@ export const ScaleSettingsProvider = ({ children }) => {
         useAsciiAccidentals,
         setUseAsciiAccidentals,
         showDisplayKeyboardDegrees,
-        setShowDisplayKeyboardDegrees
+        setShowDisplayKeyboardDegrees,
+        forceScaleGroupOpen,
+        setForceScaleGroupOpen,
+        searchBarFollow,
+        setSearchBarFollow
       }}
     >
       {children}

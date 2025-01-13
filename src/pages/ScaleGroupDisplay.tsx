@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import ScaleDisplay from "./ScaleDisplay";
+import { useScaleSettings } from "../ScaleSettingsContext";
 import { Scale, PayloadContainer } from "../data/ScaleData";
 
 const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
-    const [ isOpen, setIsOpen ] = useState(false);
+    const [ isOpen, setIsOpen ] = useState(true);
+    const { forceScaleGroupOpen } = useScaleSettings();
     const [ selectedModes, setSelectedModes ] = useState(() => Array(scales.length).fill(scaleGroupStartingMode));
 
     const changeModeCallback = (index: number, newValue: number) => {
@@ -19,6 +21,10 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, d
     useEffect(() => {
         setSelectedModes(Array(scales.length).fill(scaleGroupStartingMode));
     }, [scales.length, scaleGroupStartingMode]);
+
+    useEffect(() => {
+        setIsOpen(forceScaleGroupOpen);
+    }, [forceScaleGroupOpen]);
 
     return (
         <div className="scaleGroup">

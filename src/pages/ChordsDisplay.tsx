@@ -1,15 +1,18 @@
 import GenerateDiatonicChords from "./ChordGenerator";
 import { Scale } from "../data/ScaleData";
+import { convertNotesToInt, noteToInt } from "../Helpers";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { FormatAccidentalsForDisplay } from "./HelperComponents";
 
 
 const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, selectedMode: number, includeSevenths: boolean}) => {
-    const { highlightQueryNotes, queryNotes, chordDisplayOrientation, inludeSuspenedChords } = useScaleSettings();
+    const { highlightQueryNotes, queryNotes, chordDisplayOrientation, inludeSuspenedChords, enharmonicEquivalence } = useScaleSettings();
     
     const prepareNote = (note: string) => {
         if(highlightQueryNotes && queryNotes.length > 0) {
-            if(queryNotes.includes(note)) {
+            const queryNotesFormatted = (enharmonicEquivalence) ? convertNotesToInt(queryNotes) : queryNotes;
+            const noteFormatted = (enharmonicEquivalence) ? noteToInt[note] : note;
+            if(queryNotesFormatted.includes(noteFormatted)) {
                 return (<span className="highlightedNote"><FormatAccidentalsForDisplay textInput={note}/></span>);
             }
         }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import './ScaleFinder.css'
 import ScaleGroupDisplay from "./ScaleGroupDisplay";
 import { useScaleSettings } from "../ScaleSettingsContext";
-import { groupScalesByType, processTextInput, processTextInput2, findScalesByNotes, groupScalesByType2, getFifth, scaleNotesToInt } from "../Helpers";
+import { groupScalesByType, processTextInput, processTextInput2, findScalesByNotes, groupScalesByType2, getFifth } from "../Helpers";
 import { scales, Scale, getScales, getScale, PayloadContainer } from "../data/ScaleData";
 import SearchBar from "./SearchBar";
 import { findByName } from "../data/ModesData";
@@ -60,8 +60,6 @@ const ScaleFinder = () => {
 
         if (result.length > 0) {
             grouped = groupScalesByType2(result);
-            console.log(grouped);
-            //setShowDropdown(false);
             setGroupedScales(grouped);
             setQueryNotes([]);
         }
@@ -93,7 +91,6 @@ const ScaleFinder = () => {
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
-            {/* <InputPianoKeyboard findScales={findScales} /> */}
             <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes} />    
             <div className="scaleGrouContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (

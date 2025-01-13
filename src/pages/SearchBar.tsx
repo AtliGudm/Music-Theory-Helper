@@ -5,6 +5,7 @@ import ScaleFinderSettings from "./ScaleFinderSettings";
 import { findByName, SearchResult } from "../data/ModesData";
 import { modes } from "../data/ModesData";
 import { getFifth } from "../Helpers";
+import { useScaleSettings } from "../ScaleSettingsContext";
 import InputPianoKeyboard from "./InputPianoKeyboard";
 import PianoKeysIcon from "../assets/PianoKeysIcon";
 
@@ -13,15 +14,17 @@ export interface SearchResultContainer {
   type: string,
   obj: SearchResult | string
 }
-// ♭    ♮    ♯   
+
 // @ts-ignore
 const SearchBar = ({ setGroupedScales, findScales, setQueryNotes}) => {
+  const { searchBarFollow } = useScaleSettings();
   const [ queryText, setQueryText] = useState("");
   const [ showDropdown, setShowDropdown ] = useState(false);
   const [ searchResults2, setSearchResults2 ] = useState<SearchResultContainer[]>([]);
   const [ isSticky, setIsSticky ] = useState(false);
   const [ highlightedIndex, setHighlightedIndex ] = useState(-1);
   const [ isTextInputOpen, setIsTextInputOpen ] = useState(true);
+  
   const containerRef = useRef<HTMLDivElement>(null);
 
   const inputSearchChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,20 +172,18 @@ const searchResultClicked = (item: SearchResultContainer) => {
   }
 
   return (
-    <div className={`sticky-div ${isSticky ? "sticky-active" : ""}`} ref={containerRef}>
+    <div className={(searchBarFollow) ? ("sticky-div" + (isSticky ? " sticky-active" : "")) : "static-div"} ref={containerRef}>
       <div className="search-container">
       <button className="search-icon" title="Search" 
                 onClick={() => setIsTextInputOpen(!isTextInputOpen)}>
-          {/* <i className={(isTextInputOpen) ? "fa-solid fa-keyboard" : "fa-solid fa-font"}></i> */}
           {isTextInputOpen ? (<PianoKeysIcon width="20" height="20"/>):(<i className="fa-solid fa-font"></i>)}
-          
         </button>
         {isTextInputOpen && (
           <>
           <input type="text" 
                   onChange={inputSearchChange2} 
                   value={queryText} 
-                  placeholder="Enter notes separated by commas (e.g. C, D, E...)"
+                  placeholder="Enter scale names, or notes separated by commas(,) or spaces( )"
                   onKeyDown={handleKeyDown} 
                   onFocus={() => inputSearchChange(queryText)}
                   /> 
@@ -201,13 +202,11 @@ const searchResultClicked = (item: SearchResultContainer) => {
                    onClick={() => searchResultClicked(item)}
                    className={(index == highlightedIndex) ? "dropdown-highlight" : "dropdown-highlight2" }>
                   { generateSearchResultViewText(item) }
-                  { /* @ts-ignore */}
-                  { /* {(item.root != null ? item.root + " ": "") + ((typeof item.obj === 'string') ? item.obj : ('item' in item.obj ? item.obj.item.mode : ('type' in item.obj ? item.obj.type : item.obj.mode)) )} */ }
               </div>)
           )}
           </div>) 
       }
-      <ScaleFinderSettings/>
+      <ScaleFinderSettings /* disableEnharmonicCheckbox={!isTextInputOpen} *//>
     </div>
   );
 };

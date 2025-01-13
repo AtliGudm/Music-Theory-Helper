@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
-import { modes, getMode } from '../data/ModesData';
 import { shiftScale, DisplayScaleOnKeyboardPayload, getScaleDisplayName } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
 import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
@@ -14,24 +13,12 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
     const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
-/*     const getScaleDisplayName = () => {
-        const root = (scale.root === null) ? "" : (scale.root + " ");
-        if(selectedMode === 0)
-            return (root + " " + scale.type);
-
-        if (scale.notes[selectedMode] && modes[scale.type] && modes[scale.type][selectedMode]) {
-            return scale.notes[selectedMode] + " " + modes[scale.type][selectedMode].mode + " [" + root + " " + scale.type + "]";
-        }
-        return root + " " + scale.type;
-    } */
-
     const getScaleNotes = () => {
         return (selectedMode !== 0) ? shiftScale(scale, selectedMode) : scale;
     }
 
     const handleModeChange = (modeIndex: any) => {
         changeModeCallback(scaleIndex, modeIndex);
-        console.log('Selected mode:', modeIndex);
     };
 
     const showRelativeModeButton = () => {

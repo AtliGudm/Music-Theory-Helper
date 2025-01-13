@@ -3,7 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { useState } from "react";
 
-const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
+const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicCheckbox:boolean} */) => {
     const { includeSevenths, setIncludeSevenths, 
         enharmonicEquivalence, setEnharmonicEquivalence,
         romanNumeralsMajorAdjusted, setRomanNumeralsMajorAdjusted,
@@ -12,18 +12,25 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
         chordDisplayOrientation, setChordDisplayOrientation,
         inludeSuspenedChords, setInludeSuspenedChords,
         useAsciiAccidentals, setUseAsciiAccidentals,
-        showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees } = useScaleSettings();
+        showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees,
+        forceScaleGroupOpen, setForceScaleGroupOpen,
+        searchBarFollow, setSearchBarFollow } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (
-        <div className={"settings-container2 "} style={{height: isOpen ? "133px" : "60px"}}>
-            <div style={{top: "33px", position: "relative", textAlign: "left"}} /* className={isOpen ? "settings-container" : ""} */ >
+        <div className={"settings-container2 "} style={{height: isOpen ? "156px" : "60px"}}>
+            <div style={{top: "33px", position: "relative", textAlign: "left"}}>
                 <div className="settings-div">
                     <span style={{paddingRight: "8px"}}><i onClick={() => setIsOpen(!isOpen)} className={isOpen ? "fa-solid fa-circle-chevron-up": "fa-solid fa-circle-chevron-down"}></i></span>
-                    <CheckboxSetting id={"enharmonicEquivalence"}
-                                    checked={enharmonicEquivalence}
-                                    onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
-                                    label={"Enharmonic Check"} />
+                    <span>
+                        <input 
+                            type="checkbox" 
+                            checked={enharmonicEquivalence}
+                            onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)} 
+                            id={"enharmonicEquivalence"} 
+                            /* disabled={disableEnharmonicCheckbox} *//>
+                            <label htmlFor={"enharmonicEquivalence"}>{"Enharmonic Check"}</label>
+                    </span>
                     <CheckboxSetting id={"includeSevenths"}
                                     checked={includeSevenths}
                                     onChange={() => setIncludeSevenths(!includeSevenths)}
@@ -49,7 +56,6 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
                                     />Vertical
                         </label>
                     </span>
-                    {/* <span style={{paddingRight: "0px"}}><i className="fa-solid fa-circle-question"></i></span> */}
                 </div>
                 {isOpen && (
                     <>
@@ -69,23 +75,35 @@ const ScaleFinderSettings = (/* {isOpen}: {isOpen:boolean} */) => {
                                         onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
                                         label={"Roman Numerals are relative to Major"} />
                     </div>
-                    <div className="settings-div" style={{textAlign: "left" , paddingLeft: "0px" }}>
+                    {/* <div className="settings-div" style={{textAlign: "left" , paddingLeft: "0px" }}>
                         <CheckboxSetting id={"inludeSuspenedChords"} 
                                         checked={inludeSuspenedChords}
                                         onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
                                         label={"Include Suspened Chords"} />
-                    </div>
-                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}>
+                    </div> */}
+                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "0px"}}>
                         <CheckboxSetting id={"useAsciiAccidentals"} 
                                         checked={useAsciiAccidentals}
                                         onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
-                                        label={"Use Plain Text Accidentals"} />
+                                        label={"Plain Text Accidentals"} />
                     </div>
-                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "0px"}}>
+                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}>
                         <CheckboxSetting id={"showDisplayKeyboardDegrees"} 
                                         checked={showDisplayKeyboardDegrees}
                                         onChange={() => setShowDisplayKeyboardDegrees(!showDisplayKeyboardDegrees)}
                                         label={"Display Piano Keyboard Degrees"} />
+                    </div>
+                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "0px"}}>
+                        <CheckboxSetting id={"forceScaleGroupOpen"} 
+                                        checked={forceScaleGroupOpen}
+                                        onChange={() => setForceScaleGroupOpen(!forceScaleGroupOpen)}
+                                        label={"Force Scale Group Open"} />
+                    </div>
+                    <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}>
+                        <CheckboxSetting id={"searchBarFollow"} 
+                                        checked={searchBarFollow}
+                                        onChange={() => setSearchBarFollow(!searchBarFollow)}
+                                        label={"Search Bar Follow"} />
                     </div>
                     </>
                 )}

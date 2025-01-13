@@ -342,6 +342,12 @@ li.scaleDisplay
   z-index: 5;
 }
 
+.static-div {
+  display: inline-block;
+  top: 10px;
+  z-index: 5;
+}
+
 .sticky-active {
   /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); */
   filter: drop-shadow(0 1mm 1.5mm grey);
