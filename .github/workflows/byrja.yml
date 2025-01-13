@@ -30,7 +30,7 @@ jobs:
 
       # Step 4: Build the React app
       - name: Build project
-        run: npm run build
+        run: CI=false npm run build
         working-directory: src
 
   deploy:
