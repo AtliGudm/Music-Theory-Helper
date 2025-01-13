@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ScaleFinder />}/>
           <Route path="/ScaleFinder" element={<ScaleFinder />}/>
+          <Route path="/Music-Theory-Helper" element={<ScaleFinder />}/>
         </Routes>
       </ScaleSettingsProvider>
     </>
