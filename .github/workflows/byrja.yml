@@ -28,7 +28,7 @@ jobs:
         run: npm install
         working-directory: src
 
-      - name: Build project
+      - name: Build project2
         run: CI=false npm run build
         working-directory: src
 
