@@ -14,6 +14,7 @@ const ScaleFinder = () => {
     const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: { scale: Scale[], selectedModeIndex: number, parentScale: string | null }}>({});
     const [ selectedScale, setSelectedScale ] = useState<PayloadContainer>();
     const [ isFooterVisible, setFooterVisible ] = useState(false);
+    const [ isSmallScreen, setIsSmallScreen ] = useState(window.innerWidth <= 730);
 
     const findScales = (queryText: string, threshold: number = 0, enharmonicEquivalenceOverride: boolean|null = null) => {
         if(queryText.length === 0) {
@@ -88,6 +89,13 @@ const ScaleFinder = () => {
         setFooterVisible(!isFooterVisible);
     };
 
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth <= 600);
+        window.addEventListener("resize", handleResize);
+    
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
+
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
@@ -109,7 +117,7 @@ const ScaleFinder = () => {
                 )}
             </div>
             <div className={"sticky-bottom " + (isFooterVisible ? "visible" : "")}>
-                <DisplayPianoKeyboard selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
+                <DisplayPianoKeyboard isSmallScreen={isSmallScreen} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
             </div>
             <button className="toggle-button"
                     onClick={toggleFooter}

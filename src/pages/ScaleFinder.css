@@ -26,6 +26,7 @@ h2.scaleGroupHeader {
   text-transform: uppercase;
   cursor: pointer;
   line-height: 1;
+  margin-inline: 8px;
 }
 
 h2.scaleGroupHeader:hover {
@@ -313,7 +314,7 @@ li.scaleDisplay
 }
 
 .dropdown-content div.dropdown-highlight {
-  background-color: #ddd;;
+  background-color: #ddd;
 }
 
 .dropdown-highlight2 {
@@ -321,12 +322,12 @@ li.scaleDisplay
 }
 
 .settings-container2 {
-  /* max- */width: 603px;
-  height: 60px;
+  /* max-width: 603px; */
+/*   height: 60px;
   border-radius: 0px 0px 17px 17px;
-  background-color: #dfdfdf;
-  top: -25px;
-  position: relative;
+  background-color: #dfdfdf; */
+  /* top: -25px; */
+  /* position: relative; */
   z-index: 50;
 }
 

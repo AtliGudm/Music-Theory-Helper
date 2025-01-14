@@ -172,42 +172,45 @@ const searchResultClicked = (item: SearchResultContainer) => {
   }
 
   return (
-    <div className={(searchBarFollow) ? ("sticky-div" + (isSticky ? " sticky-active" : "")) : "static-div"} ref={containerRef}>
-      <div className="search-container">
-      <button className="search-icon" title="Search" 
-                onClick={() => setIsTextInputOpen(!isTextInputOpen)}>
-          {isTextInputOpen ? (<PianoKeysIcon width="20" height="20"/>):(<i className="fa-solid fa-font"></i>)}
-        </button>
-        {isTextInputOpen && (
-          <>
-          <input type="text" 
-                  onChange={inputSearchChange2} 
-                  value={queryText} 
-                  placeholder="Enter scale names, or notes separated by commas(,) or spaces( )"
-                  onKeyDown={handleKeyDown} 
-                  onFocus={() => inputSearchChange(queryText)}
-                  /> 
+    <div style={{backgroundColor: "#dfdfdf", borderRadius: "22px", width: "100%", maxWidth: "620px", marginInline: "12px"}}
+      className={(searchBarFollow) ? ("sticky-div" + (isSticky ? " sticky-active" : "")) : "static-div"} ref={containerRef}>
+
+        <div className="search-container">
           <button className="search-icon" title="Search" 
-                  onClick={() => {setShowDropdown(false); findScales(queryText)}}>
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </>
-        )}
-        {!isTextInputOpen && (<InputPianoKeyboard findScales={findScales} />)}
+                    onClick={() => setIsTextInputOpen(!isTextInputOpen)}>
+              {isTextInputOpen ? (<PianoKeysIcon width="20" height="20"/>):(<i className="fa-solid fa-font"></i>)}
+            </button>
+            {isTextInputOpen && (
+              <>
+              <input type="text" 
+                      onChange={inputSearchChange2} 
+                      value={queryText} 
+                      placeholder="Enter scale names, or notes separated by commas(,) or spaces( )"
+                      onKeyDown={handleKeyDown} 
+                      onFocus={() => inputSearchChange(queryText)}
+                      /> 
+              <button className="search-icon" title="Search" 
+                      onClick={() => {setShowDropdown(false); findScales(queryText)}}>
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </>
+            )}
+            {!isTextInputOpen && (<InputPianoKeyboard findScales={findScales} />)}
+        </div>
+      
+        { queryText && searchResults2.length !== 0 && showDropdown &&
+            (<div className="dropdown-content">
+            {searchResults2 && searchResults2.map((item, index) => (
+                <div key={generateKey(item)}
+                    onClick={() => searchResultClicked(item)}
+                    className={(index == highlightedIndex) ? "dropdown-highlight" : "dropdown-highlight2" }>
+                    { generateSearchResultViewText(item) }
+                </div>)
+            )}
+            </div>) 
+        }
+        <ScaleFinderSettings /* disableEnharmonicCheckbox={!isTextInputOpen} *//>
       </div>
-      { queryText && searchResults2.length !== 0 && showDropdown &&
-          (<div className="dropdown-content">
-          {searchResults2 && searchResults2.map((item, index) => (
-              <div key={generateKey(item)}
-                   onClick={() => searchResultClicked(item)}
-                   className={(index == highlightedIndex) ? "dropdown-highlight" : "dropdown-highlight2" }>
-                  { generateSearchResultViewText(item) }
-              </div>)
-          )}
-          </div>) 
-      }
-      <ScaleFinderSettings /* disableEnharmonicCheckbox={!isTextInputOpen} *//>
-    </div>
   );
 };
 
