@@ -1,5 +1,5 @@
 # Music-Theory-Helper
-[Live Version](https://atligudm.github.io/Music-Theory-Helper/)
+[Live Demo](https://atligudm.github.io/Music-Theory-Helper/)
 
 This project was made to learn React and TypeScript. It's tools to help with music theory and composing, there are programs that provide somewhat similar features but this is tailor made to my specific requirements.
 
