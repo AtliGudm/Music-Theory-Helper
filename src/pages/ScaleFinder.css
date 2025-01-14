@@ -63,14 +63,14 @@ h2.scaleGroupHeader:hover {
   padding: 3px;
   color: black;
   border-radius: 6px;
-  margin-inline: 65px;
+  margin-inline: 54px;
   background-color: #ffc7c2;
 }
 
 .parallelModesButton {
   padding-top: 10px;
   border-top: 2px solid #7c7c7c;
-  margin-inline: 65px;
+  margin-inline: 54px;
   padding-bottom: 12px;
   cursor: pointer;
 }
@@ -335,7 +335,7 @@ li.scaleDisplay
   /* display: flex; */
   display: inline-block;
   text-align: left;
-  padding-left: 14px;
+  padding-inline: 14px;
   padding-bottom: 4px;
 }
 
