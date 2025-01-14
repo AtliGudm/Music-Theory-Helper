@@ -65,8 +65,9 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
                             >
                         <PianoKeysIcon width="30" height="30"/>
                     </button>
-                    <div style={{flexGrow: "2"}}>
-                        <strong><GetParallelScaleHeader mode={para.mode.mode} parallelRoot={para.parallelRoot}/></strong> {getScaleNotesDisplay(para.modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode, enharmonicEquivalence)}
+                    <div style={{flexGrow: "2", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "5px"}}>
+                        <strong><GetParallelScaleHeader mode={para.mode.mode} parallelRoot={para.parallelRoot}/>:</strong>
+                        <div>{getScaleNotesDisplay(para.modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode, enharmonicEquivalence)}</div>
                     </div>
                 </div>
                 <ModeSelector modeType="Parallel" scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
@@ -82,7 +83,7 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
     return (
         <>
             <div className="parallelModesButton" style={{paddingTop:"10px"}} onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? "▼" : "▶"} <strong>Parallel Modes</strong>
+            {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>}  <strong>Parallel Modes</strong>
             </div>
             {isOpen && (
                 <ParallelScale />

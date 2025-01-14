@@ -4,7 +4,7 @@ import { useScaleSettings } from "../ScaleSettingsContext";
 import { Scale, PayloadContainer } from "../data/ScaleData";
 
 const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
-    const [ isOpen, setIsOpen ] = useState(true);
+    const [ isOpen, setIsOpen ] = useState(false);
     const { forceScaleGroupOpen } = useScaleSettings();
     const [ selectedModes, setSelectedModes ] = useState(() => Array(scales.length).fill(scaleGroupStartingMode));
 
@@ -29,7 +29,7 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, d
     return (
         <div className="scaleGroup">
             <h2 className="scaleGroupHeader" onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? "▼" : "▶"} {getHeaderText()} Scales ({scales.length})
+                {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>}  {getHeaderText()} Scales ({scales.length})
             </h2>
             {isOpen && (
                 <ul>

@@ -41,7 +41,7 @@ export const ScaleSettingsProvider = ({ children }) => {
     getInitialState("showDisplayKeyboardDegrees", true)
   );
   const [forceScaleGroupOpen, setForceScaleGroupOpen] = useState(() =>
-    getInitialState("forceScaleGroupOpen", true)
+    getInitialState("forceScaleGroupOpen", false)
   );
   const [searchBarFollow, setSearchBarFollow] = useState(() =>
     getInitialState("searchBarFollow", true)

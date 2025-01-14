@@ -55,13 +55,13 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                         >
                     <PianoKeysIcon width="30" height="30"/>
                 </button>
-                    <div style={{flexGrow: "2"}}
+                    <div style={{flexGrow: "2"/* , display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "5px" */}}
                         role="button" 
                         onClick={() => setIsOpen(!isOpen)}
                         className="scaleHeader2">
                         <div style={{display: "inline"}} >
-                            {isOpen ? "▼" : "▶"} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName(scale, selectedMode)}/>:</strong>
-                        </div> {getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)} 
+                            {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName(scale, selectedMode)}/>:</strong>
+                        </div> <div>{getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)}</div>
                     </div>
                 </div>
                     {isOpen && showRelativeModeButton() && (

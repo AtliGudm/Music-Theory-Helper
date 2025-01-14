@@ -48,6 +48,10 @@ h2.scaleGroupHeader:hover {
   border-radius: 6px;
   padding: 4px;
   line-height: 1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .scaleHeader2:hover {
@@ -236,7 +240,7 @@ li.scaleDisplay
 .search-container {
   display: flex;
   align-items: center;
-  width: 600px;
+  /* width: 600px; */
   border: 2px solid #8f8f8f;
   border-radius: 25px;
   overflow: hidden;
@@ -317,7 +321,7 @@ li.scaleDisplay
 }
 
 .settings-container2 {
-  width: 603px;
+  /* max- */width: 603px;
   height: 60px;
   border-radius: 0px 0px 17px 17px;
   background-color: #dfdfdf;
