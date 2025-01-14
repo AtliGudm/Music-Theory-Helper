@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Music-Theory-Helper/static/css/main.17014e37.css",
-    "main.js": "/Music-Theory-Helper/static/js/main.d266df59.js",
+    "main.css": "/Music-Theory-Helper/static/css/main.7045d5fc.css",
+    "main.js": "/Music-Theory-Helper/static/js/main.74fbae4a.js",
     "static/js/453.3bf991e7.chunk.js": "/Music-Theory-Helper/static/js/453.3bf991e7.chunk.js",
     "static/media/fa-solid-900.ttf": "/Music-Theory-Helper/static/media/fa-solid-900.2582b0e4bcf85eceead0.ttf",
     "static/media/fa-brands-400.ttf": "/Music-Theory-Helper/static/media/fa-brands-400.1815e00441357e01619e.ttf",
@@ -12,12 +12,12 @@
     "static/media/fa-v4compatibility.ttf": "/Music-Theory-Helper/static/media/fa-v4compatibility.da94ef451f4969af06e6.ttf",
     "static/media/fa-v4compatibility.woff2": "/Music-Theory-Helper/static/media/fa-v4compatibility.ea8f94e1d22e0d35ccd4.woff2",
     "index.html": "/Music-Theory-Helper/index.html",
-    "main.17014e37.css.map": "/Music-Theory-Helper/static/css/main.17014e37.css.map",
-    "main.d266df59.js.map": "/Music-Theory-Helper/static/js/main.d266df59.js.map",
+    "main.7045d5fc.css.map": "/Music-Theory-Helper/static/css/main.7045d5fc.css.map",
+    "main.74fbae4a.js.map": "/Music-Theory-Helper/static/js/main.74fbae4a.js.map",
     "453.3bf991e7.chunk.js.map": "/Music-Theory-Helper/static/js/453.3bf991e7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.17014e37.css",
-    "static/js/main.d266df59.js"
+    "static/css/main.7045d5fc.css",
+    "static/js/main.74fbae4a.js"
   ]
 }
