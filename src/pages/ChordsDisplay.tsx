@@ -5,7 +5,7 @@ import { useScaleSettings } from "../ScaleSettingsContext";
 import { FormatAccidentalsForDisplay } from "./HelperComponents";
 
 
-const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, selectedMode: number, includeSevenths: boolean}) => {
+const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegreesArr}: {scale: Scale, selectedMode: number, includeSevenths: boolean, generateOnlyDegreesArr?: number[] | null}) => {
     const { highlightQueryNotes, queryNotes, chordDisplayOrientation, inludeSuspenedChords, enharmonicEquivalence } = useScaleSettings();
     
     const prepareNote = (note: string) => {
@@ -22,7 +22,7 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths}: {scale: Scale, se
     return (
         <div className={ chordDisplayOrientation == "horizontal" ? "chords" : "chords-vertical" } 
             style={{ marginTop: "0.8rem", marginBottom: "1rem" }}>
-            {GenerateDiatonicChords(scale, selectedMode, includeSevenths, inludeSuspenedChords).map((chord, chordIndex) => (
+            {GenerateDiatonicChords(scale, selectedMode, includeSevenths, inludeSuspenedChords, generateOnlyDegreesArr).map((chord, chordIndex) => (
                 chordDisplayOrientation === "horizontal" ? (
                     <div key={chordIndex} className="chord">
                         <div className="horizontal-chord-name"><FormatAccidentalsForDisplay textInput={chord.chordName}/></div>

@@ -7,6 +7,7 @@ import ParallelModesDisplay from "./ParallelModesDisplay";
 import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
 import PianoKeysIcon from "../assets/PianoKeysIcon";
 import { Scale, PayloadContainer } from "../data/ScaleData";
+import { MinorExtraScaleDisplay } from "./MinorExtraChords";
 
 
 const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard} : {scale: Scale, selectedMode: number, scaleIndex: number, changeModeCallback : (index: number, newValue: number) => void, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
@@ -74,8 +75,13 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                     { showParallelModeButton() && 
                         <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     }
+                    {(scale && scale.type === "Minor" ) && (
+                        <MinorExtraScaleDisplay scale={scale}/>
+                    )}
                 </>
             )}
+
+            
         </li>
     );
 }

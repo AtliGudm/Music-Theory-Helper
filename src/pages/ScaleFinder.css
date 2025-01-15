@@ -18,7 +18,7 @@ div.scaleFinder {
 
 
 h2.scaleGroupHeader {
-  background-color: #7dc9ea; /* #B1F0F7; */
+  background-color: #7dc9ea;
   margin-block-end: 0.4em;
   color: black;
   padding-block: 6px;
@@ -35,13 +35,11 @@ h2.scaleGroupHeader:hover {
 
 
 .scaleHeader {
-  background-color: #FADA7A; /*  #F5F0CD; */
-  /* padding: 2px; */
+  background-color: #FADA7A; 
   color: black;
   margin-inline: 30px;
   border-radius: 6px;
   padding: 3px;
-  /* cursor: pointer; */
 }
 
 .scaleHeader2 {
@@ -79,12 +77,12 @@ h2.scaleGroupHeader:hover {
   background-color: #dfdfdf;
 }
 
-.scaleGrouContainer ul {
+.scaleGroupContainer ul {
     list-style-type: none;
     padding-inline-start: 0px;
 }
 
-.scaleGrouContainer li {
+.scaleGroupContainer li {
     font-size: 18px;
 }
   
@@ -102,20 +100,17 @@ div.chords-vertical {
 
   /* Individual chord block styling */
 div.chord {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-     padding-left: 0.7rem;
-     padding-right: 0.7rem;
-/*    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9; */
-    width: 55px;
-    transition: background-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+  width: 55px;
+  transition: background-color 0.2s ease;
 }
   
-  /* Hover effect for chord blocks */
+/* Hover effect for chord blocks */
 div.chord:hover {
     background-color: #eaeaea;
 }
@@ -141,38 +136,7 @@ div.chord-notes {
 }
 
 div.scale-note-degree {
-  /* text-align: left; */
   font-weight: bold;
-}
-   
-.settings-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px;
-    padding-inline: 12px;
-    padding-block: 4px;
-}
-
-.settings-container {
-  /* background-color: #dedede; */
-  border-bottom: 2px solid rgb(175, 175, 175);
-  border-left: 2px solid rgb(175, 175, 175);
-  border-right: 2px solid rgb(175, 175, 175);
-}
-
-.scaleHeaderContainer {
-    display: grid;
-    grid-template-columns: 1fr auto; /* Centered div + Right-aligned div */
-    align-items: center; /* Vertically center the items */
-    position: relative; /* For grid alignment */
-}
-
-.modeSelectRightAligned {
-    text-align: right;
-    display: flex;
-    flex-direction: column; /* Stack content inside the right-aligned div */
-    align-items: flex-end; /* Align to the right */
 }
 
 li.scaleDisplay
@@ -180,16 +144,9 @@ li.scaleDisplay
     border-radius: 4px;
 }
 
-
 .search
 {
   display: inline-block;
-}
-
-.search-sticky-container {
-  position: sticky;
-  top: 0;
-  background-color: white;
 }
 
 .dropdown-content {
@@ -234,9 +191,6 @@ li.scaleDisplay
   transform-origin: center; /* Ensures scaling happens from the center */
   display: inline-block; /* Ensures it behaves like a regular inline element */
 }
-
-
-
 
 .search-container {
   display: flex;
@@ -354,7 +308,6 @@ li.scaleDisplay
 }
 
 .sticky-active {
-  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); */
   filter: drop-shadow(0 1mm 1.5mm grey);
 }
 
@@ -366,26 +319,12 @@ li.scaleDisplay
   cursor: pointer;
 }
 
-.settings-div- {
-  padding-right: 0px;
-}
-
-.unselectable {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 div.horizontal-chord-name {
   font-weight: bold;
   padding-bottom: 3px;
   border-bottom: 2px solid #686868;
   margin-bottom: 6px;
   min-width: 78px;
-  /* max-height: 25.22px; */
 }
 
 div.horizontal-chord-roman-numeral {
@@ -506,6 +445,20 @@ span.double-sharp-accidental {
 
 .piano-icon {
   fill: black; /* #737402 */
+}
+
+h3.circle {
+  width: 35px; 
+  height: 35px;  
+  border: 2px solid black; /* Circle border color and thickness */
+  border-radius: 50%; /* Makes the shape a circle */
+  text-align: center; /* Centers the letter horizontally */
+  line-height: 35px;  /* Centers the letter vertically */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4px;
+  margin-bottom: 8px;
 }
 
 /* .piano-icon:hover {

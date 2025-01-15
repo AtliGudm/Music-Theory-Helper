@@ -8,6 +8,12 @@ const intToRomanNumeral: { [key: number]: string } = {
     5: "vi", 6: "vii", 7: "viii", 8: "ix"
 }
 
+interface Chord {
+    chordName: string;
+    chordNotes: string[];
+    romanNumeral: string;
+}
+
 const getChordQuality = (root: number, third: number, fifth: number, seventh: number | null, scaleDegree: number) => {
     const interval1 = (third - root + 12) % 12; // Root to third
     const interval2 = (fifth - third + 12) % 12; // Third to fifth
@@ -84,42 +90,57 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
     return { quality, romanNumeral }
 };
 
-const GenerateDiatonicChords = (scale: Scale, selectedMode: number, includeSevenths: boolean, inludeSuspenedChords: boolean) => {
+const GenerateDiatonicChords = (scale: Scale, selectedMode: number, includeSevenths: boolean, inludeSuspenedChords: boolean, generateOnlyDegreesArr: number[] | null = null) => {
     if(inludeSuspenedChords || scale.type === "Major Pentatonic" || scale.type === "Minor Pentatonic")
         return GenerateAllDiatonicChords(scale, selectedMode, includeSevenths);
     else
-        return GenerateStandardDiatonicChords(scale, selectedMode, includeSevenths);
+        return GenerateStandardDiatonicChords(scale, selectedMode, includeSevenths, generateOnlyDegreesArr);
 }
 
-const GenerateStandardDiatonicChords = (scale: Scale, selectedMode: number, includeSevenths: boolean) => {
+const GenerateStandardDiatonicChords = (scale: Scale, selectedMode: number, includeSevenths: boolean, generateOnlyDegreesArr: number[] | null = null) => {
     const { romanNumeralsMajorAdjusted } = useScaleSettings();
     
     const scaleNotes = scale.notes;
-    const chords = scaleNotes.map((root, index) => {
-        const third = scaleNotes[(index + 2) % scaleNotes.length];
-        const fifth = scaleNotes[(index + 4) % scaleNotes.length];
-        const seventh = includeSevenths ? scaleNotes[(index + 6) % scaleNotes.length] : null;
+    let chords: Chord[] = [];
 
-        let { quality, romanNumeral } = getChordQuality(noteToInt[root], noteToInt[third], noteToInt[fifth], seventh !== null ? noteToInt[seventh] : null, index);
-        if (quality === null) return {};
-        const chordName = root + quality;
-        const chordNotes = [root, third, fifth];
-        if(includeSevenths && seventh !== null) chordNotes.push(seventh);
-        if(romanNumeralsMajorAdjusted/*  && Number(selectedMode) > 0 */) {
-            const accidental = modes[scale.type][Number(selectedMode)].accidentals[index];
-            if(accidental != 0)
-                romanNumeral = accidental + romanNumeral;
-        }
-        return { chordName, chordNotes, romanNumeral };
-    });
+    if (generateOnlyDegreesArr) {
+        let notesToLoopThrough: string[] = [];
+        generateOnlyDegreesArr.forEach(item => {
+            notesToLoopThrough.push(scaleNotes[item]);
+        });
+
+        chords = notesToLoopThrough.map((root, index) => {
+            return generateDiatonicChord(scale, selectedMode, includeSevenths, romanNumeralsMajorAdjusted, scaleNotes, generateOnlyDegreesArr[index], root);
+        });
+    }
+    else {
+        chords = scaleNotes.map((root, index) => {
+            return generateDiatonicChord(scale, selectedMode, includeSevenths, romanNumeralsMajorAdjusted, scaleNotes, index, root);
+        });
+    }
+
     return chords;
 }
 
-interface Chord {
-    chordName: string;
-    chordNotes: string[];
-    romanNumeral: string;
+const generateDiatonicChord = (scale: Scale, selectedMode: number, includeSevenths: boolean, romanNumeralsMajorAdjusted: boolean, scaleNotes: string[], index: number, root: string) => {
+    const third = scaleNotes[(index + 2) % scaleNotes.length];
+    const fifth = scaleNotes[(index + 4) % scaleNotes.length];
+    const seventh = includeSevenths ? scaleNotes[(index + 6) % scaleNotes.length] : null;
+
+    let { quality, romanNumeral } = getChordQuality(noteToInt[scaleNotes[index]], noteToInt[third], noteToInt[fifth], seventh !== null ? noteToInt[seventh] : null, index);
+    if (quality === null) return { chordName: "", chordNotes: [], romanNumeral: "" };
+    const chordName = root + quality;
+    const chordNotes = [root, third, fifth];
+    if(includeSevenths && seventh !== null) chordNotes.push(seventh);
+    if(romanNumeralsMajorAdjusted/*  && Number(selectedMode) > 0 */) {
+        const accidental = modes[scale.type][Number(selectedMode)].accidentals[index];
+        if(accidental != 0)
+            romanNumeral = accidental + romanNumeral;
+    }
+    return { chordName, chordNotes, romanNumeral };
 }
+
+
 
 
 const GenerateAllDiatonicChords = (scale: Scale, selectedMode: number, includeSevenths: boolean) => {

@@ -100,7 +100,7 @@ const ScaleFinder = () => {
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
             <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes} />    
-            <div className="scaleGrouContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
+            <div className="scaleGroupContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, item]) => (
                         <ScaleGroupDisplay
