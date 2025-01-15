@@ -46,6 +46,10 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [searchBarFollow, setSearchBarFollow] = useState(() =>
     getInitialState("searchBarFollow", true)
   );
+  const [enablePinFuntionality, setEnablePinFuntionality] = useState(() =>
+    getInitialState("enablePinFuntionality", false)
+  );
+
 
   // Effect to sync settings with localStorage
   useEffect(() => {
@@ -96,6 +100,10 @@ export const ScaleSettingsProvider = ({ children }) => {
     localStorage.setItem("searchBarFollow", JSON.stringify(searchBarFollow));
   }, [searchBarFollow]);
 
+  useEffect(() => {
+    localStorage.setItem("enablePinFuntionality", JSON.stringify(enablePinFuntionality));
+  }, [enablePinFuntionality]);
+
   return (
     <ScaleSettingsContext.Provider
       value={{
@@ -122,7 +130,9 @@ export const ScaleSettingsProvider = ({ children }) => {
         forceScaleGroupOpen,
         setForceScaleGroupOpen,
         searchBarFollow,
-        setSearchBarFollow
+        setSearchBarFollow,
+        enablePinFuntionality,
+        setEnablePinFuntionality
       }}
     >
       {children}

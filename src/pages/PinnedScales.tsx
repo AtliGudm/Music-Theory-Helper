@@ -2,6 +2,7 @@ import { PayloadContainer } from "../data/ScaleData"
 import { Scale } from "../data/ScaleData"
 import ScaleDisplay from "./ScaleDisplay";
 import { useState } from "react";
+import { useScaleSettings } from "../ScaleSettingsContext";
 
 export interface PinnedScale {
     scale: Scale;
@@ -13,9 +14,10 @@ export interface PinnedScale {
 
 export const PinnedScales = ({ pinnedScalesList, changeModeCallback, emptyPinnedScalesListCallback, unpinScaleCallback = null }: { pinnedScalesList: PinnedScale[], changeModeCallback : (index: number, newValue: number) => void, emptyPinnedScalesListCallback: () => void, unpinScaleCallback: (index: number) => void | null }) => {
     const [ isOpen, setIsOpen ] = useState(false);
+    const { enablePinFuntionality } = useScaleSettings();
 
     return (<>
-        {pinnedScalesList && pinnedScalesList.length > 0 && (
+        {(enablePinFuntionality && pinnedScalesList && pinnedScalesList.length > 0) && (
             <div className="scaleGroupContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 <div className="scaleGroup">
                     <h2 className="pinnedScalesHeader" onClick={() => setIsOpen(!isOpen)}>

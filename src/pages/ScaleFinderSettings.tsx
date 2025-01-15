@@ -14,13 +14,13 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
         useAsciiAccidentals, setUseAsciiAccidentals,
         showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees,
         forceScaleGroupOpen, setForceScaleGroupOpen,
-        searchBarFollow, setSearchBarFollow } = useScaleSettings();
+        searchBarFollow, setSearchBarFollow,
+        enablePinFuntionality, setEnablePinFuntionality } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     return (
         <div className={"settings-container2 "} /* style={{height: isOpen ? "156px" : "60px"}} */>
             <div style={{/* top: "33px", position: "relative",  */ textAlign: "left", paddingTop: "5px"}}>
-                {/* <div></div> */}
                 <div className="settings-div" style={{display: "flex", flexWrap: "wrap", gap: "5px 12px"/* , backgroundColor: "#dfdfdf", borderRadius: "0px 0px 17px 17px" */}}>
                     <span style={{paddingRight: "0px"}}><i onClick={() => setIsOpen(!isOpen)} className={isOpen ? "fa-solid fa-circle-chevron-up": "fa-solid fa-circle-chevron-down"}></i></span>
                     <div>
@@ -60,7 +60,6 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                 
                 {isOpen && (
                     <>
-                    {/* <div className="settings-div" style={{paddingLeft: "38px"}}> */}
                         <CheckboxSetting id={"highlightQueryNotes"}
                                         checked={highlightQueryNotes}
                                         onChange={() => setHighlightQueryNotes(!highlightQueryNotes)}
@@ -69,43 +68,35 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                         checked={showNoteScaleDegree}
                                         onChange={() => setShowNoteScaleDegree(!showNoteScaleDegree)}
                                         label={"Show Note Scale Degree"} />
-                    {/* </div> */}
-                    {/* <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}> */}
                         <CheckboxSetting id={"romanNumeralsMajorAdjusted"} 
                                         checked={romanNumeralsMajorAdjusted}
                                         onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
                                         label={"Roman Numerals are relative to Major"} />
-                    {/* </div> */}
-                    {/* <div className="settings-div" style={{textAlign: "left" , paddingLeft: "0px" }}>
-                        <CheckboxSetting id={"inludeSuspenedChords"} 
+
+                        {/* <CheckboxSetting id={"inludeSuspenedChords"} 
                                         checked={inludeSuspenedChords}
                                         onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
-                                        label={"Include Suspened Chords"} />
-                    </div> */}
-                    {/* <div className="settings-div" style={{textAlign: "left", paddingLeft: "0px"}}> */}
+                                        label={"Include Suspened Chords"} /> */}
                         <CheckboxSetting id={"useAsciiAccidentals"} 
                                         checked={useAsciiAccidentals}
                                         onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
                                         label={"Plain Text Accidentals"} />
-                    {/* </div> */}
-                    {/* <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}> */}
                         <CheckboxSetting id={"showDisplayKeyboardDegrees"} 
                                         checked={showDisplayKeyboardDegrees}
                                         onChange={() => setShowDisplayKeyboardDegrees(!showDisplayKeyboardDegrees)}
                                         label={"Display Piano Keyboard Degrees"} />
-                    {/* </div> */}
-                    {/* <div className="settings-div" style={{textAlign: "left", paddingLeft: "0px"}}> */}
                         <CheckboxSetting id={"forceScaleGroupOpen"} 
                                         checked={forceScaleGroupOpen}
                                         onChange={() => setForceScaleGroupOpen(!forceScaleGroupOpen)}
                                         label={"Force Scale Group Open"} />
-                    {/* </div> */}
-                    {/* <div className="settings-div" style={{textAlign: "left", paddingLeft: "38px"}}> */}
                         <CheckboxSetting id={"searchBarFollow"} 
                                         checked={searchBarFollow}
                                         onChange={() => setSearchBarFollow(!searchBarFollow)}
                                         label={"Search Bar Follow"} />
-                    {/* </div> */}
+                        <CheckboxSetting id={"enablePinFuntionality"} 
+                                        checked={enablePinFuntionality}
+                                        onChange={() => setEnablePinFuntionality(!enablePinFuntionality)}
+                                        label={"Enable Pin Funtionality"} />
                     </>
                 )}
                 </div>

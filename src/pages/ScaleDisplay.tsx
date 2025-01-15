@@ -11,7 +11,7 @@ import { MinorExtraScaleDisplay } from "./MinorExtraChords";
 import { PinnedScale } from "./PinnedScales";
 
 const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard, pinnScaleCallback = null, unpinScaleCallback = null} : {scale: Scale, selectedMode: number, scaleIndex: number, changeModeCallback : (index: number, newValue: number) => void, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void | null, unpinScaleCallback: (index: number) => void | null}) => {
-    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
+    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence, enablePinFuntionality } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     const getScaleNotes = () => {
@@ -67,7 +67,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                             >
                         <PianoKeysIcon width="30" height="30"/>
                     </button>
-                    { pinnScaleCallback && (
+                    { (enablePinFuntionality && pinnScaleCallback) && (
                         <button onClick={clickPinnScale}
                             className="pin-button">
                             <i className="fa-solid fa-thumbtack" style={{transform: "rotate(45deg)"}}></i>
@@ -81,7 +81,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                             {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName(scale, selectedMode)}/>:</strong>
                         </div> <div>{getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)}</div>
                     </div>
-                    {unpinScaleCallback && (
+                    { (enablePinFuntionality && unpinScaleCallback) && (
                         <button onClick={() => unpinScaleCallback(scaleIndex)}
                                 className="trash-can">
                             <i className="fa-regular fa-trash-can"></i>
