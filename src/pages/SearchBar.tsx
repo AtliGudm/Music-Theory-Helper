@@ -8,6 +8,7 @@ import { getFifth } from "../Helpers";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import InputPianoKeyboard from "./InputPianoKeyboard";
 import PianoKeysIcon from "../assets/PianoKeysIcon";
+import { FormatAccidentalsForDisplay } from './HelperComponents';
 
 export interface SearchResultContainer {
   root: null | string,
@@ -204,7 +205,7 @@ const searchResultClicked = (item: SearchResultContainer) => {
                 <div key={generateKey(item)}
                     onClick={() => searchResultClicked(item)}
                     className={(index == highlightedIndex) ? "dropdown-highlight" : "dropdown-highlight2" }>
-                    { generateSearchResultViewText(item) }
+                    <FormatAccidentalsForDisplay textInput={ generateSearchResultViewText(item) }/>
                 </div>)
             )}
             </div>) 

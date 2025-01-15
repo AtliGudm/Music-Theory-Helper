@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ScaleDisplay from "./ScaleDisplay";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { Scale, PayloadContainer } from "../data/ScaleData";
+import { FormatAccidentalsForDisplay } from './HelperComponents';
 
 const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
     const [ isOpen, setIsOpen ] = useState(false);
@@ -15,6 +16,7 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, d
     }
 
     const getHeaderText = () => {
+        console.log(type);
         return type + ((scaleGroupStartingMode > 0) ? " [" + parentScale + "]" : "");
     }
 
@@ -29,7 +31,7 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, d
     return (
         <div className="scaleGroup">
             <h2 className="scaleGroupHeader" onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>}  {getHeaderText()} Scales ({scales.length})
+                {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>}  <FormatAccidentalsForDisplay textInput={getHeaderText()}/> Scales ({scales.length})
             </h2>
             {isOpen && (
                 <ul>
