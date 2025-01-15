@@ -17,7 +17,6 @@ You can also see 7th chords, view chords vertically or horizontally, and tons of
 ### Manual/Documentation coming soon!
 
 Next:
-- Add button to see the corresponding harmonic and melodic minor chords of a natural minor scale
 - Add setting for how notes with double accidentals are displayed
 
 Future features:
