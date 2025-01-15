@@ -20,11 +20,9 @@ Next:
 - Add setting for how notes with double accidentals are displayed
 
 Future features:
-- Add favorites/pinned functionality
 - Create Unit/Integration Tests
 - Start work on "The Modulator", a tool to help with modulating between keys/scales
 
 Fix:
-- Fix: flat signs are being capitalized in modes like 'Dorian b5'
 - Fix: how enharmonics are forced when using Piano Keyboard note input
 - Revamp the Include Suspended Chords functionality

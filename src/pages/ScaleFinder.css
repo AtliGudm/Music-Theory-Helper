@@ -33,6 +33,25 @@ h2.scaleGroupHeader:hover {
   background-color: #99d6f0;
 }
 
+h2.pinnedScalesHeader {
+  background-color: #7dea84;
+  margin-block-end: 0.4em;
+  color: black;
+  padding-block: 6px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1;
+  margin-inline: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 14px;
+  padding-right: 12px;
+}
+
+h2.pinnedScalesHeader:hover {
+  background-color: #9ff7a3;
+}
 
 .scaleHeader {
   background-color: #FADA7A; 
@@ -465,4 +484,22 @@ h3.circle {
   fill: rgb(93, 93, 93);
 } */
 
+button.pin-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  height: 100%;
+  cursor: pointer;
+  padding: 12px;
+  border-right: 2px solid rgb(138 130 36);
+}
 
+button.pin-button:hover {
+  background-color: #9ff7a3;
+}
+
+button.trash-can {
+  background: none;
+  border: none;
+  font-size: 18px;
+}

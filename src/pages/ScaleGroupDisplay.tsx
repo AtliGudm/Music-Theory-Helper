@@ -3,8 +3,9 @@ import ScaleDisplay from "./ScaleDisplay";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { Scale, PayloadContainer } from "../data/ScaleData";
 import { FormatAccidentalsForDisplay } from './HelperComponents';
+import { PinnedScale } from "./PinnedScales";
 
-const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
+const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard, pinnScaleCallback} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void }) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const { forceScaleGroupOpen } = useScaleSettings();
     const [ selectedModes, setSelectedModes ] = useState(() => Array(scales.length).fill(scaleGroupStartingMode));
@@ -16,7 +17,6 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, d
     }
 
     const getHeaderText = () => {
-        console.log(type);
         return type + ((scaleGroupStartingMode > 0) ? " [" + parentScale + "]" : "");
     }
 
@@ -41,7 +41,9 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, d
                                     scaleIndex={index} 
                                     changeModeCallback={changeModeCallback}  
                                     scale={_scale} 
-                                    displayScaleOnKeyboard={displayScaleOnKeyboard}/>
+                                    displayScaleOnKeyboard={displayScaleOnKeyboard}
+                                    pinnScaleCallback={pinnScaleCallback}
+                                    unpinScaleCallback={null}/>
                     ))}
                 </ul>
             )}

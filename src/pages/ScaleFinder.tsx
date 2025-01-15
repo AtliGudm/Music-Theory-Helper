@@ -8,6 +8,7 @@ import SearchBar from "./SearchBar";
 import { findByName } from "../data/ModesData";
 import DisplayPianoKeyboard from "./DisplayPianoKeyboard";
 import PianoKeysIcon from '../assets/PianoKeysIcon';
+import { PinnedScale, PinnedScales } from "./PinnedScales";
 
 const ScaleFinder = () => {
     const { enharmonicEquivalence, setQueryNotes } = useScaleSettings();
@@ -15,6 +16,7 @@ const ScaleFinder = () => {
     const [ selectedScale, setSelectedScale ] = useState<PayloadContainer>();
     const [ isFooterVisible, setFooterVisible ] = useState(false);
     const [ isSmallScreen, setIsSmallScreen ] = useState(window.innerWidth <= 730);
+    const [ pinnedScalesList, setPinnedScalesList ] = useState<PinnedScale[]>([]);
 
     const findScales = (queryText: string, threshold: number = 0, enharmonicEquivalenceOverride: boolean|null = null) => {
         if(queryText.length === 0) {
@@ -96,10 +98,36 @@ const ScaleFinder = () => {
         return () => window.removeEventListener("resize", handleResize);
       }, []);
 
+    const pinnScale = (pinnedScale: PinnedScale) => {
+        const copiedPinnedScalesList = [...pinnedScalesList];
+        copiedPinnedScalesList.push(pinnedScale);
+        setPinnedScalesList(copiedPinnedScalesList);
+    }
+
+    const changeModeCallback = (index: number, newValue: number) => {
+        const copiedPinnedScalesList = [...pinnedScalesList];
+        copiedPinnedScalesList[index].selectedMode = newValue; 
+        setPinnedScalesList(copiedPinnedScalesList);
+    }
+
+    const emptyPinnedScalesList = () => {
+        setPinnedScalesList([]);
+    }
+
+    const unpinScale = (index: number) => {
+        let copiedPinnedScalesList = [...pinnedScalesList];
+        copiedPinnedScalesList.splice(index, 1);
+        setPinnedScalesList(copiedPinnedScalesList);
+    }
+
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
             <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes} />    
+            <PinnedScales pinnedScalesList={pinnedScalesList}
+                          changeModeCallback={changeModeCallback}
+                          emptyPinnedScalesListCallback={emptyPinnedScalesList}
+                          unpinScaleCallback={unpinScale}/>
             <div className="scaleGroupContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, item]) => (
@@ -110,6 +138,7 @@ const ScaleFinder = () => {
                             scaleGroupStartingMode={item.selectedModeIndex}
                             parentScale={item.parentScale}
                             displayScaleOnKeyboard={displayScaleOnKeyboard}
+                            pinnScaleCallback={pinnScale}
                         />
                     ))
                     ) : (
