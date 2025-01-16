@@ -58,7 +58,7 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
         const para: ParaScale = getParallelScale();
         return (
             <>
-                <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem", display: "flex", alignItems: "center", position: "relative"}}>
+                <div className="parallelScaleHeader" style={{marginBottom: "0.4rem", marginTop: "0.4rem", display: "flex", alignItems: "center", position: "relative", marginInline: "54px"}}>
                     <button className="display-scale-on-keyboard-button" title="Search" 
                             onClick={callDisplayScaleOnKeyboard} 
                             style={{marginRight: "auto"}}

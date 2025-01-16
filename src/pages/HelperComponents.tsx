@@ -102,6 +102,12 @@ export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false}
                         else if (textArray[i + 1] >= '0' && textArray[i + 1] <= '9') {
                             return (<span key={i} className="flat-accidental">{flatIcon}</span>);
                         }
+                        else if((i + 4 < textArray.length) && 
+                                 textArray[i+1] === "s" &&
+                                 textArray[i+2] === "u" &&
+                                 textArray[i+3] === "s") {
+                            return (<span key={i} className="flat-accidental">{flatIcon}</span>);
+                        }
                     } else {
                         return (<span key={i} className="flat-accidental">{flatIcon}</span>);
                     }

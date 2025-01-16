@@ -3,7 +3,7 @@ import { PayloadContainer } from '../data/ScaleData';
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { FormatAccidentalsForDisplay } from './HelperComponents';
 
-const DisplayPianoKeyboard = ({selectedScale, isSmallScreen}:{selectedScale: PayloadContainer, isSmallScreen: boolean}) => {
+const DisplayPianoKeyboard = ({selectedScale, isSmallScreen, toggleFooter}:{selectedScale: PayloadContainer, isSmallScreen: boolean, toggleFooter: () => void}) => {
     const { showDisplayKeyboardDegrees } = useScaleSettings();
     const pianoKeys = [ [0,"W"], [1,"B"], [2,"W"], [3,"B"], [4,"W"], [5,"W"], [6,"B"], [7,"W"], [8,"B"], [9,"W"], [10,"B"], [11,"W"] ];
                        // [0,"W"], [1,"B"], [2,"W"], [3,"B"], [4,"W"], [5,"W"], [6,"B"], [7,"W"], [8,"B"], [9,"W"], [10,"B"], [11,"W"] ];
@@ -66,8 +66,15 @@ const DisplayPianoKeyboard = ({selectedScale, isSmallScreen}:{selectedScale: Pay
 
     return (
         <div className='container'>
-            <div className='piano-display-border'>
-                <div style={{padding: "4px"}}><FormatAccidentalsForDisplay textInput={getScaleDisplayName()}/></div>
+            <div className='piano-display-border' style={isSmallScreen ? {width: "307px"} : {width: "596px"}}>
+                <div style={{display: "flex"}}>
+                    <div style={{paddingRight: "0px"}}>
+                        <i onClick={toggleFooter}
+                            style={{fontSize: "18px"}}
+                            className={"fa-solid fa-circle-chevron-down"}></i>
+                    </div>
+                    <div style={{padding: "4px", flexGrow: "2"}}><FormatAccidentalsForDisplay textInput={getScaleDisplayName()}/></div>
+                </div>
                 <div className="piano-container">
                     <ul className="piano-keys-list">
                         {createPianoKeyboard(isSmallScreen)}

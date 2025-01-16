@@ -21,7 +21,7 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
     
     return (
         <div className={ chordDisplayOrientation == "horizontal" ? "chords" : "chords-vertical" } 
-            style={{ marginTop: "0.8rem", marginBottom: "1rem" }}>
+            style={{ marginTop: "0.8rem", marginBottom: "1rem", rowGap: "30px" }}>
             {GenerateDiatonicChords(scale, selectedMode, includeSevenths, inludeSuspenedChords, generateOnlyDegreesArr).map((chord, chordIndex) => (
                 chordDisplayOrientation === "horizontal" ? (
                     <div key={chordIndex} className="chord">

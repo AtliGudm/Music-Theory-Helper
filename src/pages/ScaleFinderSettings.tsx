@@ -1,7 +1,7 @@
 import { CheckboxSetting } from "./CheckboxSetting";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useScaleSettings } from "../ScaleSettingsContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicCheckbox:boolean} */) => {
@@ -15,27 +15,36 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
         showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees,
         forceScaleGroupOpen, setForceScaleGroupOpen,
         searchBarFollow, setSearchBarFollow,
-        enablePinFuntionality, setEnablePinFuntionality } = useScaleSettings();
+        enablePinFuntionality, setEnablePinFuntionality,
+        inludeSuspenedChords, setInludeSuspenedChords } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
+    const [ hideEnharmonicCheckbox, setHideEnharmonicCheckbox ] = useState(window.innerWidth <= 585);
+    const [ hide7thsCheckbox, setHide7thsCheckbox ] = useState(window.innerWidth <= 420);
+    //const [ isExtraOpen, setIsExtraOpen ] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => setHideEnharmonicCheckbox(window.innerWidth <= 585);
+        window.addEventListener("resize", handleResize);
+    
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    useEffect(() => {
+        const handleResize = () => setHide7thsCheckbox(window.innerWidth <= 420);
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     return (
-        <div className={"settings-container2 "} /* style={{height: isOpen ? "156px" : "60px"}} */>
-            <div style={{/* top: "33px", position: "relative",  */ textAlign: "left", paddingTop: "5px"}}>
-                <div className="settings-div" style={{display: "flex", flexWrap: "wrap", gap: "5px 12px"/* , backgroundColor: "#dfdfdf", borderRadius: "0px 0px 17px 17px" */}}>
-                    <span style={{paddingRight: "0px"}}><i onClick={() => setIsOpen(!isOpen)} className={isOpen ? "fa-solid fa-circle-chevron-up": "fa-solid fa-circle-chevron-down"}></i></span>
-                    <div>
-                        <input 
-                            type="checkbox" 
-                            checked={enharmonicEquivalence}
-                            onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)} 
-                            id={"enharmonicEquivalence"} 
-                            /* disabled={disableEnharmonicCheckbox} *//>
-                            <label htmlFor={"enharmonicEquivalence"}>{"Enharmonic Check"}</label>
-                    </div>
-                    <CheckboxSetting id={"includeSevenths"}
-                                    checked={includeSevenths}
-                                    onChange={() => setIncludeSevenths(!includeSevenths)}
-                                    label={"Include 7ths"} />
+        <div className={"settings-container2 "}>
+            <div style={{textAlign: "left", paddingTop: "5px"}}>
+                <div className="settings-div" style={{display: "flex", flexWrap: "wrap", gap: "5px 12px"}}>
+                    <span style={{paddingRight: "0px"}}>
+                        <i onClick={() => setIsOpen(!isOpen)} 
+                            style={{fontSize: "18px"}}
+                           className={isOpen ? "fa-solid fa-circle-chevron-up": "fa-solid fa-circle-chevron-down"}></i>
+                    </span>
                     <div style={{flexBasis: "content"}}>
                         <span>Chords</span>
                         <label>
@@ -57,9 +66,36 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                     />Vertical
                         </label>
                     </div>
-                
+                    {!hide7thsCheckbox && (
+                        <CheckboxSetting id={"includeSevenths"}
+                                    checked={includeSevenths}
+                                    onChange={() => setIncludeSevenths(!includeSevenths)}
+                                    label={"Include 7ths"} />)}
+                    {!hideEnharmonicCheckbox && (
+                        <CheckboxSetting id={"enharmonicEquivalence"}
+                                    checked={enharmonicEquivalence}
+                                    onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
+                                    label={"Enharmonic Check"} />)}
                 {isOpen && (
                     <>
+                        {hide7thsCheckbox && (
+                            <CheckboxSetting id={"includeSevenths"}
+                                        checked={includeSevenths}
+                                        onChange={() => setIncludeSevenths(!includeSevenths)}
+                                        label={"Include 7ths"} />)}
+                        {hideEnharmonicCheckbox && (
+                            <CheckboxSetting id={"enharmonicEquivalence2"}
+                                        checked={enharmonicEquivalence}
+                                        onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
+                                        label={"Enharmonic Check"} />)}
+                        <CheckboxSetting id={"inludeSuspenedChords"} 
+                                        checked={inludeSuspenedChords}
+                                        onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
+                                        label={"Include Suspened Chords"} />
+                        <CheckboxSetting id={"enablePinFuntionality"} 
+                                        checked={enablePinFuntionality}
+                                        onChange={() => setEnablePinFuntionality(!enablePinFuntionality)}
+                                        label={"Enable Pin Funtionality"} />
                         <CheckboxSetting id={"highlightQueryNotes"}
                                         checked={highlightQueryNotes}
                                         onChange={() => setHighlightQueryNotes(!highlightQueryNotes)}
@@ -72,11 +108,6 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                         checked={romanNumeralsMajorAdjusted}
                                         onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
                                         label={"Roman Numerals are relative to Major"} />
-
-                        {/* <CheckboxSetting id={"inludeSuspenedChords"} 
-                                        checked={inludeSuspenedChords}
-                                        onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
-                                        label={"Include Suspened Chords"} /> */}
                         <CheckboxSetting id={"useAsciiAccidentals"} 
                                         checked={useAsciiAccidentals}
                                         onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
@@ -93,10 +124,6 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                         checked={searchBarFollow}
                                         onChange={() => setSearchBarFollow(!searchBarFollow)}
                                         label={"Search Bar Follow"} />
-                        <CheckboxSetting id={"enablePinFuntionality"} 
-                                        checked={enablePinFuntionality}
-                                        onChange={() => setEnablePinFuntionality(!enablePinFuntionality)}
-                                        label={"Enable Pin Funtionality"} />
                     </>
                 )}
                 </div>

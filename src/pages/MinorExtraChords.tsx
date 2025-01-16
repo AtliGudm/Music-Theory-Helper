@@ -37,7 +37,7 @@ export const MinorExtraScaleDisplay = ({scale} : {scale: Scale}) => {
                 {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>}  <strong>Harmonic & Melodic</strong>
             </div>
             {isOpen && (
-                <div style={{display: "flex", justifyContent: "center"}}>
+                <div style={{display: "flex", justifyContent: "center", columnGap: "14px"}}>
                     <GetBlrga inputScale={getHarmonicMinor()} generateOnlyDegreesArr={[2,4,6]}/>
                     <GetBlrga inputScale={getMelodicMinor()} generateOnlyDegreesArr={[1,3,5]}/>
                 </div>

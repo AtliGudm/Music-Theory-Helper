@@ -25,4 +25,5 @@ Future features:
 
 Fix:
 - Fix: how enharmonics are forced when using Piano Keyboard note input
-- Revamp the Include Suspended Chords functionality
+- Fix: extra minor generating chord duplicates with the natural minor parent scale
+- Fix: extra minor header look wrong on smartphone

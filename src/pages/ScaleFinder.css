@@ -80,7 +80,7 @@ h2.pinnedScalesHeader:hover {
   padding: 3px;
   color: black;
   border-radius: 6px;
-  margin-inline: 54px;
+  /* margin-inline: 54px; */
   background-color: #ffc7c2;
 }
 
@@ -402,7 +402,7 @@ span.double-sharp-accidental {
 
 .sticky-bottom {
   position: fixed;
-  bottom: -136px;
+  bottom: -236px;
   left: 0;
   width: 100%;
   text-align: center;
@@ -460,6 +460,7 @@ span.double-sharp-accidental {
     border-radius: 17px 17px 6px 6px;
     font-size: 18px;
     font-weight: bold;
+    pointer-events: visible;
 }
 
 .piano-icon {

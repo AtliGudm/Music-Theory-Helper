@@ -123,7 +123,7 @@ const ScaleFinder = () => {
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
-            <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes} />    
+            <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes}/>    
             <PinnedScales pinnedScalesList={pinnedScalesList}
                           changeModeCallback={changeModeCallback}
                           emptyPinnedScalesListCallback={emptyPinnedScalesList}
@@ -146,13 +146,15 @@ const ScaleFinder = () => {
                 )}
             </div>
             <div className={"sticky-bottom " + (isFooterVisible ? "visible" : "")}>
-                <DisplayPianoKeyboard isSmallScreen={isSmallScreen} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
+                <DisplayPianoKeyboard toggleFooter={toggleFooter} isSmallScreen={isSmallScreen} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
             </div>
-            <button className="toggle-button"
-                    onClick={toggleFooter}
-                    style={{fontSize: "18px"}}>
-                <PianoKeysIcon width="40" height="40"/>
-            </button>
+            {!isFooterVisible && (
+                <button className="toggle-button"
+                        onClick={toggleFooter}
+                        style={{fontSize: "18px"}}>
+                    <PianoKeysIcon width="40" height="40"/>
+                </button>
+            )}
             <div style={{height: "155px"}}></div>
         </div>
     );
