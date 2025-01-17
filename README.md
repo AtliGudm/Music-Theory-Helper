@@ -18,10 +18,9 @@ You can also see 7th chords, view chords vertically or horizontally, and tons of
 
 Next:
 - Add setting for how notes with double accidentals are displayed
-
-Future features:
 - Create Unit/Integration Tests
 - Start work on "The Modulator", a tool to help with modulating between keys/scales
 
 Fix:
 - Fix: how enharmonics are forced when using Piano Keyboard note input
+- Fix how accidentals are displayed differently on different browsers/devices
