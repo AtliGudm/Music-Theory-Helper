@@ -17,10 +17,11 @@ You can also see 7th chords, view chords vertically or horizontally, and tons of
 ### Manual/Documentation coming soon!
 
 Next:
-- Add setting for how notes with double accidentals are displayed
-- Create Unit/Integration Tests
-- Start work on "The Modulator", a tool to help with modulating between keys/scales
+- Add setting for how notes with double accidentals are displayed.
+- Create Unit/Integration Tests.
+- Start work on "The Modulator", a tool to help with modulating between keys/scales.
+- When showing modes in search dropdown, also show the actual root scale of the mode in brackets.
 
 Fix:
-- Fix: how enharmonics are forced when using Piano Keyboard note input
-- Fix how accidentals are displayed differently on different browsers/devices
+- Fix: how enharmonics are forced when using Piano Keyboard note input.
+- Fix how accidentals are displayed differently on different browsers/devices.
