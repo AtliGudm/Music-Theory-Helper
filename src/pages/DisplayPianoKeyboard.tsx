@@ -4,25 +4,31 @@ import { useScaleSettings } from "../ScaleSettingsContext";
 import { FormatAccidentalsForDisplay } from './HelperComponents';
 
 const DisplayPianoKeyboard = ({selectedScale, isSmallScreen, toggleFooter}:{selectedScale: PayloadContainer, isSmallScreen: boolean, toggleFooter: () => void}) => {
-    const { showDisplayKeyboardDegrees } = useScaleSettings();
+    const { showDisplayKeyboardDegrees, fillDisplayPiano } = useScaleSettings();
     const pianoKeys = [ [0,"W"], [1,"B"], [2,"W"], [3,"B"], [4,"W"], [5,"W"], [6,"B"], [7,"W"], [8,"B"], [9,"W"], [10,"B"], [11,"W"] ];
                        // [0,"W"], [1,"B"], [2,"W"], [3,"B"], [4,"W"], [5,"W"], [6,"B"], [7,"W"], [8,"B"], [9,"W"], [10,"B"], [11,"W"] ];
-    const switcher = true;
+    
+    const glurp = (inputPianoKeys: (string | number)[][]) => {
+        const result: any[] = [];
+        inputPianoKeys.forEach(item => {
+            const noteMatch = selectedScale.payloadList.find(payload => payload.note === item[0]);
+            console.log(noteMatch);
+            const style = (item[0] === 4 || item[0] === 11) ? " narrower-piano-key" : "";
+            if(noteMatch) {
+                result.push({note: item[0], color: item[1], highlight: true, style: style, degree: ((showDisplayKeyboardDegrees) ? noteMatch.degree: null)});
+            }
+            else {
+                result.push({note: item[0], color: item[1], highlight: false, style: style, degree: null});
+            } 
+        });
+        return result;
+    }
 
     const createPianoKeyboard = ( minifyPiano: boolean = false /* pianoKeys2: (string | number)[][] */) => {
-        const result: any[] = [];
+        let result: any[] = [];
         
         if(minifyPiano) {
-            pianoKeys.forEach(item => {
-                const noteMatch = selectedScale.payloadList.find(payload => payload.note === item[0]);
-                console.log(noteMatch);
-                if(noteMatch) {
-                    result.push({note: item[0], color: item[1], highlight: true, degree: ((showDisplayKeyboardDegrees) ? noteMatch.degree: null)});
-                }
-                else {
-                    result.push({note: item[0], color: item[1], highlight: false, degree: null});
-                } 
-            });
+            result = glurp(pianoKeys);
         }
         else {
             let pianoKeys2: (string | number)[][] = [];
@@ -32,24 +38,29 @@ const DisplayPianoKeyboard = ({selectedScale, isSmallScreen, toggleFooter}:{sele
                 });
             }
 
-            const copiedArray = [...selectedScale.payloadList];
-            pianoKeys2.forEach(item => {
-                if(copiedArray.length > 0 && copiedArray[0].note == item[0]) {
-                    const baba = copiedArray.shift();
-                    result.push({note: item[0], color: item[1], highlight: true, degree: ((showDisplayKeyboardDegrees) ? baba?.degree : null)});
-                }
-                else {
-                    result.push({note: item[0], color: item[1], highlight: false, degree: null});
-                }
-            });
+            if(fillDisplayPiano) {
+                result = glurp(pianoKeys2);
+            }
+            else {
+                const copiedArray = [...selectedScale.payloadList];
+                pianoKeys2.forEach(item => {
+                    const style = (item[0] === 4 || item[0] === 11) ? " narrower-piano-key" : "";
+                    if(copiedArray.length > 0 && copiedArray[0].note == item[0]) {
+                        const baba = copiedArray.shift();
+                        result.push({note: item[0], color: item[1], highlight: true, style: style, degree: ((showDisplayKeyboardDegrees) ? baba?.degree : null)});
+                    }
+                    else {
+                        result.push({note: item[0], color: item[1], highlight: false, style: style, degree: null});
+                    }
+                });
+            }
         }
-
 
         return (
             <>
                 { result.map((item,index) => (
                     <li key={index}
-                        className={"piano-keys" + (item.highlight ? " highlighted-key" : "") + (item.color === "W" ? " white-key" : " black-key") }>
+                        className={"piano-keys" + item.style + (item.highlight ? " highlighted-key" : "") + (item.color === "W" ? " white-key" : " black-key") }>
                                 <span className='piano-keyboard-scale-degrees'><FormatAccidentalsForDisplay textInput={item.degree}/></span>
                     </li>
                 ))}
@@ -66,7 +77,7 @@ const DisplayPianoKeyboard = ({selectedScale, isSmallScreen, toggleFooter}:{sele
 
     return (
         <div className='container'>
-            <div className='piano-display-border' style={isSmallScreen ? {width: "307px"} : {width: "596px"}}>
+            <div className='piano-display-border' style={isSmallScreen ? {width: "307px"} : {width: "586px"}}>
                 <div style={{display: "flex"}}>
                     <div style={{paddingRight: "0px"}}>
                         <i onClick={toggleFooter}

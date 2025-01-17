@@ -244,7 +244,7 @@ export const DisplayParallelScaleOnKeyboardPayload = (para: ParaScale) => {
     const scaleNotesNumbers = scaleNotesToInt(para.modifiedScale.notes);
     scaleNotesNumbers.forEach((item, index) => {
         const accidental = para.mode.accidentals[index];
-        payload.payloadList.push({note: item, degree: (accidental == "0") ? (index+1).toString() : accidental + (index+1).toString()});
+        payload.payloadList.push({note: item, degree: (index === 0) ? "r" : ((accidental == "0") ? (index+1).toString() : accidental + (index+1).toString())});
     });
     return payload;
 }

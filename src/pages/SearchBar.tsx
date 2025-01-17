@@ -173,13 +173,13 @@ const searchResultClicked = (item: SearchResultContainer) => {
   }
 
   return (
-    <div style={{backgroundColor: "#dfdfdf", borderRadius: "22px", width: "100%", maxWidth: "620px", marginInline: "12px"}}
+    <div style={{backgroundColor: "#dfdfdf", borderRadius: "22px", width: "100%", maxWidth: "595px", marginInline: "12px"}}
       className={(searchBarFollow) ? ("sticky-div" + (isSticky ? " sticky-active" : "")) : "static-div"} ref={containerRef}>
 
         <div className="search-container">
           <button className="search-icon" title="Search" 
                     onClick={() => setIsTextInputOpen(!isTextInputOpen)}>
-              {isTextInputOpen ? (<PianoKeysIcon width="20" height="20"/>):(<i className="fa-solid fa-font"></i>)}
+              {isTextInputOpen ? (<PianoKeysIcon width="25" height="25"/>):(<i className="fa-solid fa-font"></i>)}
             </button>
             {isTextInputOpen && (
               <>

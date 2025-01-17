@@ -51,6 +51,7 @@ const InputPianoKeyboard = ({findScales} : {findScales: (queryText: string, thre
                 <li key={item[0]+octave}
                     onClick={() => toggleKeySelection(item[0]+octave)}
                     className={"piano-keys" + 
+                                ((item[0] === "E" || item[0] === "B") ? " narrower-piano-key" : "") +
                                 (item[1] === "W" ? " white-key" : " black-key") + 
                                 (selectedKeys.includes(item[0]+octave) ? " selected-key" : "")}></li>
             ))}

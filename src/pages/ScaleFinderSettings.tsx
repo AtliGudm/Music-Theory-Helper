@@ -16,7 +16,8 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
         forceScaleGroupOpen, setForceScaleGroupOpen,
         searchBarFollow, setSearchBarFollow,
         enablePinFuntionality, setEnablePinFuntionality,
-        inludeSuspenedChords, setInludeSuspenedChords } = useScaleSettings();
+        inludeSuspenedChords, setInludeSuspenedChords,
+        fillDisplayPiano, setFillDisplayPiano } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
     const [ hideEnharmonicCheckbox, setHideEnharmonicCheckbox ] = useState(window.innerWidth <= 585);
     const [ hide7thsCheckbox, setHide7thsCheckbox ] = useState(window.innerWidth <= 420);
@@ -124,6 +125,10 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                         checked={searchBarFollow}
                                         onChange={() => setSearchBarFollow(!searchBarFollow)}
                                         label={"Search Bar Follow"} />
+                        <CheckboxSetting id={"fillDisplayPiano"} 
+                                        checked={fillDisplayPiano}
+                                        onChange={() => setFillDisplayPiano(!fillDisplayPiano)}
+                                        label={"Fill Piano Display"} />
                     </>
                 )}
                 </div>

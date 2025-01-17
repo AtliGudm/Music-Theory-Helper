@@ -49,6 +49,9 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [enablePinFuntionality, setEnablePinFuntionality] = useState(() =>
     getInitialState("enablePinFuntionality", false)
   );
+  const [fillDisplayPiano, setFillDisplayPiano] = useState(() =>
+    getInitialState("fillDisplayPiano", false)
+  );
 
 
   // Effect to sync settings with localStorage
@@ -104,6 +107,10 @@ export const ScaleSettingsProvider = ({ children }) => {
     localStorage.setItem("enablePinFuntionality", JSON.stringify(enablePinFuntionality));
   }, [enablePinFuntionality]);
 
+  useEffect(() => {
+    localStorage.setItem("fillDisplayPiano", JSON.stringify(fillDisplayPiano));
+  }, [fillDisplayPiano]);
+
   return (
     <ScaleSettingsContext.Provider
       value={{
@@ -132,7 +139,9 @@ export const ScaleSettingsProvider = ({ children }) => {
         searchBarFollow,
         setSearchBarFollow,
         enablePinFuntionality,
-        setEnablePinFuntionality
+        setEnablePinFuntionality,
+        fillDisplayPiano,
+        setFillDisplayPiano
       }}
     >
       {children}
