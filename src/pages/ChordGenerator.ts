@@ -270,7 +270,9 @@ const getPossibleChordsOfRoot = (scaleNotes: string[], root: string, index: numb
     dfg.forEach(item => {
         const third = scaleNotes[item[1] % scaleNotes.length];
         const fifth = scaleNotes[item[2] % scaleNotes.length];
-        const seventh = includeSevenths ? scaleNotes[(index + 6) % scaleNotes.length] : null;
+        let seventh = includeSevenths ? scaleNotes[(index + 6) % scaleNotes.length] : null;
+
+        if(seventh == root || seventh == third || seventh == fifth) seventh = null;
 
         let { quality, romanNumeral, order, degrees } = getChordQuality(noteToInt[root], noteToInt[third], noteToInt[fifth], seventh !== null ? noteToInt[seventh] : null, index, includeSuspenedChords);
         if(quality !== null) hf.push({ quality, romanNumeral, third, fifth, seventh, order, degrees });

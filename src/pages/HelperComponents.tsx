@@ -88,7 +88,10 @@ export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false,
         return (
             <>
             {textArray.map((item, i) => {
-                if (textArray[i] === "b") {
+                if(forceAccidental && (textArray[i].toUpperCase() === "I" || textArray[i].toUpperCase() === "V")) {
+                    return (<span key={i} className="roman-numeral">{textArray[i]}</span>);
+                }
+                else if (textArray[i] === "b") {
                     if(forceAccidental) {
                         return (<span key={i} className="flat-accidental">{flatIcon}</span>);
                     }

@@ -23,11 +23,12 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
     
 
     const displayChordOnPianoKeyboard = (chord: Chord) => {
-        console.log(chord);
-        let temp: PayloadContainer = {scaleName: chord.chordName, payloadList: []}
+        let chordName = chord.chordName + " (" + chord.chordNotes.join("-") + ")"
+        let temp: PayloadContainer = {scaleName: chordName, payloadList: []}
         chord.chordNotes.forEach((item, index) => {
             temp.payloadList.push({note: noteToInt[item], degree: chord.degrees[index]});
         });
+
         displayScaleOnKeyboard(temp);
     }
     
@@ -57,7 +58,7 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
                                 <span key={noteIndex}>{prepareNote(note)}{noteIndex < chord.chordNotes.length-1 ? "-" : ""}</span>
                             ))}
                         &#41;</span>
-                        <strong> <FormatAccidentalsForDisplay textInput={chord.romanNumeral} forceAccidental={true} seventhChordSymbolAllowed={true}/></strong>
+                        <strong> - <FormatAccidentalsForDisplay textInput={chord.romanNumeral} forceAccidental={true} seventhChordSymbolAllowed={true}/></strong>
                     </div>
                 )
             ))}

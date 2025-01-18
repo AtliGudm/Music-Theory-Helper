@@ -23,4 +23,3 @@ Next:
 
 Fix:
 - Fix: how enharmonics are forced when using Piano Keyboard note input.
-- Fix how accidentals are displayed differently on different browsers/devices.

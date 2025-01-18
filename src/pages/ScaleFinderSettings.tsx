@@ -19,19 +19,18 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
         inludeSuspenedChords, setInludeSuspenedChords,
         fillDisplayPiano, setFillDisplayPiano } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
-    const [ hideEnharmonicCheckbox, setHideEnharmonicCheckbox ] = useState(window.innerWidth <= 585);
-    const [ hide7thsCheckbox, setHide7thsCheckbox ] = useState(window.innerWidth <= 420);
-    //const [ isExtraOpen, setIsExtraOpen ] = useState(false);
+    const [ hideIncludeSusCheckbox, setHideIncludeSusCheckbox ] = useState(window.innerWidth <= 530);
+    const [ hide7thsCheckbox, setHide7thsCheckbox ] = useState(window.innerWidth <= 355);
 
     useEffect(() => {
-        const handleResize = () => setHideEnharmonicCheckbox(window.innerWidth <= 585);
+        const handleResize = () => setHideIncludeSusCheckbox(window.innerWidth <= 530);
         window.addEventListener("resize", handleResize);
     
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     useEffect(() => {
-        const handleResize = () => setHide7thsCheckbox(window.innerWidth <= 420);
+        const handleResize = () => setHide7thsCheckbox(window.innerWidth <= 355);
         window.addEventListener("resize", handleResize);
 
         return () => window.removeEventListener("resize", handleResize);
@@ -56,7 +55,7 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                     checked={includeSevenths}
                                     onChange={() => setIncludeSevenths(!includeSevenths)}
                                     label={"Include 7ths"} />)}
-                    {!hideEnharmonicCheckbox && (    
+                    {!hideIncludeSusCheckbox && (    
                         <CheckboxSetting id={"inludeSuspenedChords"} 
                                     checked={inludeSuspenedChords}
                                     onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
@@ -68,7 +67,7 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                         checked={includeSevenths}
                                         onChange={() => setIncludeSevenths(!includeSevenths)}
                                         label={"Include 7ths"} />)}
-                        {hideEnharmonicCheckbox && (
+                        {hideIncludeSusCheckbox && (
                             <CheckboxSetting id={"inludeSuspenedChords"} 
                                         checked={inludeSuspenedChords}
                                         onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
