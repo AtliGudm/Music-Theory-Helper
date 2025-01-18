@@ -41,8 +41,7 @@
     position: relative;
     height: 6rem;
     border-radius: 3px;
-    border: 1.5px solid #000;
-    
+    border: 2px solid #292929;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -95,4 +94,10 @@ li.selected-root-key {
 
 li.black-key.selected-root-key {
     background: #b70000;;
+}
+
+.piano-key-underline {
+    text-decoration-line: underline;
+    text-underline-offset: 2px;
+    color: white;
 }

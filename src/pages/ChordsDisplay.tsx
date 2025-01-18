@@ -3,9 +3,11 @@ import { Scale } from "../data/ScaleData";
 import { convertNotesToInt, noteToInt } from "../Helpers";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { FormatAccidentalsForDisplay } from "./HelperComponents";
+import { PayloadContainer } from "../data/ScaleData";
+import { Chord } from "./ChordGenerator";
 
 
-const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegreesArr}: {scale: Scale, selectedMode: number, includeSevenths: boolean, generateOnlyDegreesArr?: number[] | null}) => {
+const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegreesArr, displayScaleOnKeyboard}: {scale: Scale, selectedMode: number, includeSevenths: boolean, generateOnlyDegreesArr?: number[] | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void}) => {
     const { highlightQueryNotes, queryNotes, chordDisplayOrientation, inludeSuspenedChords, enharmonicEquivalence } = useScaleSettings();
     
     const prepareNote = (note: string) => {
@@ -13,10 +15,20 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
             const queryNotesFormatted = (enharmonicEquivalence) ? convertNotesToInt(queryNotes) : queryNotes;
             const noteFormatted = (enharmonicEquivalence) ? noteToInt[note] : note;
             if(queryNotesFormatted.includes(noteFormatted)) {
-                return (<span className="highlightedNote"><FormatAccidentalsForDisplay textInput={note}/></span>);
+                return (<span className="highlightedNote"><FormatAccidentalsForDisplay textInput={note} seventhChordSymbolAllowed={true}/></span>);
             }
         }
-        return (<FormatAccidentalsForDisplay textInput={note} />);
+        return (<FormatAccidentalsForDisplay textInput={note} seventhChordSymbolAllowed={true}/>);
+    }
+    
+
+    const displayChordOnPianoKeyboard = (chord: Chord) => {
+        console.log(chord);
+        let temp: PayloadContainer = {scaleName: chord.chordName, payloadList: []}
+        chord.chordNotes.forEach((item, index) => {
+            temp.payloadList.push({note: noteToInt[item], degree: chord.degrees[index]});
+        });
+        displayScaleOnKeyboard(temp);
     }
     
     return (
@@ -24,24 +36,28 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
             style={{ marginTop: "0.8rem", marginBottom: "1rem", rowGap: "30px" }}>
             {GenerateDiatonicChords(scale, selectedMode, includeSevenths, inludeSuspenedChords, generateOnlyDegreesArr).map((chord, chordIndex) => (
                 chordDisplayOrientation === "horizontal" ? (
-                    <div key={chordIndex} className="chord">
-                        <div className="horizontal-chord-name"><FormatAccidentalsForDisplay textInput={chord.chordName}/></div>
+                    <div key={chordIndex} 
+                        className="chord"
+                        onClick={() => displayChordOnPianoKeyboard(chord)}>
+                        <div className="horizontal-chord-name"><FormatAccidentalsForDisplay textInput={chord.chordName} seventhChordSymbolAllowed={true}/></div>
                         <div className="chord-notes">
                             {chord.chordNotes && chord.chordNotes.map((note, noteIndex) => (
                                 <div key={noteIndex} className="horizontal-note">{prepareNote(note)}</div>
                             ))}
                         </div>
-                        <div className="horizontal-chord-roman-numeral"><FormatAccidentalsForDisplay textInput={chord.romanNumeral} forceAccidental={true}/></div>
+                        <div className="horizontal-chord-roman-numeral"><FormatAccidentalsForDisplay textInput={chord.romanNumeral} forceAccidental={true} seventhChordSymbolAllowed={true}/></div>
                     </div>
                 ) : (
-                    <div style={{paddingBlock: "4px"}} key={chordIndex}>
-                        <strong><FormatAccidentalsForDisplay textInput={chord.chordName}/> </strong>
+                    <div className="vertical-chord" 
+                        key={chordIndex}
+                        onClick={() => displayChordOnPianoKeyboard(chord)}>
+                        <strong><FormatAccidentalsForDisplay textInput={chord.chordName} seventhChordSymbolAllowed={true}/> </strong>
                         <span>&#40;
                             {chord.chordNotes && chord.chordNotes.map((note, noteIndex) => (
                                 <span key={noteIndex}>{prepareNote(note)}{noteIndex < chord.chordNotes.length-1 ? "-" : ""}</span>
                             ))}
                         &#41;</span>
-                        <strong> <FormatAccidentalsForDisplay textInput={chord.romanNumeral} forceAccidental={true}/></strong>
+                        <strong> <FormatAccidentalsForDisplay textInput={chord.romanNumeral} forceAccidental={true} seventhChordSymbolAllowed={true}/></strong>
                     </div>
                 )
             ))}

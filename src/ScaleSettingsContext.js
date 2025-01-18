@@ -22,14 +22,13 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [highlightQueryNotes, setHighlightQueryNotes] = useState(() =>
     getInitialState("highlightQueryNotes", true)
   );
-  const [queryNotes, setQueryNotes] = useState(() =>
-    getInitialState("queryNotes", [])
-  );
+  const [queryNotes, setQueryNotes] = useState([]);
+
   const [showNoteScaleDegree, setShowNoteScaleDegree] = useState(() =>
     getInitialState("showNoteScaleDegree", true)
   );
   const [chordDisplayOrientation, setChordDisplayOrientation] = useState(() =>
-    getInitialState("chordDisplayOrientation", "horizontal")
+    getInitialState("chordDisplayOrientation", "vertical")
   );
   const [inludeSuspenedChords, setInludeSuspenedChords] = useState(() =>
     getInitialState("inludeSuspenedChords", false)
@@ -70,10 +69,6 @@ export const ScaleSettingsProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("highlightQueryNotes", JSON.stringify(highlightQueryNotes));
   }, [highlightQueryNotes]);
-
-  useEffect(() => {
-    localStorage.setItem("queryNotes", JSON.stringify(queryNotes));
-  }, [queryNotes]);
 
   useEffect(() => {
     localStorage.setItem("showNoteScaleDegree", JSON.stringify(showNoteScaleDegree));

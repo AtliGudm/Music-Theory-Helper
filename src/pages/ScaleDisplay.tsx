@@ -93,12 +93,12 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
             </div>
             {isOpen && (
                 <>
-                    <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} />
+                    <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     { showParallelModeButton() && 
                         <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     }
                     {(scale && scale.type === "Minor" ) && (
-                        <MinorExtraScaleDisplay scale={scale}/>
+                        <MinorExtraScaleDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     )}
                 </>
             )}

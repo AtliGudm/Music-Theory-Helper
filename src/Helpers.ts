@@ -244,7 +244,7 @@ export const DisplayParallelScaleOnKeyboardPayload = (para: ParaScale) => {
     const scaleNotesNumbers = scaleNotesToInt(para.modifiedScale.notes);
     scaleNotesNumbers.forEach((item, index) => {
         const accidental = para.mode.accidentals[index];
-        payload.payloadList.push({note: item, degree: (index === 0) ? "r" : ((accidental == "0") ? (index+1).toString() : accidental + (index+1).toString())});
+        payload.payloadList.push({note: item, degree: ((accidental == "0") ? (index+1).toString() : accidental + (index+1).toString())});
     });
     return payload;
 }
@@ -274,9 +274,9 @@ export const DisplayScaleOnKeyboardPayload = (scale: Scale, selectedMode: number
         scaleNotesNumbers.forEach((item, index) => {
             const accidental = getModeAccidental(index, scale.type, selectedMode);
             if (accidental !== undefined) {
-                payload.payloadList.push({note: item, degree: (index === 0) ? "r" : `${accidental}${index + 1}`});
+                payload.payloadList.push({note: item, degree: `${accidental}${index + 1}`});
             } else {
-                payload.payloadList.push({note: item, degree: (index === 0) ? "r" : `${index + 1}`});
+                payload.payloadList.push({note: item, degree: `${index + 1}`});
             }
         });
     }

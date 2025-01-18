@@ -71,7 +71,7 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
                     </div>
                 </div>
                 <ModeSelector modeType="Parallel" scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>
-                <ChordsDisplay scale={para.modifiedScale} selectedMode={selectedMode} includeSevenths={includeSevenths} />
+                <ChordsDisplay scale={para.modifiedScale} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
             </>
         );
     }

@@ -74,7 +74,7 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
     );
 }
 
-export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false} : {textInput: string | undefined, forceAccidental?: boolean}) => {
+export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false, seventhChordSymbolAllowed = false} : {textInput: string | undefined, forceAccidental?: boolean, seventhChordSymbolAllowed?: boolean}) => {
     const { useAsciiAccidentals  } = useScaleSettings();
     const flatIcon = "♭";
     const sharpIcon = "♯";
@@ -139,6 +139,36 @@ export const FormatAccidentalsForDisplay = ({textInput, forceAccidental = false}
                         return (<span key={i} className="double-sharp-accidental">{doubleSharpIcon}</span>);
                     }
                 }
+                else if(textArray[i] === "ø") {
+                    return (<span key={i} className="superscript-chord-symbol">{textArray[i]}</span>);
+                }
+                else if(seventhChordSymbolAllowed) {
+                    if(textArray[i] === "m") {
+                        if((i + 3 < textArray.length) && 
+                            textArray[i+1] === "a" &&
+                            textArray[i+2] === "j" &&
+                            textArray[i+3] === "7") {
+                                return (<span key={i} className="superscript-chord-symbol">m</span>);
+                        }
+                    }
+                    else if(textArray[i] === "a") {
+                        if((i + 2 < textArray.length) && 
+                        textArray[i+1] === "j" &&
+                        textArray[i+2] === "7") {
+                            return (<span key={i} className="superscript-chord-symbol">a</span>);
+                        }
+                    }
+                    else if(textArray[i] === "j") {
+                        if((i + 1 < textArray.length) && 
+                        textArray[i+1] === "7") {
+                            return (<span key={i} className="superscript-chord-symbol">j</span>);
+                        }
+                    }
+                    else if(textArray[i] === "7") {
+                        return (<span key={i} className="superscript-chord-symbol">7</span>);
+                    }
+                }
+                
                 return (<>{item}</>);
             })}
             </>

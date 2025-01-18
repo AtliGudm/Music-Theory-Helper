@@ -127,13 +127,24 @@ div.chord {
   padding-right: 0.7rem;
   width: 55px;
   transition: background-color 0.2s ease;
+  cursor: pointer;
 }
   
 /* Hover effect for chord blocks */
 div.chord:hover {
     background-color: #eaeaea;
 }
-  
+
+div.vertical-chord {
+  padding-block: 4px;
+  cursor: pointer;
+  padding-inline: 20px;
+}
+
+div.vertical-chord:hover {
+  background-color: #eaeaea;
+}
+
 /* Chord header (Roman numeral and chord name) */
 div.chord-header {
     font-weight: bold;
@@ -365,39 +376,41 @@ div.horizontal-note {
 }
 
 span.flat-accidental {
-  /* margin-inline: -5px; */
-  margin-left: -5px;
-  margin-right: -3px;
-  /* font-family: 'YourIconFontFamily', sans-serif; */
-  vertical-align: baseline; /* Adjust alignment to match text */
-  font-size: 1em; /* 0.8em; */
-  line-height: 1; /* Maintain consistent line-height */
+  font-family: 'Bravura', sans-serif;
+  vertical-align: middle;
+  font-size: 1.4em;
+  line-height: 0.35;
+  padding-inline: 2px;
 }
 
 span.first-flat-in-double-flat {
-  margin-right: -6px;
-  margin-left: -5px;
-  vertical-align: baseline;
-  font-size: 1em; /* 0.8em; */
-  line-height: 1;
+  font-family: 'Bravura', sans-serif;
+/*   margin-right: -6px;
+  margin-left: -5px; */
+/*   vertical-align: baseline;
+  font-size: 1em;
+  line-height: 1; */
+  vertical-align: middle;
+  font-size: 1.4em;
+  line-height: 0.35;
+  padding-left: 2px;
 }
 
 span.sharp-accidental {
-  /* margin-inline: -5px; */
-  margin-left: 0px;
-  margin-right: 0px;
-  /* font-family: 'YourIconFontFamily', sans-serif; */
-  vertical-align: baseline; /* Adjust alignment to match text */
-  font-size: 1em; /* 0.8em; */
-  line-height: 1; /* Maintain consistent line-height */
+  font-family: 'Bravura', sans-serif;
+  vertical-align: middle;
+  font-size: 1.2em;
+  line-height: 0.8;
+  padding-inline: 1px;
 }
 
 span.double-sharp-accidental {
-    margin-left: 0px;
-    margin-right: 0px;
-    vertical-align: middle; /* Adjust alignment to match text */
-    font-size: 1.6em; /* 0.8em; */
-    line-height: 0.5; /* Maintain consistent line-height */
+  font-family: 'Bravura', sans-serif;
+  margin-left: 0px;
+  margin-right: 0px;
+  vertical-align: middle;
+  font-size: 1.6em;
+  line-height: 0.5;
 }
 
 .sticky-bottom {
@@ -454,7 +467,7 @@ span.double-sharp-accidental {
     /* border: 2px solid gray; */
     /*  padding: 5px;  */
     padding-top: 5px;
-    padding-left: 12px;
+    padding-left: 2px;
     padding-right: 12px;
     padding-bottom: 7px;
     border-radius: 17px 17px 6px 6px;
@@ -504,3 +517,18 @@ button.trash-can {
   border: none;
   font-size: 18px;
 }
+
+.superscript-chord-symbol {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+@font-face {
+  font-family: 'Bravura';
+  src: url('../fonts/Bravura.otf') format('opentype');
+}
+
+.music-symbol {
+  font-family: 'Bravura', sans-serif;
+}
+

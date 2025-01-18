@@ -4,8 +4,9 @@ import { getScale, Scale } from "../data/ScaleData";
 import { getScaleDisplayName } from "../Helpers";
 import ChordsDisplay from "./ChordsDisplay";
 import { useState } from "react";
+import { PayloadContainer } from "../data/ScaleData";
 
-export const MinorExtraScaleDisplay = ({scale} : {scale: Scale}) => {
+export const MinorExtraScaleDisplay = ({scale, displayScaleOnKeyboard} : {scale: Scale, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void}) => {
     const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
@@ -27,7 +28,7 @@ export const MinorExtraScaleDisplay = ({scale} : {scale: Scale}) => {
                     </div>
                     <div>{getScaleNotesDisplay(inputScale.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, inputScale.type, 0, enharmonicEquivalence)}</div>
                 </div>
-                <ChordsDisplay generateOnlyDegreesArr={generateOnlyDegreesArr} scale={inputScale} selectedMode={0} includeSevenths={includeSevenths}/>
+                <ChordsDisplay generateOnlyDegreesArr={generateOnlyDegreesArr} scale={inputScale} selectedMode={0} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
             </div>
         </>);
     }

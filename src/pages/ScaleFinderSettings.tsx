@@ -46,37 +46,21 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                             style={{fontSize: "18px"}}
                            className={isOpen ? "fa-solid fa-circle-chevron-up": "fa-solid fa-circle-chevron-down"}></i>
                     </span>
-                    <div style={{flexBasis: "content"}}>
-                        <span>Chords</span>
-                        <label>
-                            <input type="radio" 
-                                    id="age1" 
-                                    name="age" 
-                                    value="horizontal"
-                                    checked={chordDisplayOrientation == "horizontal"}
-                                    onChange={() => setChordDisplayOrientation("horizontal")}
-                                    />Horizontal
-                        </label>
-                        <label>
-                            <input type="radio" 
-                                    id="age2" 
-                                    name="age" 
-                                    value="vertical"
-                                    checked={chordDisplayOrientation == "vertical"}
-                                    onChange={() => setChordDisplayOrientation("vertical")}
-                                    />Vertical
-                        </label>
-                    </div>
+                    
+                        <CheckboxSetting id={"enharmonicEquivalence"}
+                                    checked={enharmonicEquivalence}
+                                    onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
+                                    label={"Enharmonic Check"} />
                     {!hide7thsCheckbox && (
                         <CheckboxSetting id={"includeSevenths"}
                                     checked={includeSevenths}
                                     onChange={() => setIncludeSevenths(!includeSevenths)}
                                     label={"Include 7ths"} />)}
-                    {!hideEnharmonicCheckbox && (
-                        <CheckboxSetting id={"enharmonicEquivalence"}
-                                    checked={enharmonicEquivalence}
-                                    onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
-                                    label={"Enharmonic Check"} />)}
+                    {!hideEnharmonicCheckbox && (    
+                        <CheckboxSetting id={"inludeSuspenedChords"} 
+                                    checked={inludeSuspenedChords}
+                                    onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
+                                    label={"Include Sus Chords"} />)}
                 {isOpen && (
                     <>
                         {hide7thsCheckbox && (
@@ -85,50 +69,70 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                         onChange={() => setIncludeSevenths(!includeSevenths)}
                                         label={"Include 7ths"} />)}
                         {hideEnharmonicCheckbox && (
-                            <CheckboxSetting id={"enharmonicEquivalence2"}
-                                        checked={enharmonicEquivalence}
-                                        onChange={() => setEnharmonicEquivalence(!enharmonicEquivalence)}
-                                        label={"Enharmonic Check"} />)}
-                        <CheckboxSetting id={"inludeSuspenedChords"} 
+                            <CheckboxSetting id={"inludeSuspenedChords"} 
                                         checked={inludeSuspenedChords}
                                         onChange={() => setInludeSuspenedChords(!inludeSuspenedChords)}
-                                        label={"Include Suspened Chords"} />
+                                        label={"Include Sus Chords"} />)}
                         <CheckboxSetting id={"enablePinFuntionality"} 
                                         checked={enablePinFuntionality}
                                         onChange={() => setEnablePinFuntionality(!enablePinFuntionality)}
                                         label={"Enable Pin Funtionality"} />
-                        <CheckboxSetting id={"highlightQueryNotes"}
-                                        checked={highlightQueryNotes}
-                                        onChange={() => setHighlightQueryNotes(!highlightQueryNotes)}
-                                        label={"Highlight Matched Input Notes"} />
-                        <CheckboxSetting id={"showNoteScaleDegree"} 
-                                        checked={showNoteScaleDegree}
-                                        onChange={() => setShowNoteScaleDegree(!showNoteScaleDegree)}
-                                        label={"Show Note Scale Degree"} />
-                        <CheckboxSetting id={"romanNumeralsMajorAdjusted"} 
-                                        checked={romanNumeralsMajorAdjusted}
-                                        onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
-                                        label={"Roman Numerals are relative to Major"} />
-                        <CheckboxSetting id={"useAsciiAccidentals"} 
-                                        checked={useAsciiAccidentals}
-                                        onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
-                                        label={"Plain Text Accidentals"} />
-                        <CheckboxSetting id={"showDisplayKeyboardDegrees"} 
-                                        checked={showDisplayKeyboardDegrees}
-                                        onChange={() => setShowDisplayKeyboardDegrees(!showDisplayKeyboardDegrees)}
-                                        label={"Display Piano Keyboard Degrees"} />
-                        <CheckboxSetting id={"forceScaleGroupOpen"} 
-                                        checked={forceScaleGroupOpen}
-                                        onChange={() => setForceScaleGroupOpen(!forceScaleGroupOpen)}
-                                        label={"Force Scale Group Open"} />
                         <CheckboxSetting id={"searchBarFollow"} 
                                         checked={searchBarFollow}
                                         onChange={() => setSearchBarFollow(!searchBarFollow)}
                                         label={"Search Bar Follow"} />
-                        <CheckboxSetting id={"fillDisplayPiano"} 
-                                        checked={fillDisplayPiano}
-                                        onChange={() => setFillDisplayPiano(!fillDisplayPiano)}
-                                        label={"Fill Piano Display"} />
+                        <div style={{display: "flex", flexWrap: "wrap", gap: "5px 12px", borderTop: "2px solid #8f8f8f", paddingTop: "6px"}}>
+                            <div style={{flexBasis: "content"}}>
+                                <span>Chords</span>
+                                <label>
+                                    <input type="radio" 
+                                            id="age2" 
+                                            name="age" 
+                                            value="vertical"
+                                            checked={chordDisplayOrientation == "vertical"}
+                                            onChange={() => setChordDisplayOrientation("vertical")}
+                                            />Vertical
+                                </label>
+                                <label>
+                                    <input type="radio" 
+                                            id="age1" 
+                                            name="age" 
+                                            value="horizontal"
+                                            checked={chordDisplayOrientation == "horizontal"}
+                                            onChange={() => setChordDisplayOrientation("horizontal")}
+                                            />Horizontal
+                                </label>
+                            </div>
+                            <CheckboxSetting id={"highlightQueryNotes"}
+                                            checked={highlightQueryNotes}
+                                            onChange={() => setHighlightQueryNotes(!highlightQueryNotes)}
+                                            label={"Highlight Matched Input Notes"} />
+                            <CheckboxSetting id={"showNoteScaleDegree"} 
+                                            checked={showNoteScaleDegree}
+                                            onChange={() => setShowNoteScaleDegree(!showNoteScaleDegree)}
+                                            label={"Show Note Scale Degree"} />
+                            <CheckboxSetting id={"romanNumeralsMajorAdjusted"} 
+                                            checked={romanNumeralsMajorAdjusted}
+                                            onChange={() => setRomanNumeralsMajorAdjusted(!romanNumeralsMajorAdjusted)}
+                                            label={"Roman Numerals are relative to Major"} />
+                            <CheckboxSetting id={"useAsciiAccidentals"} 
+                                            checked={useAsciiAccidentals}
+                                            onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
+                                            label={"Plain Text Accidentals"} />
+                            <CheckboxSetting id={"showDisplayKeyboardDegrees"} 
+                                            checked={showDisplayKeyboardDegrees}
+                                            onChange={() => setShowDisplayKeyboardDegrees(!showDisplayKeyboardDegrees)}
+                                            label={"Display Piano Keyboard Degrees"} />
+                            <CheckboxSetting id={"forceScaleGroupOpen"} 
+                                            checked={forceScaleGroupOpen}
+                                            onChange={() => setForceScaleGroupOpen(!forceScaleGroupOpen)}
+                                            label={"Force Scale Group Open"} />
+                            <CheckboxSetting id={"fillDisplayPiano"} 
+                                            checked={fillDisplayPiano}
+                                            onChange={() => setFillDisplayPiano(!fillDisplayPiano)}
+                                            label={"Fill Piano Display"} />
+                        </div>
+                        
                     </>
                 )}
                 </div>
