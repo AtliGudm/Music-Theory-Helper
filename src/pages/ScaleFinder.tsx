@@ -9,6 +9,7 @@ import { findByName } from "../data/ModesData";
 import DisplayPianoKeyboard from "./DisplayPianoKeyboard";
 import PianoKeysIcon from '../assets/PianoKeysIcon';
 import { PinnedScale, PinnedScales } from "./PinnedScales";
+import ModalWindow from "./ModalWindow";
 
 const ScaleFinder = () => {
     const { enharmonicEquivalence, setQueryNotes } = useScaleSettings();
@@ -17,6 +18,16 @@ const ScaleFinder = () => {
     const [ isFooterVisible, setFooterVisible ] = useState(false);
     const [ isSmallScreen, setIsSmallScreen ] = useState(window.innerWidth <= 730);
     const [ pinnedScalesList, setPinnedScalesList ] = useState<PinnedScale[]>([]);
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ modulateRootScale, setModulateRootScale ] = useState<PinnedScale>();
+
+    // Function to open the modal
+    const openModal = () => setIsModalOpen(true);
+  
+    // Function to close the modal
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
 
     const findScales = (queryText: string, threshold: number = 0, enharmonicEquivalenceOverride: boolean|null = null) => {
         if(queryText.length === 0) {
@@ -124,6 +135,8 @@ const ScaleFinder = () => {
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
             <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes}/>    
+            <button onClick={openModal}>Open Modal</button>
+            <ModalWindow rootScale={modulateRootScale} isModalOpen={isModalOpen} closeModal={closeModal}/>
             <PinnedScales pinnedScalesList={pinnedScalesList}
                           changeModeCallback={changeModeCallback}
                           emptyPinnedScalesListCallback={emptyPinnedScalesList}
