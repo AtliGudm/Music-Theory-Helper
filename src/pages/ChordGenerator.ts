@@ -260,12 +260,17 @@ const GenerateAllDiatonicChords = (scale: Scale, selectedMode: number, includeSe
 }
 
 const getPossibleChordsOfRoot = (scaleNotes: string[], root: string, index: number, includeSevenths: boolean, includeSuspenedChords: boolean) => {
-    const dfg = [[index, index+2, index+4],
+    const dfg = [
                  [index, index+1, index+2],
                  [index, index+1, index+3],
                  [index, index+2, index+3],
                  [index, index+1, index+4],
-                 [index, index+3, index+4]];
+                 [index, index+2, index+4],
+                 [index, index+3, index+4],
+                 [index, index+1, index+5],
+                 [index, index+2, index+5],
+                 [index, index+3, index+5],
+                 [index, index+4, index+5]];
     let hf: any[] = [];
     dfg.forEach(item => {
         const third = scaleNotes[item[1] % scaleNotes.length];
@@ -273,6 +278,7 @@ const getPossibleChordsOfRoot = (scaleNotes: string[], root: string, index: numb
         let seventh = includeSevenths ? scaleNotes[(index + 6) % scaleNotes.length] : null;
 
         if(seventh == root || seventh == third || seventh == fifth) seventh = null;
+        if(fifth == root || fifth == third || third == root) return; // Maybe overkill
 
         let { quality, romanNumeral, order, degrees } = getChordQuality(noteToInt[root], noteToInt[third], noteToInt[fifth], seventh !== null ? noteToInt[seventh] : null, index, includeSuspenedChords);
         if(quality !== null) hf.push({ quality, romanNumeral, third, fifth, seventh, order, degrees });
