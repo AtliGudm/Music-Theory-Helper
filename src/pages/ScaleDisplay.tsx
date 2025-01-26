@@ -4,14 +4,15 @@ import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { shiftScale, DisplayScaleOnKeyboardPayload, getScaleDisplayName } from '../Helpers'
 import ParallelModesDisplay from "./ParallelModesDisplay";
-import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
+import { GetScaleNotesDisplay, FormatAccidentalsForDisplay } from './HelperComponents';
 import PianoKeysIcon from "../assets/PianoKeysIcon";
 import { Scale, PayloadContainer } from "../data/ScaleData";
 import { MinorExtraScaleDisplay } from "./MinorExtraChords";
 import { PinnedScale } from "./PinnedScales";
+import { modes } from "../data/ModesData";
 
 const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard, pinnScaleCallback = null, unpinScaleCallback = null} : {scale: Scale, selectedMode: number, scaleIndex: number, changeModeCallback : (index: number, newValue: number) => void, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void | null, unpinScaleCallback: (index: number) => void | null}) => {
-    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence, enablePinFuntionality } = useScaleSettings();
+    const { includeSevenths, enablePinFuntionality } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     const getScaleNotes = () => {
@@ -22,23 +23,11 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
         changeModeCallback(scaleIndex, modeIndex);
     };
 
-    const showRelativeModeButton = () => {
-        if (scale.type === "Minor" || 
-            scale.type === "Whole Tone" || 
-            scale.type === "Half-Whole Diminished" ||
-            scale.type === "Minor Pentatonic"
-        ) return false;
-        return true;
-    }
-
-    const showParallelModeButton = () => {
-        if (scale.type === "Minor" || 
-            scale.type === "Whole Tone" || 
-            scale.type === "Half-Whole Diminished" ||
-            scale.type === "Major Pentatonic" ||
-            scale.type === "Minor Pentatonic"
-        ) return false;
-        return true;
+    const showModeButton = () => {
+        if(modes[scale.type] && (modes[scale.type].length > 1)) {
+            return true;
+        }
+        return false;
     }
 
     const callDisplayScaleOnKeyboard = () => {
@@ -73,13 +62,13 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                             <i className="fa-solid fa-thumbtack" style={{transform: "rotate(45deg)"}}></i>
                         </button>
                     )}
-                    <div style={{flexGrow: "2"/* , display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "5px" */}}
+                    <div style={{flexGrow: "2"}}
                         role="button" 
                         onClick={() => setIsOpen(!isOpen)}
                         className="scaleHeader2">
                         <div style={{display: "inline"}} >
                             {isOpen ? <i className="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-right"></i>} <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName(scale, selectedMode)}/>:</strong>
-                        </div> <div>{getScaleNotesDisplay(getScaleNotes()?.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, scale.type, selectedMode, enharmonicEquivalence)}</div>
+                        </div> <div><GetScaleNotesDisplay scaleNotes={getScaleNotes()?.notes} scaleType={scale.type} selectedMode={selectedMode}/></div>
                     </div>
                     { (enablePinFuntionality && unpinScaleCallback) && (
                         <button onClick={() => unpinScaleCallback(scaleIndex)}
@@ -87,14 +76,14 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                             <i className="fa-regular fa-trash-can"></i>
                         </button>)}
                 </div>
-                    {isOpen && showRelativeModeButton() && (
+                    {isOpen && showModeButton() && (
                         <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>
                     )}
             </div>
             {isOpen && (
                 <>
                     <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
-                    { showParallelModeButton() && 
+                    { showModeButton() && 
                         <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     }
                     {(scale && scale.type === "Minor" ) && (

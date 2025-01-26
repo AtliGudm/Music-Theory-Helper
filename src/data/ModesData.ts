@@ -99,7 +99,7 @@ export const modes: ModesData = {
     "Major Pentatonic": [
         {mode: "Major Pentatonic", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,3,5,6]},
         {mode: "Suspended", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,4,5,"b7"]},
-        {mode: "Blues Minor", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,"b3",4,"b6","b7"]},
+        {mode: "Blues Minor?", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,"b3",4,"b6","b7"]},
         {mode: "Blues Major", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,"bb3","bb4","bb6","bb7"]},
         {mode: "Aeolian Pentatonic", fifthShift: 0, accidentals: [0,"b",0,0,"b"], degrees: [1,"b3",4,5,"b7"]}
     ],
@@ -141,6 +141,24 @@ export const modes: ModesData = {
         {mode: "Melodic Minor #5", fifthShift: -1, accidentals: [0,0,"b",0,"#",0,0]},
         {mode: "Ukranian Dorian b2", fifthShift: -3, accidentals: [0,"b","b","#",0,0,"b"]},
         {mode: "Lydian Augmented #3", fifthShift: 2, accidentals: [0,0,"#","#","#",0,0]}
+    ],
+    "Enigmatic": [
+        {mode: "Enigmatic", fifthShift: 0, accidentals: [0,"b",0,"#","#","#",0]},
+    ],
+    "Spanish 8 Tone": [
+        {mode: "Spanish 8 Tone", fifthShift: 0, accidentals: [0,0,0,0,0,0,0,0], degrees: [1,"b2","b3",3,4,"b5","b6","b7"]},
+    ],
+    "Augmented": [
+        {mode: "Augmented", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b3",3,5,"#5",7]}
+    ],
+    "Prometheus": [
+        {mode: "Prometheus", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,2,3,"b5",6,"b7"]}
+    ],
+    "Tritone": [
+        {mode: "Tritone", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b2",3,"#4",5,"b7"]}
+    ],
+    "Minor Blues": [
+        {mode: "Minor Blues", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b3",4,"b5",5,"b7"]}
     ]
 };
 

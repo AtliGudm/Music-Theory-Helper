@@ -6,13 +6,13 @@ import { modes } from '../data/ModesData';
 import { getScale, PayloadContainer, ParaScale } from "../data/ScaleData";
 import { getFifth, modifyNote, DisplayParallelScaleOnKeyboardPayload } from '../Helpers'
 import { Scale } from "../data/ScaleData";
-import { getScaleNotesDisplay, FormatAccidentalsForDisplay } from "./HelperComponents";
+import { GetScaleNotesDisplay, FormatAccidentalsForDisplay } from "./HelperComponents";
 import PianoKeysIcon from "../assets/PianoKeysIcon";
 
 const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
-    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
+    const { includeSevenths } = useScaleSettings();
 
     const getSourceTemplateScale = () => {
         const type = scale.type;
@@ -67,7 +67,7 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
                     </button>
                     <div style={{flexGrow: "2", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "5px"}}>
                         <strong><GetParallelScaleHeader mode={para.mode.mode} parallelRoot={para.parallelRoot}/>:</strong>
-                        <div>{getScaleNotesDisplay(para.modifiedScale.notes,highlightQueryNotes,queryNotes,showNoteScaleDegree,scale.type,selectedMode, enharmonicEquivalence)}</div>
+                        <div><GetScaleNotesDisplay scaleNotes={para.modifiedScale.notes} scaleType={scale.type} selectedMode={selectedMode}/></div>
                     </div>
                 </div>
                 <ModeSelector modeType="Parallel" scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode}/>

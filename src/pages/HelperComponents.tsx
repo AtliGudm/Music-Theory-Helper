@@ -1,28 +1,32 @@
 import { convertNotesToInt, isLetter, getModeAccidental } from "../Helpers";
 import { useScaleSettings } from "../ScaleSettingsContext";
+import { modes } from "../data/ModesData";
 
-
-export const getScaleNotesDisplay = (scaleNotes: string[] | null, 
-                              highlightQueryNotes: any, 
-                              queryNotes: any, 
-                              showNoteScaleDegree: any, 
-                              scaleType: string, 
-                              selectedMode: number,
-                            enharmonicEquivalence: boolean) => {
-
+export const GetScaleNotesDisplay = ({scaleNotes, scaleType, selectedMode} : {scaleNotes: string[] | null, scaleType: string, selectedMode: number}) => {
+    const { enharmonicEquivalence, queryNotes, showNoteScaleDegree, highlightQueryNotes } = useScaleSettings();
+    
     const FormatModeAccidentals = ({modeAccidental}: {modeAccidental: string | number | undefined }) => {
         if(modeAccidental) {
-            if(modeAccidental == "0") {
-                return (<></>);
-            }
-            else {
-                return (<FormatAccidentalsForDisplay textInput={String(modeAccidental)} />);
-            }
+            if(modeAccidental == "0") return (<></>);
+            else return (<FormatAccidentalsForDisplay textInput={String(modeAccidental)} />);
         }
         return (<></>);
     }
+
+    const modeScaleDegrees = (index: number) => {
+        if(modes[scaleType] && modes[scaleType][selectedMode] && ('degrees' in modes[scaleType][selectedMode])) {
+            return ( <FormatAccidentalsForDisplay textInput={String(modes[scaleType][selectedMode].degrees[index])}/> );
+        }
+        else {
+            return (
+                <>
+                    <FormatModeAccidentals modeAccidental={getModeAccidental(index, scaleType, selectedMode)}/>{index+1}
+                </>
+            );
+        }
+    }
     
-    if(scaleNotes == null) return "";
+    if(scaleNotes == null) return <></>;
     if(highlightQueryNotes && queryNotes.length > 0) {
         let ouputString: any[] = [];
         const bkhg = (enharmonicEquivalence) ? convertNotesToInt(scaleNotes) : scaleNotes;
@@ -35,13 +39,13 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
             }
         });
 
-        if(showNoteScaleDegree) {
+        if(showNoteScaleDegree && scaleType != "Whole Tone") {
             return (
                 <div className="scale-note-display">
                     {ouputString.map((item, index) => (
                         <div key={item+index} className="chord-notes">
-                            <div className={item.style}><FormatAccidentalsForDisplay textInput={item.note}/>{/* {index < scaleNotes.length - 1 ? ",": ""} */}</div>
-                            <div className={`scale-note-degree ${item.style}`}><FormatModeAccidentals modeAccidental={getModeAccidental(index, scaleType, selectedMode)}/>{index+1}</div>
+                            <div className={item.style}><FormatAccidentalsForDisplay textInput={item.note}/></div>
+                            <div className={`scale-note-degree ${item.style}`}>{modeScaleDegrees(index)}</div>
                         </div>
                     ))}
                 </div>
@@ -59,18 +63,19 @@ export const getScaleNotesDisplay = (scaleNotes: string[] | null,
             );
         }
     }
-    return (!showNoteScaleDegree ? (
-        <FormatAccidentalsForDisplay textInput={scaleNotes.join(", ")} />
-        ) : (
+    return ((showNoteScaleDegree && scaleType != "Whole Tone") ? 
+        (
             <div className="scale-note-display">
                 {scaleNotes.map((item, index) => (
                     <div key={item+index} className="chord-notes">
                         <div><FormatAccidentalsForDisplay textInput={item} /></div>
-                        <div className="scale-note-degree"><FormatModeAccidentals modeAccidental={getModeAccidental(index, scaleType, selectedMode)}/>{index+1}</div>
+                        <div className="scale-note-degree">{modeScaleDegrees(index)}</div>
                     </div>
                 ))}
             </div>
-        )
+        ) : (
+            <FormatAccidentalsForDisplay textInput={scaleNotes.join(", ")} />
+        )  
     );
 }
 

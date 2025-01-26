@@ -1,4 +1,4 @@
-import { FormatAccidentalsForDisplay, getScaleNotesDisplay } from "./HelperComponents";
+import { FormatAccidentalsForDisplay, GetScaleNotesDisplay } from "./HelperComponents";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import { getScale, Scale } from "../data/ScaleData";
 import { getScaleDisplayName } from "../Helpers";
@@ -7,7 +7,7 @@ import { useState } from "react";
 import { PayloadContainer } from "../data/ScaleData";
 
 export const MinorExtraScaleDisplay = ({scale, displayScaleOnKeyboard} : {scale: Scale, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void}) => {
-    const { includeSevenths, highlightQueryNotes, queryNotes, showNoteScaleDegree, enharmonicEquivalence } = useScaleSettings();
+    const { includeSevenths } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
 
     const getHarmonicMinor = () => {
@@ -26,7 +26,7 @@ export const MinorExtraScaleDisplay = ({scale, displayScaleOnKeyboard} : {scale:
                     <div style={{display: "inline"}} >
                         <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName(inputScale, 0)}/>:</strong>
                     </div>
-                    <div>{getScaleNotesDisplay(inputScale.notes, highlightQueryNotes, queryNotes, showNoteScaleDegree, inputScale.type, 0, enharmonicEquivalence)}</div>
+                    <div><GetScaleNotesDisplay scaleNotes={inputScale.notes} scaleType={inputScale.type} selectedMode={0}/></div>
                 </div>
                 <ChordsDisplay generateOnlyDegreesArr={generateOnlyDegreesArr} scale={inputScale} selectedMode={0} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
             </div>

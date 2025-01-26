@@ -260,8 +260,7 @@ const GenerateAllDiatonicChords = (scale: Scale, selectedMode: number, includeSe
 }
 
 const getPossibleChordsOfRoot = (scaleNotes: string[], root: string, index: number, includeSevenths: boolean, includeSuspenedChords: boolean) => {
-    const dfg = [
-                 [index, index+1, index+2],
+    const dfg = [[index, index+1, index+2],
                  [index, index+1, index+3],
                  [index, index+2, index+3],
                  [index, index+1, index+4],

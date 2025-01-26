@@ -7,20 +7,16 @@ const ModeSelector = ({scaleType, selectedMode, modeType, onModeChange}: {scaleT
     };
 
     return (
-        <>
-        {(scaleType != "Minor") && (
-            <div style={{marginTop: "12px"}}>
-                <label style={{paddingRight: "6px"}} htmlFor="mode-select"><strong>{modeType} Mode:</strong></label>
-                <select style={{fontSize: "16px"}} id="mode-select" value={selectedMode} onChange={handleChange}>
-                    {modes[scaleType].map((modeObj, index) => (
-                        <option key={index} value={index}>
-                            {modeObj.mode}
-                        </option>
-                    ))}
-                </select>
-            </div>
-        )}
-        </>
+        <div style={{marginTop: "12px"}}>
+            <label style={{paddingRight: "6px"}} htmlFor="mode-select"><strong>{modeType} Mode:</strong></label>
+            <select style={{fontSize: "16px"}} id="mode-select" value={selectedMode} onChange={handleChange}>
+                {modes[scaleType].map((modeObj, index) => (
+                    <option key={index} value={index}>
+                        {modeObj.mode}
+                    </option>
+                ))}
+            </select>
+        </div>
     );
 };
 
