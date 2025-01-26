@@ -237,7 +237,7 @@ export const scales: Scale[] = [
     { type: "Tritone", root: "A", notes: ["A", "Bb", "C#", "Eb", "Fb", "G"], order: 192 },
     { type: "Tritone", root: "E", notes: ["E", "F", "G#", "A#", "B", "D"], order: 193 },
     { type: "Tritone", root: "B", notes: ["F", "Gb", "A", "B", "C", "D#"], order: 194 },
-    { type: "Tritone", root: "F#", notes: ["F#", "G", "A#", "B", "C", "D"], order: 195 },
+    { type: "Tritone", root: "F#", notes: ["F#", "G", "Bb", "C", "Db", "E"], order: 195 },
     { type: "Tritone", root: "Db", notes: ["Db", "D", "F", "G", "Ab", "B"], order: 196 },
     { type: "Tritone", root: "Ab", notes: ["Ab", "A", "C", "D", "Eb", "F#"], order: 197 },
     { type: "Tritone", root: "Eb", notes: ["Eb", "Fb", "G", "A", "Bb", "C#"], order: 198 },
