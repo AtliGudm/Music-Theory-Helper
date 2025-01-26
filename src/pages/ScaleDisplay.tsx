@@ -30,6 +30,11 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
         return false;
     }
 
+    const showParallelModeButton = () => {
+        if(scale && scale.notes.length !== 7) return false; // Temporary fix
+        return showModeButton();
+    }
+
     const callDisplayScaleOnKeyboard = () => {
         const payload = DisplayScaleOnKeyboardPayload(scale, selectedMode);
         displayScaleOnKeyboard(payload); 
@@ -83,7 +88,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
             {isOpen && (
                 <>
                     <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
-                    { showModeButton() && 
+                    { showParallelModeButton() && 
                         <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     }
                     {(scale && scale.type === "Minor" ) && (
