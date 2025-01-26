@@ -20,6 +20,8 @@ Next:
 - Add setting for how notes with double accidentals are displayed.
 - Create Unit/Integration Tests.
 - Start work on "The Modulator", a tool to help with modulating between keys/scales.
+- Have indicator when a scale is a 100% match
 
 Fix:
 - Fix: how enharmonics are forced when using Piano Keyboard note input.
+- Click area for scale headers is being glitched by the margin og the accidental font

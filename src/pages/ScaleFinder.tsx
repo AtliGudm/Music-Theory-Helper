@@ -155,7 +155,7 @@ const ScaleFinder = () => {
                     <PianoKeysIcon width="40" height="40"/>
                 </button>
             )}
-            <div style={{height: "155px"}}></div>
+            <div style={{height: "170px"}}></div>
         </div>
     );
 }

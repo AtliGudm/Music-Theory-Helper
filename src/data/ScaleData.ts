@@ -102,12 +102,6 @@ export const scales: Scale[] = [
     { type: "Double Harmonic Major", root: "Bb", notes: ["Bb", "Cb", "D", "Eb", "F", "Gb", "A"], order: 70 },
     { type: "Double Harmonic Major", root: "F", notes: ["F", "Gb", "A", "Bb", "C", "Db", "E"], order: 71 },
     
-    { type: "Whole Tone", root: null, notes: ["C", "D", "E", "F#", "G#", "A#"], order: 72 },
-    { type: "Whole Tone", root: null, notes: ["Db", "Eb", "F", "G", "A", "B"], order: 73 },
-    
-    { type: "Half-Whole Diminished", root: "C", notes: ["C", "Db", "Eb", "E", "F#", "G", "A", "Bb"], order: 74 },
-    { type: "Half-Whole Diminished", root: "Db", notes: ["Db", "D", "E", "F", "G", "Ab", "Bb", "B"], order: 75 },
-    { type: "Half-Whole Diminished", root: "D", notes: ["D", "Eb", "F", "F#", "G#", "A", "B", "C"], order: 76 },
     
     { type: "Major Pentatonic", root: "C", notes: ["C", "D", "E", "G", "A"], order: 77 },
     { type: "Major Pentatonic", root: "G", notes: ["G", "A", "B", "D", "E"], order: 78 },
@@ -134,6 +128,13 @@ export const scales: Scale[] = [
     { type: "Minor Pentatonic", root: "Eb", notes: ["Eb", "Gb", "Ab", "Bb", "Db"], order: 98 },
     { type: "Minor Pentatonic", root: "Bb", notes: ["Bb", "Db", "Eb", "F", "Ab"], order: 99 },
     { type: "Minor Pentatonic", root: "F", notes: ["F", "Ab", "Bb", "C", "Eb"], order: 100 },
+
+    { type: "Whole Tone", root: null, notes: ["C", "D", "E", "F#", "G#", "A#"], order: 72 },
+    { type: "Whole Tone", root: null, notes: ["Db", "Eb", "F", "G", "A", "B"], order: 73 },
+    
+    { type: "Half-Whole Diminished", root: "C", notes: ["C", "Db", "Eb", "E", "F#", "G", "A", "Bb"], order: 74 },
+    { type: "Half-Whole Diminished", root: "Db", notes: ["Db", "D", "E", "F", "G", "Ab", "Bb", "B"], order: 75 },
+    { type: "Half-Whole Diminished", root: "D", notes: ["D", "Eb", "F", "F#", "G#", "A", "B", "C"], order: 76 },
 
     { type: "Neapolitan Major", root: "C", notes: ["C", "Db", "Eb", "F", "G", "A", "B"], order: 101 },
     { type: "Neapolitan Major", root: "G", notes: ["G", "Ab", "Bb", "C", "D", "E", "F#"], order: 102 },
@@ -255,7 +256,34 @@ export const scales: Scale[] = [
     { type: "Minor Blues", root: "Ab", notes: ["Ab", "B", "C#", "D", "Eb", "F#"], order: 209 },
     { type: "Minor Blues", root: "Eb", notes: ["Eb", "F#", "G#", "A", "Bb", "C#"], order: 210 },
     { type: "Minor Blues", root: "Bb", notes: ["Bb", "C#", "D#", "E", "F", "G#"], order: 211 },
-    { type: "Minor Blues", root: "F", notes: ["F", "G#", "A#", "B", "C", "D#"], order: 212 }
+    { type: "Minor Blues", root: "F", notes: ["F", "G#", "A#", "B", "C", "D#"], order: 212 },
+
+    { type: "Hirajoshi", root: "C", notes: ["C", "D", "Eb", "G", "Ab"], order: 213 },
+    { type: "Hirajoshi", root: "G", notes: ["G", "A", "Bb", "D", "Eb"], order: 214 },
+    { type: "Hirajoshi", root: "D", notes: ["D", "E", "F", "A", "Bb"], order: 215 },
+    { type: "Hirajoshi", root: "A", notes: ["A", "B", "C", "E", "F"], order: 216 },
+    { type: "Hirajoshi", root: "E", notes: ["E", "F#", "G", "B", "C"], order: 217 },
+    { type: "Hirajoshi", root: "B", notes: ["B", "C#", "D", "F#", "G"], order: 218 },
+    { type: "Hirajoshi", root: "F#", notes: ["F#", "G#", "A", "C#", "D"], order: 219 },
+    { type: "Hirajoshi", root: "Db", notes: ["Db", "Eb", "Fb", "G#", "A"], order: 220 },
+    { type: "Hirajoshi", root: "Ab", notes: ["Ab", "Bb", "Cb", "D#", "E"], order: 221 },
+    { type: "Hirajoshi", root: "Eb", notes: ["Eb", "F", "Gb", "A#", "B"], order: 222 },
+    { type: "Hirajoshi", root: "Bb", notes: ["Bb", "C", "Db", "F", "Gb"], order: 223 },
+    { type: "Hirajoshi", root: "F", notes: ["F", "G", "Ab", "C", "Db"], order: 224 },
+
+    { type: "Messiaen Mode 5", root: "C", notes: ["C", "Db", "F", "F#", "G", "B"], order: 225 },
+    { type: "Messiaen Mode 5", root: "G", notes: ["G", "Ab", "C", "C#", "D", "F#"], order: 226 },
+    { type: "Messiaen Mode 5", root: "D", notes: ["D", "Eb", "G", "G#", "A", "C#"], order: 227 },
+    { type: "Messiaen Mode 5", root: "A", notes: ["A", "Bb", "D", "D#", "E", "G#"], order: 228 },
+    { type: "Messiaen Mode 5", root: "E", notes: ["E", "F", "A", "Bb", "Cb", "D#"], order: 229 },
+    { type: "Messiaen Mode 5", root: "B", notes: ["B", "C", "E", "F", "Gb", "A#"], order: 230 },
+    { type: "Messiaen Mode 5", root: "F#", notes: ["F#", "G", "B", "C", "Db", "E#"], order: 231 },
+    { type: "Messiaen Mode 5", root: "Db", notes: ["Db", "Ebb", "F#", "G", "Ab", "C"], order: 232 },
+    { type: "Messiaen Mode 5", root: "Ab", notes: ["Ab", "Bbb", "C#", "D", "Eb", "G"], order: 233 },
+    { type: "Messiaen Mode 5", root: "Eb", notes: ["Eb", "Fb", "G#", "A", "Bb", "D"], order: 234 },
+    { type: "Messiaen Mode 5", root: "Bb", notes: ["Bb", "Cb", "D#", "E", "F", "A"], order: 235 },
+    { type: "Messiaen Mode 5", root: "F", notes: ["F", "Gb", "A#", "B", "C", "E"], order: 236 },
+
 ];
 // Half-Whole Diminished
 export function getScale(type: string, root: string): Scale | undefined {

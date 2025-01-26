@@ -100,7 +100,7 @@ export const modes: ModesData = {
         {mode: "Major Pentatonic", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,3,5,6]},
         {mode: "Suspended", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,4,5,"b7"]},
         {mode: "Blues Minor?", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,"b3",4,"b6","b7"]},
-        {mode: "Blues Major", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,"bb3","bb4","bb6","bb7"]},
+        {mode: "Blues Major", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,4,5,6]},
         {mode: "Aeolian Pentatonic", fifthShift: 0, accidentals: [0,"b",0,0,"b"], degrees: [1,"b3",4,5,"b7"]}
     ],
     "Minor Pentatonic": [
@@ -159,6 +159,16 @@ export const modes: ModesData = {
     ],
     "Minor Blues": [
         {mode: "Minor Blues", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b3",4,"b5",5,"b7"]}
+    ],
+    "Hirajoshi": [
+        {mode: "Hirajoshi", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,2,"b3",5,"b6"]},
+        {mode: "Iwato", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b2",4,"b5","b7"]},
+        {mode: "Kata Kumoi", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b2",4,"b5","b7"]},
+        {mode: "Kumoi Joshi", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b2",4,5,"b6"]},
+        {mode: "Chinese", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,3,"#4",5,7]}
+    ],
+    "Messiaen Mode 5": [
+        {mode: "Messiaen Mode 5", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b2",4,"b5",5,7]},
     ]
 };
 
