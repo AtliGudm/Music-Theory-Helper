@@ -9,6 +9,7 @@ import { findByName } from "../data/ModesData";
 import DisplayPianoKeyboard from "./DisplayPianoKeyboard";
 import PianoKeysIcon from '../assets/PianoKeysIcon';
 import { PinnedScale, PinnedScales } from "./PinnedScales";
+import MidiInput from "./MidiInput";
 
 const ScaleFinder = () => {
     const { enharmonicEquivalence, setQueryNotes } = useScaleSettings();
@@ -17,6 +18,7 @@ const ScaleFinder = () => {
     const [ isFooterVisible, setFooterVisible ] = useState(false);
     const [ isSmallScreen, setIsSmallScreen ] = useState(window.innerWidth <= 730);
     const [ pinnedScalesList, setPinnedScalesList ] = useState<PinnedScale[]>([]);
+    //const [ notes, setNotes ] = useState([]);
 
     const findScales = (queryText: string, threshold: number = 0, enharmonicEquivalenceOverride: boolean|null = null) => {
         if(queryText.length === 0) {
@@ -120,10 +122,20 @@ const ScaleFinder = () => {
         setPinnedScalesList(copiedPinnedScalesList);
     }
 
+    
+
+/*     const handleNoteInput = (note) => {
+        if(!notes.includes(note)) {
+            setNotes((prevNotes) => [...prevNotes, note]); // Append note to the list
+
+        }
+    }; */
+
     return (
         <div className="scaleFinder">
             <h1><span style={{fontSize: "1.25em"}}>S</span>CALE <span style={{fontSize: "1.25em"}}>F</span>INDER</h1>
             <SearchBar setGroupedScales={setGroupedScales} findScales={findScales} setQueryNotes={setQueryNotes}/>    
+            {/* <MidiInput onNoteInput={handleNoteInput}/> */}
             <PinnedScales pinnedScalesList={pinnedScalesList}
                           changeModeCallback={changeModeCallback}
                           emptyPinnedScalesListCallback={emptyPinnedScalesList}
