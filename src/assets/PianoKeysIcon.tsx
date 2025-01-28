@@ -1,5 +1,5 @@
-const PianoKeysIcon = ({width, height}: {width: string, height: string}) => (
-<svg className="piano-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width={width} height={height} viewBox="-31.4 -31.4 376.84 376.84" xmlSpace="preserve" stroke="#000000" strokeWidth="0.0031404300000000005">
+const PianoKeysIcon = ({width, height, style}: {width: string, height: string, style?: string | null}) => (
+<svg className={style ? style : "piano-icon"} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width={width} height={height} viewBox="-31.4 -31.4 376.84 376.84" xmlSpace="preserve" stroke="#000000" strokeWidth="0.0031404300000000005">
 
 <g id="SVGRepo_bgCarrier" strokeWidth="0"/>
 

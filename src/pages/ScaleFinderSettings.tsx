@@ -12,12 +12,12 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
         showNoteScaleDegree,setShowNoteScaleDegree,
         chordDisplayOrientation, setChordDisplayOrientation,
         useAsciiAccidentals, setUseAsciiAccidentals,
-        showDisplayKeyboardDegrees, setShowDisplayKeyboardDegrees,
         forceScaleGroupOpen, setForceScaleGroupOpen,
         searchBarFollow, setSearchBarFollow,
         enablePinFuntionality, setEnablePinFuntionality,
         inludeSuspenedChords, setInludeSuspenedChords,
-        fillDisplayPiano, setFillDisplayPiano } = useScaleSettings();
+        enableDisplayPiano, setEnableDisplayPiano,
+        enableInlineDisplayPiano, setEnableInlineDisplayPiano } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
     const [ hideIncludeSusCheckbox, setHideIncludeSusCheckbox ] = useState(window.innerWidth <= 530);
     const [ hide7thsCheckbox, setHide7thsCheckbox ] = useState(window.innerWidth <= 355);
@@ -118,20 +118,27 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                             checked={useAsciiAccidentals}
                                             onChange={() => setUseAsciiAccidentals(!useAsciiAccidentals)}
                                             label={"Plain Text Accidentals"} />
-                            <CheckboxSetting id={"showDisplayKeyboardDegrees"} 
+                            {/* <CheckboxSetting id={"showDisplayKeyboardDegrees"} 
                                             checked={showDisplayKeyboardDegrees}
                                             onChange={() => setShowDisplayKeyboardDegrees(!showDisplayKeyboardDegrees)}
-                                            label={"Display Piano Keyboard Degrees"} />
+                                            label={"Display Piano Keyboard Degrees"} /> */}
                             <CheckboxSetting id={"forceScaleGroupOpen"} 
                                             checked={forceScaleGroupOpen}
                                             onChange={() => setForceScaleGroupOpen(!forceScaleGroupOpen)}
                                             label={"Force Scale Group Open"} />
-                            <CheckboxSetting id={"fillDisplayPiano"} 
+                            {/* <CheckboxSetting id={"fillDisplayPiano"} 
                                             checked={fillDisplayPiano}
                                             onChange={() => setFillDisplayPiano(!fillDisplayPiano)}
-                                            label={"Fill Piano Display"} />
+                                            label={"Fill Piano Display"} /> */}
+                            <CheckboxSetting id={"enableDisplayPiano"} 
+                                            checked={enableDisplayPiano}
+                                            onChange={() => setEnableDisplayPiano(!enableDisplayPiano)}
+                                            label={"Enable Display Piano"} />
+                            <CheckboxSetting id={"enableInlineDisplayPiano"} 
+                                            checked={enableInlineDisplayPiano}
+                                            onChange={() => setEnableInlineDisplayPiano(!enableInlineDisplayPiano)}
+                                            label={"Enable Inline Piano"} />
                         </div>
-                        
                     </>
                 )}
                 </div>

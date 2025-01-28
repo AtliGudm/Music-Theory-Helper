@@ -11,7 +11,7 @@ import PianoKeysIcon from '../assets/PianoKeysIcon';
 import { PinnedScale, PinnedScales } from "./PinnedScales";
 
 const ScaleFinder = () => {
-    const { enharmonicEquivalence, setQueryNotes } = useScaleSettings();
+    const { enharmonicEquivalence, setQueryNotes, enableDisplayPiano } = useScaleSettings();
     const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: { scale: Scale[], selectedModeIndex: number, parentScale: string | null }}>({});
     const [ selectedScale, setSelectedScale ] = useState<PayloadContainer>();
     const [ isFooterVisible, setFooterVisible ] = useState(false);
@@ -145,16 +145,21 @@ const ScaleFinder = () => {
                     <p>No matching scales found.</p>
                 )}
             </div>
-            <div className={"sticky-bottom " + (isFooterVisible ? "visible" : "")}>
-                <DisplayPianoKeyboard toggleFooter={toggleFooter} isSmallScreen={isSmallScreen} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
-            </div>
-            {!isFooterVisible && (
-                <button className="toggle-button"
-                        onClick={toggleFooter}
-                        style={{fontSize: "18px"}}>
-                    <PianoKeysIcon width="40" height="40"/>
-                </button>
+            {enableDisplayPiano && (
+                <>
+                    <div className={"sticky-bottom " + (isFooterVisible ? "visible" : "")}>
+                        <DisplayPianoKeyboard toggleFooter={toggleFooter} isSmallScreen={isSmallScreen} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
+                    </div>
+                    {!isFooterVisible && (
+                        <button className="toggle-button"
+                                onClick={toggleFooter}
+                                style={{fontSize: "18px"}}>
+                            <PianoKeysIcon width="40" height="40"/>
+                        </button>
+                    )}
+                </>
             )}
+
             <div style={{height: "170px"}}></div>
         </div>
     );

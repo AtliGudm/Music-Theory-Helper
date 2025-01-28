@@ -51,6 +51,12 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [fillDisplayPiano, setFillDisplayPiano] = useState(() =>
     getInitialState("fillDisplayPiano", false)
   );
+  const [enableDisplayPiano, setEnableDisplayPiano] = useState(() =>
+    getInitialState("enableDisplayPiano", true)
+  );
+  const [enableInlineDisplayPiano, setEnableInlineDisplayPiano] = useState(() =>
+    getInitialState("enableInlineDisplayPiano", false)
+  );
 
 
   // Effect to sync settings with localStorage
@@ -106,6 +112,14 @@ export const ScaleSettingsProvider = ({ children }) => {
     localStorage.setItem("fillDisplayPiano", JSON.stringify(fillDisplayPiano));
   }, [fillDisplayPiano]);
 
+  useEffect(() => {
+    localStorage.setItem("enableDisplayPiano", JSON.stringify(enableDisplayPiano));
+  }, [enableDisplayPiano]);
+
+  useEffect(() => {
+    localStorage.setItem("enableInlineDisplayPiano", JSON.stringify(enableInlineDisplayPiano));
+  }, [enableInlineDisplayPiano]);
+
   return (
     <ScaleSettingsContext.Provider
       value={{
@@ -136,7 +150,11 @@ export const ScaleSettingsProvider = ({ children }) => {
         enablePinFuntionality,
         setEnablePinFuntionality,
         fillDisplayPiano,
-        setFillDisplayPiano
+        setFillDisplayPiano,
+        enableDisplayPiano,
+        setEnableDisplayPiano,
+        enableInlineDisplayPiano,
+        setEnableInlineDisplayPiano
       }}
     >
       {children}

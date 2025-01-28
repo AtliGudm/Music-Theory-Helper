@@ -10,10 +10,14 @@ import { Scale, PayloadContainer } from "../data/ScaleData";
 import { MinorExtraScaleDisplay } from "./MinorExtraChords";
 import { PinnedScale } from "./PinnedScales";
 import { modes } from "../data/ModesData";
+import InlinePianoKeyboard from "./InlinePianoKeyboard";
 
 const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard, pinnScaleCallback = null, unpinScaleCallback = null} : {scale: Scale, selectedMode: number, scaleIndex: number, changeModeCallback : (index: number, newValue: number) => void, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void | null, unpinScaleCallback: (index: number) => void | null}) => {
-    const { includeSevenths, enablePinFuntionality } = useScaleSettings();
+    const { includeSevenths, enablePinFuntionality,
+            enableDisplayPiano, enableInlineDisplayPiano }  = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
+    const [ inlinePianoOpen, setInlinePianoOpen ] = useState(false);
+    const [ selectedScale, setSelectedScale ] = useState<PayloadContainer>();
 
     const getScaleNotes = () => {
         return (selectedMode !== 0) ? shiftScale(scale, selectedMode) : scale;
@@ -51,16 +55,36 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
         }
     }
 
+    const displayInlineScaleOnKeyboard = () => {
+        if(inlinePianoOpen === false) {
+            const payload = DisplayScaleOnKeyboardPayload(scale, selectedMode);
+            setSelectedScale(payload);
+        }
+
+        setInlinePianoOpen(!inlinePianoOpen);
+    }
+
     return (
         <li className="scaleDisplay">
             <div>
                 <div style={{marginBottom: "0.4rem", display: "flex", alignItems: "center", position: "relative"}} className="scaleHeader">
-                    <button className="display-scale-on-keyboard-button" title="Search" 
+                    { enableDisplayPiano && (
+                                            <button className="display-scale-on-keyboard-button" title="Search" 
                             onClick={callDisplayScaleOnKeyboard} 
                             style={{marginRight: "auto"}}
                             >
                         <PianoKeysIcon width="30" height="30"/>
                     </button>
+                    )}
+                    { enableInlineDisplayPiano && (
+                        <button className="display-scale-on-keyboard-button" title="Search" 
+                                onClick={displayInlineScaleOnKeyboard} 
+                                style={{marginRight: "auto"}}>
+                                
+                                <PianoKeysIcon width="30" height="30" style="#0000ff"/>
+                                <i style={{fontSize: "18px"}} className={(inlinePianoOpen ? "fa-solid fa-circle-chevron-up" : "fa-solid fa-circle-chevron-down")}></i>         
+                        </button>
+                    )}
                     { (enablePinFuntionality && pinnScaleCallback) && (
                         <button onClick={clickPinnScale}
                             className="pin-button">
@@ -81,10 +105,16 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                             <i className="fa-regular fa-trash-can"></i>
                         </button>)}
                 </div>
-                    {isOpen && showModeButton() && (
-                        <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>
-                    )}
+                {inlinePianoOpen && (
+                    <>
+                        <InlinePianoKeyboard isSmallScreen={false} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
+                    </>
+                )}
+                {isOpen && showModeButton() && (
+                    <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>
+                )}
             </div>
+
             {isOpen && (
                 <>
                     <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
