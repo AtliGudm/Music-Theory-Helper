@@ -12,7 +12,7 @@ import { PinnedScale } from "./PinnedScales";
 import { modes } from "../data/ModesData";
 import InlinePianoKeyboard from "./InlinePianoKeyboard";
 
-const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, displayScaleOnKeyboard, pinnScaleCallback = null, unpinScaleCallback = null} : {scale: Scale, selectedMode: number, scaleIndex: number, changeModeCallback : (index: number, newValue: number) => void, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void | null, unpinScaleCallback: (index: number) => void | null}) => {
+const ScaleDisplay = ({scale, selectedMode, scaleIndex, isSmallScreen, changeModeCallback, displayScaleOnKeyboard, pinnScaleCallback = null, unpinScaleCallback = null} : {scale: Scale, selectedMode: number, scaleIndex: number, isSmallScreen: boolean, changeModeCallback : (index: number, newValue: number) => void, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void | null, unpinScaleCallback: (index: number) => void | null}) => {
     const { includeSevenths, enablePinFuntionality,
             enableDisplayPiano, enableInlineDisplayPiano }  = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
@@ -107,7 +107,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                 </div>
                 {inlinePianoOpen && (
                     <>
-                        <InlinePianoKeyboard isSmallScreen={false} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
+                        <InlinePianoKeyboard isSmallScreen={isSmallScreen} selectedScale={selectedScale || { scaleName: "", payloadList: [] }}/>
                     </>
                 )}
                 {isOpen && showModeButton() && (
@@ -119,7 +119,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, changeModeCallback, disp
                 <>
                     <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     { showParallelModeButton() && 
-                        <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
+                        <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard} changeModeCallback={changeModeCallback} pinnScaleCallback={pinnScaleCallback}/>
                     }
                     {(scale && scale.type === "Minor" ) && (
                         <MinorExtraScaleDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard}/>

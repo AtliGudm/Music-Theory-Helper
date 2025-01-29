@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import { useScaleSettings } from "../ScaleSettingsContext";
 import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
@@ -8,11 +8,12 @@ import { getFifth, modifyNote, DisplayParallelScaleOnKeyboardPayload } from '../
 import { Scale } from "../data/ScaleData";
 import { GetScaleNotesDisplay, FormatAccidentalsForDisplay } from "./HelperComponents";
 import PianoKeysIcon from "../assets/PianoKeysIcon";
+import { PinnedScale } from "./PinnedScales";
 
-const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void }) => {
+const ParallelModesDisplay = ({scale, displayScaleOnKeyboard, changeModeCallback, pinnScaleCallback = null}: {scale: Scale, displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, changeModeCallback : (index: number, newValue: number) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void | null }) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ selectedMode, setSelectedMode ] = useState(0);
-    const { includeSevenths } = useScaleSettings();
+    const { includeSevenths, enablePinFuntionality } = useScaleSettings();
 
     const getSourceTemplateScale = () => {
         const type = scale.type;
@@ -54,6 +55,21 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
         displayScaleOnKeyboard(payload); 
     }
 
+    const clickPinnScale = () => {
+        if(pinnScaleCallback) {
+            const mode = modes[scale.type][selectedMode];
+            const fifthShift = mode.fifthShift;
+            const parallelRoot = scale.root ? getFifth(scale.root, fifthShift) : '';
+            const tempScale = getScale(scale.type, parallelRoot);
+            const temp: PinnedScale = { scale: tempScale,
+                                        selectedMode: selectedMode,
+                                        scaleIndex: 0,
+                                        changeModeCallback: changeModeCallback,
+                                        displayScaleOnKeyboard:displayScaleOnKeyboard };
+            pinnScaleCallback(temp);
+        }
+    }
+
     const ParallelScale = () => {
         const para: ParaScale = getParallelScale();
         return (
@@ -65,6 +81,12 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard}: {scale: Scale, di
                             >
                         <PianoKeysIcon width="30" height="30"/>
                     </button>
+                    { (enablePinFuntionality && pinnScaleCallback) && (
+                        <button onClick={clickPinnScale}
+                            className="pin-button">
+                            <i className="fa-solid fa-thumbtack" style={{transform: "rotate(45deg)"}}></i>
+                        </button>
+                    )}
                     <div style={{flexGrow: "2", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "5px"}}>
                         <strong><GetParallelScaleHeader mode={para.mode.mode} parallelRoot={para.parallelRoot}/>:</strong>
                         <div><GetScaleNotesDisplay scaleNotes={para.modifiedScale.notes} scaleType={scale.type} selectedMode={selectedMode}/></div>

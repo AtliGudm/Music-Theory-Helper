@@ -127,7 +127,8 @@ const ScaleFinder = () => {
             <PinnedScales pinnedScalesList={pinnedScalesList}
                           changeModeCallback={changeModeCallback}
                           emptyPinnedScalesListCallback={emptyPinnedScalesList}
-                          unpinScaleCallback={unpinScale}/>
+                          unpinScaleCallback={unpinScale}
+                          isSmallScreen={isSmallScreen}/>
             <div className="scaleGroupContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, item]) => (
@@ -139,6 +140,7 @@ const ScaleFinder = () => {
                             parentScale={item.parentScale}
                             displayScaleOnKeyboard={displayScaleOnKeyboard}
                             pinnScaleCallback={pinnScale}
+                            isSmallScreen={isSmallScreen}
                         />
                     ))
                     ) : (

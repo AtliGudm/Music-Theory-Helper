@@ -12,7 +12,7 @@ export interface PinnedScale {
     displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void;
 }
 
-export const PinnedScales = ({ pinnedScalesList, changeModeCallback, emptyPinnedScalesListCallback, unpinScaleCallback = null }: { pinnedScalesList: PinnedScale[], changeModeCallback : (index: number, newValue: number) => void, emptyPinnedScalesListCallback: () => void, unpinScaleCallback: (index: number) => void | null }) => {
+export const PinnedScales = ({ pinnedScalesList, isSmallScreen, changeModeCallback, emptyPinnedScalesListCallback, unpinScaleCallback = null }: { pinnedScalesList: PinnedScale[], isSmallScreen: boolean, changeModeCallback : (index: number, newValue: number) => void, emptyPinnedScalesListCallback: () => void, unpinScaleCallback: (index: number) => void | null }) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const { enablePinFuntionality } = useScaleSettings();
 
@@ -37,7 +37,8 @@ export const PinnedScales = ({ pinnedScalesList, changeModeCallback, emptyPinned
                                     scale={item.scale} 
                                     displayScaleOnKeyboard={item.displayScaleOnKeyboard}
                                     pinnScaleCallback={null}
-                                    unpinScaleCallback={unpinScaleCallback}/>
+                                    unpinScaleCallback={unpinScaleCallback}
+                                    isSmallScreen={isSmallScreen}/>
                         ))}
                     </ul>
                 </div>

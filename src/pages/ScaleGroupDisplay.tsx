@@ -5,7 +5,7 @@ import { Scale, PayloadContainer } from "../data/ScaleData";
 import { FormatAccidentalsForDisplay } from './HelperComponents';
 import { PinnedScale } from "./PinnedScales";
 
-const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, displayScaleOnKeyboard, pinnScaleCallback} : {type: string, scales: Scale[], scaleGroupStartingMode: number, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void }) => {
+const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, isSmallScreen, parentScale, displayScaleOnKeyboard, pinnScaleCallback} : {type: string, scales: Scale[], scaleGroupStartingMode: number, isSmallScreen: boolean, parentScale: string | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, pinnScaleCallback: (pinnedScale: PinnedScale) => void }) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const { forceScaleGroupOpen } = useScaleSettings();
     const [ selectedModes, setSelectedModes ] = useState(() => Array(scales.length).fill(scaleGroupStartingMode));
@@ -43,7 +43,8 @@ const ScaleGroupDisplay = ({type, scales, scaleGroupStartingMode, parentScale, d
                                     scale={_scale} 
                                     displayScaleOnKeyboard={displayScaleOnKeyboard}
                                     pinnScaleCallback={pinnScaleCallback}
-                                    unpinScaleCallback={null}/>
+                                    unpinScaleCallback={null}
+                                    isSmallScreen={isSmallScreen}/>
                     ))}
                 </ul>
             )}
