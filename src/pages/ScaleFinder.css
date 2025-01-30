@@ -422,6 +422,7 @@ span.double-sharp-accidental {
   /* padding: 10px; */
   transition: bottom 0.3s ease, filter 0.7s ease;
   pointer-events: none;
+  z-index: 501;
 }
 
 .sticky-bottom.visible {
