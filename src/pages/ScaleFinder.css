@@ -557,3 +557,6 @@ button.trash-can {
   font-size: 1em; /* Foreground size */
 }
 
+.divider-top-line {
+  border-top: 2px solid black;
+}

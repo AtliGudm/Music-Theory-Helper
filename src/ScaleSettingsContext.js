@@ -57,6 +57,9 @@ export const ScaleSettingsProvider = ({ children }) => {
   const [enableInlineDisplayPiano, setEnableInlineDisplayPiano] = useState(() =>
     getInitialState("enableInlineDisplayPiano", false)
   );
+  const [showExtraPreDominants, setShowExtraPreDominants] = useState(() =>
+    getInitialState("showExtraPreDominants", false)
+  );
 
 
   // Effect to sync settings with localStorage
@@ -120,6 +123,11 @@ export const ScaleSettingsProvider = ({ children }) => {
     localStorage.setItem("enableInlineDisplayPiano", JSON.stringify(enableInlineDisplayPiano));
   }, [enableInlineDisplayPiano]);
 
+  useEffect(() => {
+    localStorage.setItem("showExtraPreDominants", JSON.stringify(showExtraPreDominants));
+  }, [showExtraPreDominants]);
+
+
   return (
     <ScaleSettingsContext.Provider
       value={{
@@ -154,7 +162,9 @@ export const ScaleSettingsProvider = ({ children }) => {
         enableDisplayPiano,
         setEnableDisplayPiano,
         enableInlineDisplayPiano,
-        setEnableInlineDisplayPiano
+        setEnableInlineDisplayPiano,
+        showExtraPreDominants,
+        setShowExtraPreDominants
       }}
     >
       {children}

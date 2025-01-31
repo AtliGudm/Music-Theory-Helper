@@ -17,7 +17,8 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
         enablePinFuntionality, setEnablePinFuntionality,
         inludeSuspenedChords, setInludeSuspenedChords,
         enableDisplayPiano, setEnableDisplayPiano,
-        enableInlineDisplayPiano, setEnableInlineDisplayPiano } = useScaleSettings();
+        enableInlineDisplayPiano, setEnableInlineDisplayPiano,
+        showExtraPreDominants, setShowExtraPreDominants } = useScaleSettings();
     const [ isOpen, setIsOpen ] = useState(false);
     const [ hideIncludeSusCheckbox, setHideIncludeSusCheckbox ] = useState(window.innerWidth <= 530);
     const [ hide7thsCheckbox, setHide7thsCheckbox ] = useState(window.innerWidth <= 355);
@@ -138,6 +139,10 @@ const ScaleFinderSettings = (/* {disableEnharmonicCheckbox}: {disableEnharmonicC
                                             checked={enableInlineDisplayPiano}
                                             onChange={() => setEnableInlineDisplayPiano(!enableInlineDisplayPiano)}
                                             label={"Enable Inline Piano"} />
+                            <CheckboxSetting id={"showExtraPreDominants"} 
+                                            checked={showExtraPreDominants}
+                                            onChange={() => setShowExtraPreDominants(!showExtraPreDominants)}
+                                            label={"Extra PreDominants"} />
                         </div>
                     </>
                 )}
