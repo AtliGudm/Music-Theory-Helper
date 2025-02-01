@@ -7,7 +7,7 @@ import { PayloadContainer } from "../data/ScaleData";
 import { Chord } from "./ChordGenerator";
 import { modifyNote } from "../Helpers";
 
-const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegreesArr, displayScaleOnKeyboard}: {scale: Scale, selectedMode: number, includeSevenths: boolean, generateOnlyDegreesArr?: number[] | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void}) => {
+const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegreesArr, displayScaleOnKeyboard, chordsToExclude = null, augmentedSixthChordsPossible = false}: {scale: Scale, selectedMode: number, includeSevenths: boolean, generateOnlyDegreesArr?: number[] | null,  displayScaleOnKeyboard: (payloadContainer: PayloadContainer) => void, chordsToExclude?: Chord[] | null, augmentedSixthChordsPossible?: boolean | null}) => {
     const { highlightQueryNotes, queryNotes, chordDisplayOrientation, inludeSuspenedChords, enharmonicEquivalence, showExtraPreDominants } = useScaleSettings();
     
     const prepareNote = (note: string) => {
@@ -72,6 +72,7 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
         <div className={ chordDisplayOrientation == "horizontal" ? "chords" : "chords-vertical" } 
             style={{ marginTop: "0.8rem", marginBottom: "1rem", rowGap: "30px" }}>
             {GenerateDiatonicChords(scale, selectedMode, includeSevenths, inludeSuspenedChords, generateOnlyDegreesArr).map((chord, chordIndex) => (
+                (chordsToExclude === null || !chordsToExclude.some(item => item.chordName === chord.chordName)) ?
                 chordDisplayOrientation === "horizontal" ? (
                     <div key={chordIndex} 
                         className="chord"
@@ -96,9 +97,9 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
                         &#41;</span>
                         <strong> - <FormatAccidentalsForDisplay textInput={chord.romanNumeral} forceAccidental={true} seventhChordSymbolAllowed={true}/></strong>
                     </div>
-                )
+                ) : (<></>)
             ))}
-            {((scale.type === "Major" || scale.type === "Minor") && showExtraPreDominants) && (
+            {((augmentedSixthChordsPossible && (scale.type === "Major" || scale.type === "Minor")) && showExtraPreDominants) && (
                 <>
                     {createSixthChords().map((chord,chordIndex) => (
                         <div className={"vertical-chord" + ((chordIndex === 0) ? " divider-top-line" : "")} 

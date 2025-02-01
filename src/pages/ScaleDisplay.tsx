@@ -117,7 +117,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, isSmallScreen, changeMod
 
             {isOpen && (
                 <>
-                    <ChordsDisplay scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
+                    <ChordsDisplay augmentedSixthChordsPossible={true} scale={getScaleNotes()} selectedMode={selectedMode} includeSevenths={includeSevenths} displayScaleOnKeyboard={displayScaleOnKeyboard}/>
                     { showParallelModeButton() && 
                         <ParallelModesDisplay scale={scale} displayScaleOnKeyboard={displayScaleOnKeyboard} changeModeCallback={changeModeCallback} pinnScaleCallback={pinnScaleCallback}/>
                     }

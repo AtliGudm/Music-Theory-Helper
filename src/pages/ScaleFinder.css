@@ -82,6 +82,7 @@ h2.pinnedScalesHeader:hover {
   border-radius: 6px;
   /* margin-inline: 54px; */
   background-color: #ffc7c2;
+  display: flex;
 }
 
 .parallelModesButton {
