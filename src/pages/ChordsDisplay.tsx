@@ -32,24 +32,40 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
         displayScaleOnKeyboard(temp);
     }
 
-    const createAugmentedSixthChords = () => {
-        let augmentedChords = [];
+    const createSixthChords = () => {
+        let sixthChords = [];
         if(scale) {
             let sixthNote = scale.notes[5];
             if(scale.type === "Major") sixthNote = modifyNote(sixthNote, "b");
             let fourth = scale.notes[3];
             fourth = modifyNote(fourth, "#");
             
-            augmentedChords.push({chordName: "It6", chordNotes: [sixthNote, scale.notes[0], fourth], degrees: ["b6", "1", "#4"]});
-            augmentedChords.push({chordName: "Fr6", chordNotes: [sixthNote, scale.notes[0], scale.notes[1], fourth], degrees: ["b6", "1", "2", "#4"]});
+            sixthChords.push({chordName: "It+6", chordNotes: [sixthNote, scale.notes[0], fourth], degrees: ["b6", "1", "#4"]});
+            sixthChords.push({chordName: "Fr+6", chordNotes: [sixthNote, scale.notes[0], scale.notes[1], fourth], degrees: ["b6", "1", "2", "#4"]});
             let third = scale.notes[2];
             if(scale.type === "Major") third = modifyNote(third, "b");
-            augmentedChords.push({chordName: "Ger6", chordNotes: [sixthNote, scale.notes[0], third, fourth], degrees: ["b6", "1", "b3", "#4"]});
+            sixthChords.push({chordName: "Ger+6", chordNotes: [sixthNote, scale.notes[0], third, fourth], degrees: ["b6", "1", "b3", "#4"]});
 
             let second = modifyNote(scale.notes[1], "b");
-            augmentedChords.push({chordName: "N6", chordNotes: [scale.notes[3], sixthNote, second], degrees: ["3", "5", "1"]});
+            sixthChords.push({chordName: "N6", chordNotes: [scale.notes[3], sixthNote, second], degrees: ["3", "5", "1"]});
         }
-        return augmentedChords;
+        return sixthChords;
+    }
+
+    const FormatSixthChords = ({text} : {text: string}) => {
+        let textArray = text.split('');
+        return (
+            <>
+                {textArray.map((item, index) => {
+                    if(item === "+" || item === "6") {
+                        return (<span key={index+item} className="superscript-chord-symbol">{item}</span>);
+                    }
+                    else {
+                        return (<span key={index+item}>{item}</span>);
+                    }
+                })}
+            </>
+        );
     }
     
     return (
@@ -84,11 +100,11 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
             ))}
             {((scale.type === "Major" || scale.type === "Minor") && showExtraPreDominants) && (
                 <>
-                    {createAugmentedSixthChords().map((chord,chordIndex) => (
+                    {createSixthChords().map((chord,chordIndex) => (
                         <div className={"vertical-chord" + ((chordIndex === 0) ? " divider-top-line" : "")} 
                                 key={chordIndex}
                                 onClick={() => displayChordOnPianoKeyboard(chord)}>
-                                <strong><FormatAccidentalsForDisplay textInput={chord.chordName} seventhChordSymbolAllowed={true}/> </strong>
+                                <strong><FormatSixthChords text={chord.chordName}/> </strong>
                                 <span>&#40;
                                     {chord.chordNotes && chord.chordNotes.map((note, noteIndex) => (
                                         <span key={noteIndex}>{prepareNote(note)}{noteIndex < chord.chordNotes.length-1 ? "-" : ""}</span>
