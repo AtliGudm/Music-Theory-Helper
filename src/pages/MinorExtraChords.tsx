@@ -31,17 +31,15 @@ export const MinorExtraScaleDisplay = ({scale, displayScaleOnKeyboard} : {scale:
         return (<>
             <div>
                 <h3 className="circle"><FormatAccidentalsForDisplay textInput={inputScale.notes[generateOnlyDegreesArr[2]]}/></h3>
-                <div className="parallelScaleHeader" style={{padding: "5px", paddingInline: "16px"}}>
+                <div className="parallelScaleHeader" style={{padding: "5px", display: "flex", justifyContent: "center"}}>
                     { enableDisplayPiano && (
                         <button className="display-scale-on-keyboard-button" title="Search" 
-                            onClick={() => callDisplayScaleOnKeyboard(inputScale)} 
-                            style={{marginRight: "12px"}}
-                            >
+                            onClick={() => callDisplayScaleOnKeyboard(inputScale)}>
                         <PianoKeysIcon width="30" height="30"/>
                     </button>
                     )}
-                    <div>
-                        <div style={{display: "inline"}} >
+                    <div className="extra-minor-scale-header">
+                        <div>
                             <strong><FormatAccidentalsForDisplay textInput={getScaleDisplayName(inputScale, 0)}/>:</strong>
                         </div>
                         <div><GetScaleNotesDisplay scaleNotes={inputScale.notes} scaleType={inputScale.type} selectedMode={0}/></div>

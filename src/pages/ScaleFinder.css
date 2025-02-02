@@ -120,6 +120,7 @@ div.chords-vertical {
 
   /* Individual chord block styling */
 div.chord {
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -356,6 +357,7 @@ div.horizontal-chord-name {
   border-bottom: 2px solid #686868;
   margin-bottom: 6px;
   min-width: 78px;
+  min-height: 24.332px;
 }
 
 div.horizontal-chord-roman-numeral {
@@ -560,4 +562,12 @@ button.trash-can {
 
 .divider-top-line {
   border-top: 2px solid black;
+}
+
+div.extra-minor-scale-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex-grow: 2;
+  justify-content: center;
 }

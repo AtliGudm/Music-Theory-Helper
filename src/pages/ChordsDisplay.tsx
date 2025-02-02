@@ -102,17 +102,31 @@ const ChordsDisplay = ({scale, selectedMode, includeSevenths, generateOnlyDegree
             {((augmentedSixthChordsPossible && (scale.type === "Major" || scale.type === "Minor")) && showExtraPreDominants) && (
                 <>
                     {createSixthChords().map((chord,chordIndex) => (
-                        <div className={"vertical-chord" + ((chordIndex === 0) ? " divider-top-line" : "")} 
-                                key={chordIndex}
+                        chordDisplayOrientation === "vertical" ? (
+                            <div className={"vertical-chord" + ((chordIndex === 0) ? " divider-top-line" : "")} 
+                                    key={chordIndex}
+                                    onClick={() => displayChordOnPianoKeyboard(chord)}>
+                                    <strong><FormatSixthChords text={chord.chordName}/> </strong>
+                                    <span>&#40;
+                                        {chord.chordNotes && chord.chordNotes.map((note, noteIndex) => (
+                                            <span key={noteIndex}>{prepareNote(note)}{noteIndex < chord.chordNotes.length-1 ? "-" : ""}</span>
+                                        ))}
+                                    &#41;</span>
+                            </div>
+                        ) : (
+                            <div key={chordIndex} 
+                                className="chord"
                                 onClick={() => displayChordOnPianoKeyboard(chord)}>
-                                <strong><FormatSixthChords text={chord.chordName}/> </strong>
-                                <span>&#40;
+                                <div className="horizontal-chord-name"><FormatSixthChords text={chord.chordName}/> </div>
+                                <div className="chord-notes">
                                     {chord.chordNotes && chord.chordNotes.map((note, noteIndex) => (
-                                        <span key={noteIndex}>{prepareNote(note)}{noteIndex < chord.chordNotes.length-1 ? "-" : ""}</span>
+                                        <div key={noteIndex} className="horizontal-note">{prepareNote(note)}</div>
                                     ))}
-                                &#41;</span>
-                        </div>
-                    ))}
+                                </div>
+                            </div>
+                        )
+                    ))
+                }
                 </>
             )}
         </div>);

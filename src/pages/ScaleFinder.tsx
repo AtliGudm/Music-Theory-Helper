@@ -11,7 +11,7 @@ import PianoKeysIcon from '../assets/PianoKeysIcon';
 import { PinnedScale, PinnedScales } from "./PinnedScales";
 
 const ScaleFinder = () => {
-    const { enharmonicEquivalence, setQueryNotes, enableDisplayPiano } = useScaleSettings();
+    const { enharmonicEquivalence, setQueryNotes, enableDisplayPiano, chordDisplayOrientation } = useScaleSettings();
     const [ groupedScales, setGroupedScales ] = useState<{ [key: string]: { scale: Scale[], selectedModeIndex: number, parentScale: string | null }}>({});
     const [ selectedScale, setSelectedScale ] = useState<PayloadContainer>();
     const [ isFooterVisible, setFooterVisible ] = useState(false);
@@ -129,7 +129,10 @@ const ScaleFinder = () => {
                           emptyPinnedScalesListCallback={emptyPinnedScalesList}
                           unpinScaleCallback={unpinScale}
                           isSmallScreen={isSmallScreen}/>
-            <div className="scaleGroupContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
+            <div className="scaleGroupContainer"
+                 style={{maxWidth: ((chordDisplayOrientation === "vertical") ? "750px" : "1050px"), 
+                         marginLeft: "auto", 
+                         marginRight: "auto"}}>
                 {Object.keys(groupedScales).length > 0 ? (
                     Object.entries(groupedScales).map(([type, item]) => (
                         <ScaleGroupDisplay
