@@ -14,11 +14,11 @@ export interface PinnedScale {
 
 export const PinnedScales = ({ pinnedScalesList, isSmallScreen, changeModeCallback, emptyPinnedScalesListCallback, unpinScaleCallback = null }: { pinnedScalesList: PinnedScale[], isSmallScreen: boolean, changeModeCallback : (index: number, newValue: number) => void, emptyPinnedScalesListCallback: () => void, unpinScaleCallback: (index: number) => void | null }) => {
     const [ isOpen, setIsOpen ] = useState(false);
-    const { enablePinFuntionality } = useScaleSettings();
+    const { enablePinFuntionality, chordDisplayOrientation } = useScaleSettings();
 
     return (<>
         {(enablePinFuntionality && pinnedScalesList && pinnedScalesList.length > 0) && (
-            <div className="scaleGroupContainer" style={{maxWidth: "750px", marginLeft: "auto", marginRight: "auto"}}>
+            <div className="scaleGroupContainer" style={{maxWidth: ((chordDisplayOrientation === "vertical") ? "750px" : "1050px"), marginLeft: "auto", marginRight: "auto"}}>
                 <div className="scaleGroup">
                     <h2 className="pinnedScalesHeader" onClick={() => setIsOpen(!isOpen)}>
                         <div><i className="fa-solid fa-thumbtack" style={{transform: "rotate(45deg)"}}></i></div>
