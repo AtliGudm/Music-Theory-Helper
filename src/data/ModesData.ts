@@ -93,8 +93,14 @@ export const modes: ModesData = {
     "Whole Tone": [
         {mode: "Whole Tone", fifthShift: 0, accidentals: [0,0,0,0,0,0]}
     ],
+    "Octatonic": [
+        {mode: "Octatonic", fifthShift: 0, accidentals: [0,0,0,0, 0,0,0,0], degrees: [1,"b2","b3",3,"#4",5,6,"b7"]}
+    ],
     "Half-Whole Diminished": [
         {mode: "Half-Whole Diminished", fifthShift: 0, accidentals: [0,0,0,0, 0,0,0,0], degrees: [1,"b2","b3",3,"#4",5,6,"b7"]}
+    ],
+    "Whole-Half Diminished": [
+        {mode: "Whole-Half Diminished", fifthShift: 0, accidentals: [0,0,0,0, 0,0,0,0], degrees: [1,2,"b3",4,"#4","#5",6,7]}
     ],
     "Major Pentatonic": [
         {mode: "Major Pentatonic", fifthShift: 0, accidentals: [0,0,0,0,0], degrees: [1,2,3,5,6]},

@@ -132,9 +132,9 @@ export const scales: Scale[] = [
     { type: "Whole Tone", root: null, notes: ["C", "D", "E", "F#", "G#", "A#"], order: 72 },
     { type: "Whole Tone", root: null, notes: ["Db", "Eb", "F", "G", "A", "B"], order: 73 },
     
-    { type: "Half-Whole Diminished", root: "C", notes: ["C", "Db", "Eb", "E", "F#", "G", "A", "Bb"], order: 74 },
-    { type: "Half-Whole Diminished", root: "Db", notes: ["Db", "D", "E", "F", "G", "Ab", "Bb", "B"], order: 75 },
-    { type: "Half-Whole Diminished", root: "D", notes: ["D", "Eb", "F", "F#", "G#", "A", "B", "C"], order: 76 },
+    { type: "Octatonic", root: "C", notes: ["C", "Db", "Eb", "E", "F#", "G", "A", "Bb"], order: 74 },
+    { type: "Octatonic", root: "Db", notes: ["Db", "D", "E", "F", "G", "Ab", "Bb", "B"], order: 75 },
+    { type: "Octatonic", root: "D", notes: ["D", "Eb", "F", "F#", "G#", "A", "B", "C"], order: 76 },
 
     { type: "Neapolitan Major", root: "C", notes: ["C", "Db", "Eb", "F", "G", "A", "B"], order: 101 },
     { type: "Neapolitan Major", root: "G", notes: ["G", "Ab", "Bb", "C", "D", "E", "F#"], order: 102 },
@@ -283,6 +283,38 @@ export const scales: Scale[] = [
     { type: "Messiaen Mode 5", root: "Eb", notes: ["Eb", "Fb", "G#", "A", "Bb", "D"], order: 234 },
     { type: "Messiaen Mode 5", root: "Bb", notes: ["Bb", "Cb", "D#", "E", "F", "A"], order: 235 },
     { type: "Messiaen Mode 5", root: "F", notes: ["F", "Gb", "A#", "B", "C", "E"], order: 236 },
+
+    { type: "Half-Whole Diminished", root: "C", notes: ["C", "Db", "Eb", "E", "F#", "G", "A", "Bb"], order: 237 },
+    { type: "Half-Whole Diminished", root: "G", notes: ["G", "Ab", "Bb", "B", "C#", "D", "E", "F"], order: 238 },
+    { type: "Half-Whole Diminished", root: "D", notes: ["D", "Eb", "F", "F#", "G#", "A", "B", "C"], order: 239 },
+    { type: "Half-Whole Diminished", root: "A", notes: ["A", "Bb", "C", "C#", "D#", "E", "F#", "G"], order: 240 },
+    { type: "Half-Whole Diminished", root: "E", notes: ["E", "F", "G", "G#", "A#", "B", "C#", "D"], order: 241 },
+    { type: "Half-Whole Diminished", root: "B", notes: ["B", "C", "D", "Eb", "F", "F#", "G#", "A"], order: 242 },
+    { type: "Half-Whole Diminished", root: "F#", notes: ["F#", "G", "A", "Bb", "C", "Db", "Eb", "E"], order: 243 },
+    { type: "Half-Whole Diminished", root: "Db", notes: ["Db", "D", "E", "F", "G", "Ab", "Bb", "Cb"], order: 244 },
+    { type: "Half-Whole Diminished", root: "Ab", notes: ["Ab", "A", "B", "C", "D", "Eb", "F", "Gb"], order: 245 },
+    { type: "Half-Whole Diminished", root: "Eb", notes: ["Eb", "E", "F#", "G", "A", "Bb", "C", "Db"], order: 246 },
+    { type: "Half-Whole Diminished", root: "Bb", notes: ["Bb", "B", "C#", "D", "E", "F", "G", "Ab"], order: 247 },
+    { type: "Half-Whole Diminished", root: "F", notes: ["F", "F#", "G#", "A", "B", "C", "D", "Eb"], order: 248 },
+
+
+    { type: "Whole-Half Diminished", root: "C", notes: ["C", "D", "Eb", "F", "F#", "G#", "A", "B"], order: 249 },
+    { type: "Whole-Half Diminished", root: "G", notes: ["G", "A", "Bb", "C", "Db", "Eb", "E", "F#"], order: 250 },
+    { type: "Whole-Half Diminished", root: "D", notes: ["D", "E", "F", "G", "Ab", "Bb", "B", "C#"], order: 251 },
+    { type: "Whole-Half Diminished", root: "A", notes: ["A", "B", "C", "D", "Eb", "F", "F#", "G#"], order: 252 },
+    { type: "Whole-Half Diminished", root: "E", notes: ["E", "F#", "G", "A", "Bb", "C", "C#", "D#"], order: 253 },
+    { type: "Whole-Half Diminished", root: "B", notes: ["B", "C#", "D", "E", "F", "G", "G#", "A#"], order: 254 },
+    { type: "Whole-Half Diminished", root: "F#", notes: ["F#", "G#", "A", "B", "C", "D", "Eb", "F"], order: 255 },
+    { type: "Whole-Half Diminished", root: "Db", notes: ["Db", "D#", "E", "F#", "G", "A", "Bb", "C"], order: 256 },
+    { type: "Whole-Half Diminished", root: "Ab", notes: ["Ab", "Bb", "B", "C#", "D", "E", "F", "G"], order: 257 },
+    { type: "Whole-Half Diminished", root: "Eb", notes: ["Eb", "F", "Gb", "Ab", "A", "B", "C", "D"], order: 258 },
+    { type: "Whole-Half Diminished", root: "Bb", notes: ["Bb", "C", "Db", "Eb", "E", "F#", "G", "A"], order: 259 },
+    { type: "Whole-Half Diminished", root: "F", notes: ["F", "G", "G#", "A#", "B", "C#", "D", "E"], order: 260 },
+
+
+
+
+
 
 ];
 // Half-Whole Diminished
