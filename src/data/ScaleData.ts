@@ -312,9 +312,18 @@ export const scales: Scale[] = [
     { type: "Whole-Half Diminished", root: "F", notes: ["F", "G", "G#", "A#", "B", "C#", "D", "E"], order: 260 },
 
 
-
-
-
+    { type: "Inuit Hexatonic II", root: "C", notes: ["C", "D", "E", "F#", "G#", "B"], order: 261 },
+    { type: "Inuit Hexatonic II", root: "G", notes: ["G", "A", "B", "C#", "D#", "F#"], order: 262 },
+    { type: "Inuit Hexatonic II", root: "D", notes: ["D", "E", "F#", "G#", "A#", "C#"], order: 263 },
+    { type: "Inuit Hexatonic II", root: "A", notes: ["A", "B", "C#", "D#", "F", "G#"], order: 264 },
+    { type: "Inuit Hexatonic II", root: "E", notes: ["E", "F#", "G#", "A#", "C", "D#"], order: 265 },
+    { type: "Inuit Hexatonic II", root: "B", notes: ["B", "C#", "D#", "F", "G", "A#"], order: 266 },
+    { type: "Inuit Hexatonic II", root: "F#", notes: ["F#", "G#", "A#", "C", "D", "F"], order: 267 },
+    { type: "Inuit Hexatonic II", root: "Db", notes: ["Db", "Eb", "F", "G", "A", "C"], order: 268 },
+    { type: "Inuit Hexatonic II", root: "Ab", notes: ["Ab", "Bb", "C", "D", "E", "G"], order: 269 },
+    { type: "Inuit Hexatonic II", root: "Eb", notes: ["Eb", "F", "G", "A", "B", "D"], order: 270 },
+    { type: "Inuit Hexatonic II", root: "Bb", notes: ["Bb", "C", "D", "E", "F#", "A"], order: 271 },
+    { type: "Inuit Hexatonic II", root: "F", notes: ["F", "G", "A", "B", "C#", "E"], order: 272 }
 
 ];
 // Half-Whole Diminished
