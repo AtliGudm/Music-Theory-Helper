@@ -4,7 +4,7 @@ import ChordsDisplay from "./ChordsDisplay";
 import ModeSelector from "./ModeSelector";
 import { modes } from '../data/ModesData';
 import { getScale, PayloadContainer, ParaScale } from "../data/ScaleData";
-import { getFifth, modifyNote, DisplayParallelScaleOnKeyboardPayload } from '../Helpers'
+import { getFifth, modifyNote, DisplayParallelScaleOnKeyboardPayload, shiftScale } from '../Helpers'
 import { Scale } from "../data/ScaleData";
 import { GetScaleNotesDisplay, FormatAccidentalsForDisplay } from "./HelperComponents";
 import PianoKeysIcon from "../assets/PianoKeysIcon";
@@ -20,7 +20,10 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard, changeModeCallback
         if(type === "Major Pentatonic" || type === "Minor Pentatonic") {
             if (scale.root) return getScale("Major Pentatonic", scale.root);
         }
-        else  if (scale.root) return getScale("Major", scale.root);
+        else if(type === "Inuit Hexatonic II") {
+            if (scale.root) return getScale("Inuit Hexatonic II", scale.root);
+        }
+        else if (scale.root) return getScale("Major", scale.root);
         
         return undefined;
     }
@@ -40,13 +43,21 @@ const ParallelModesDisplay = ({scale, displayScaleOnKeyboard, changeModeCallback
         const fifthShift = mode.fifthShift;
         const parallelRoot = scale.root ? getFifth(scale.root, fifthShift) : '';
         const modeAccidentals = mode.accidentals;
-        const scaleToModify = getSourceTemplateScale();
 
-        const modifiedScale: Scale = { type: scale.type,
-                                root: scale.root,
-                                notes: (scaleToModify) ? (scaleToModify.notes.map((note, index) => modifyNote(note, modeAccidentals[index]))) : [],             
-                                order: scale.order}
-        return {mode: mode, parallelRoot: parallelRoot, modifiedScale: modifiedScale};      
+        if(scale.notes.length === 7) {
+            const scaleToModify = getSourceTemplateScale();
+
+            const modifiedScale: Scale = { type: scale.type,
+                                    root: scale.root,
+                                    notes: (scaleToModify) ? (scaleToModify.notes.map((note, index) => modifyNote(note, modeAccidentals[index]))) : [],             
+                                    order: scale.order}
+            return {mode: mode, parallelRoot: parallelRoot, modifiedScale: modifiedScale};   
+        }
+        else {
+            const parallelScale = getScale(scale.type, parallelRoot);
+            const parallelScaleRootAdjusted = shiftScale(parallelScale, selectedMode);
+            return {mode: mode, parallelRoot: parallelRoot, modifiedScale: parallelScaleRootAdjusted};   
+        }
     }
 
     const callDisplayScaleOnKeyboard = () => {

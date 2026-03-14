@@ -35,7 +35,6 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, isSmallScreen, changeMod
     }
 
     const showParallelModeButton = () => {
-        if(scale && scale.notes.length !== 7) return false; // Temporary fix
         return showModeButton();
     }
 

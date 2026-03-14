@@ -1,6 +1,6 @@
 import { modes } from '../data/ModesData';
 import { useScaleSettings } from "../ScaleSettingsContext";
-import { noteToInt } from "../Helpers";
+import { noteToInt, isLetter } from "../Helpers";
 import { Scale } from "../data/ScaleData";
 
 const intToRomanNumeral: { [key: number]: string } = {
@@ -17,8 +17,8 @@ export interface Chord {
 
 const getChordQuality = (root: number, third: number, fifth: number, seventh: number | null, scaleDegree: number, includeSuspenedChords: boolean) => {
     const interval1 = (third - root + 12) % 12; // Root to third
-    const interval2 = (fifth - third + 12) % 12; // Third to fifth
-    const interval3 = seventh !== null ? (seventh - fifth + 12) % 12 : null; // Fifth to seventh
+    const interval2 = (fifth - root + 12) % 12; // Third to fifth
+    const interval3 = seventh !== null ? (seventh - root + 12) % 12 : null; // Fifth to seventh
     
     let quality = null;
     let romanNumeral = intToRomanNumeral[scaleDegree];
@@ -26,16 +26,16 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
     let degrees: string[] = []
     
     // Sus2
-    if (interval1 === 2 && interval2 === 5 && includeSuspenedChords === true) {
+    if (interval1 === 2 && interval2 === 7 && includeSuspenedChords === true) {
         quality = "sus2";
         if(seventh === null) {
             degrees = ["1","2","5"];
         }
-        else if(interval3 === 4) {
+        else if(interval3 === 11) {
             quality += "maj7";
             degrees = ["1","2","5","7"];
         }
-        else if(interval3 === 3) {
+        else if(interval3 === 10) {
             quality += "7";
             degrees = ["1","2","5","b7"];
         }
@@ -53,23 +53,23 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
         romanNumeral = romanNumeral.toUpperCase() + quality;
     } */
     // Major
-    else if (interval1 === 4 && interval2 === 3) {
+    else if (interval1 === 4 && interval2 === 7) {
         if(seventh === null) {
             quality = "";
             degrees = ["1","3","5"];
         }
-        else if(interval3 === 4) {
+        else if(interval3 === 11) {
             quality = "maj7";
             degrees = ["1","3","5","7"];
         }
-        else if(interval3 === 3) {
+        else if(interval3 === 10) {
             quality = "7";
             degrees = ["1","3","5","b7"];
         }
-        else if(interval3 === 2) {
+        /*else if(interval3 === 9) {
             quality = "6";
             degrees = ["1","3","5","6"];
-        }
+        }*/
         else {
             quality = "?";
             degrees = ["1","3","5","?"];
@@ -78,29 +78,24 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
         romanNumeral = romanNumeral.toUpperCase() + quality;
         order = 0;
     }
-/*     // Major(b5)
-    else if (interval1 === 4 && interval2 === 2) {
-        quality = seventh === null ? "(b5)" : interval3 === 4 ? "(b5)maj7" : "(b5)7";
-        romanNumeral = romanNumeral.toUpperCase() + quality;
-    } */
     // Minor
-    else if (interval1 === 3 && interval2 === 4) {
+    else if (interval1 === 3 && interval2 === 7) {
         if(seventh === null) {
             quality = "";
             degrees = ["1","b3","5"];
         }
-        else if(interval3 === 4) {
+        else if(interval3 === 11) {
             quality = "(maj7)";
             degrees = ["1","b3","5","7"];
         }
-        else if(interval3 === 3){ // TODO: FINISH CASE
+        else if(interval3 === 10){ // TODO: FINISH CASE
             quality = "7";
             degrees = ["1","b3","5","b7"];
         }
-        else if(interval3 === 2) {
+        /*else if(interval3 === 9) {
             quality = "6";
             degrees = ["1","b3","5","6"];
-        }
+        }*/
         else {
             quality = "?";
             degrees = ["1","b3","5","?"];
@@ -111,16 +106,16 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
         order = 1;
     }
     // Sus4
-    else if (interval1 === 5 && interval2 === 2 && includeSuspenedChords === true) {
+    else if (interval1 === 5 && interval2 === 7 && includeSuspenedChords === true) {
         quality = "sus4";
         if(seventh === null) {
             degrees = ["1","4","5"];
         }
-        else if(interval3 === 4) {
+        else if(interval3 === 11) {
             quality += "maj7";
             degrees = ["1","4","5","7"];
         }
-        else if(interval3 === 3) {
+        else if(interval3 === 10) {
             quality += "7";
             degrees = ["1","4","5","b7"];
         }
@@ -132,20 +127,20 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
         order = 5;
     }
     // Diminished
-    else if (interval1 === 3 && interval2 === 3) {
+    else if (interval1 === 3 && interval2 === 6) {
         if (seventh === null) {
             quality = "°";
             degrees = ["1","b3","b5"];
         } 
-        else if (interval3 === 3) {
+        else if (interval3 === 9) {
             quality = "°7";
             degrees = ["1","b3","b5","bb7"];
         }
-        else if (interval3 === 4) {
+        else if (interval3 === 10) {
             quality = "ø7";
             degrees = ["1","b3","b5","b7"];
         }
-        else if (interval3 === 5) {
+        else if (interval3 === 11) {
             quality = "°(maj7)";
             degrees = ["1","b3","b5","7"];
         }
@@ -158,16 +153,16 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
         order = 2;
     }
     // Augmented
-    else if (interval1 === 4 && interval2 === 4) {
+    else if (interval1 === 4 && interval2 === 8) {
         if(seventh === null) {
             quality = "+";
             degrees = ["1","3","#5"];
         }
-        else if(interval3 === 2) {
+        else if(interval3 === 10) {
             quality = "+7";
             degrees = ["1","3","#5","b7"];
         }
-        else if(interval3 === 3) {
+        else if(interval3 === 11) {
             quality = "+maj7";
             degrees = ["1","3","#5","7"];
         }
@@ -177,6 +172,14 @@ const getChordQuality = (root: number, third: number, fifth: number, seventh: nu
         }
         romanNumeral = romanNumeral.toUpperCase() + quality;
         order = 3;
+    }
+    else if (interval1 === 4) {
+        if (interval2 === 10) {
+            quality = "7(no5)";
+            degrees = ["1","3","b7"];
+            romanNumeral = romanNumeral.toUpperCase() + quality;
+            order = 0;
+        }
     }
 
     return { quality, romanNumeral, order, degrees }
@@ -248,7 +251,21 @@ const GenerateAllDiatonicChords = (scale: Scale, selectedMode: number, includeSe
             const chordName = root + quality;
             const chordNotes = [root, third, fifth];
             if(includeSevenths && seventh !== null) chordNotes.push(seventh);
-            if(romanNumeralsMajorAdjusted) {
+
+            if(scaleNotes.length != 7) {
+                const fullDegreeString: string = modes[scale.type][selectedMode].degrees[index].toString();
+                const accidental: string = (fullDegreeString[0] === "b" || fullDegreeString[0] === "#") ? fullDegreeString[0] : "";
+                const degree: number = (accidental === "") ? parseInt(fullDegreeString)-1 : parseInt(fullDegreeString[1])-1;
+                const remainder: string = romanNumeral.replace(/^[IVXivx]+/, "");
+
+                if(romanNumeral[0] === romanNumeral[0].toUpperCase()) {
+                    romanNumeral = intToRomanNumeral[degree].toUpperCase();
+                } else {
+                    romanNumeral = intToRomanNumeral[degree];
+                }
+                romanNumeral = accidental + romanNumeral + remainder;
+            }
+            else if(romanNumeralsMajorAdjusted) {
                 const accidental = modes[scale.type][Number(selectedMode)].accidentals[index];
                 if(accidental != 0)
                     romanNumeral = accidental + romanNumeral;
@@ -271,10 +288,11 @@ const getPossibleChordsOfRoot = (scaleNotes: string[], root: string, index: numb
                  [index, index+3, index+5],
                  [index, index+4, index+5]];
     let hf: any[] = [];
+    const seventhShift = scaleNotes.length === 6 ? 5 : (scaleNotes.length === 5 ? 4 : 6);
     dfg.forEach(item => {
         const third = scaleNotes[item[1] % scaleNotes.length];
         const fifth = scaleNotes[item[2] % scaleNotes.length];
-        let seventh = includeSevenths ? scaleNotes[(index + 6) % scaleNotes.length] : null;
+        let seventh = includeSevenths ? scaleNotes[(index + seventhShift) % scaleNotes.length] : null;
 
         if(seventh == root || seventh == third || seventh == fifth) seventh = null;
         if(fifth == root || fifth == third || third == root) return; // Maybe overkill
