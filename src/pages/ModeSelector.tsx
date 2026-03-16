@@ -1,6 +1,7 @@
 import { modes } from '../data/ModesData';
+import { Scale } from "../data/ScaleData";
 
-const ModeSelector = ({scaleType, selectedMode, modeType, onModeChange}: {scaleType: string, selectedMode: number, modeType: string, onModeChange: (newSelectedMode: number) => void }) => {
+const ModeSelector = ({scaleType, selectedMode, modeType, scale = null, onModeChange}: {scaleType: string, selectedMode: number, modeType: string, scale?: Scale | null, onModeChange: (newSelectedMode: number) => void }) => {
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newSelectedMode = parseInt(event.target.value, 10);
         onModeChange(newSelectedMode);
@@ -12,7 +13,11 @@ const ModeSelector = ({scaleType, selectedMode, modeType, onModeChange}: {scaleT
             <select style={{fontSize: "16px"}} id="mode-select" value={selectedMode} onChange={handleChange}>
                 {modes[scaleType].map((modeObj, index) => (
                     <option key={index} value={index}>
-                        {modeObj.mode}
+                        {scale === null ? (
+                            <>{modeObj.mode}</>
+                        ) : (
+                            <>{scale.notes[index]} - {modeObj.mode}</>
+                        )}
                     </option>
                 ))}
             </select>

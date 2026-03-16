@@ -110,7 +110,7 @@ const ScaleDisplay = ({scale, selectedMode, scaleIndex, isSmallScreen, changeMod
                     </>
                 )}
                 {isOpen && showModeButton() && (
-                    <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative"/>
+                    <ModeSelector scaleType={scale.type} onModeChange={handleModeChange} selectedMode={selectedMode} modeType="Relative" scale={scale}/>
                 )}
             </div>
 

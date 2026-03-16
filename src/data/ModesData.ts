@@ -177,12 +177,12 @@ export const modes: ModesData = {
         {mode: "Messiaen Mode 5", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,"b2",4,"b5",5,7]},
     ],
     "Inuit Hexatonic II": [
-        {mode: "Inuit Hexatonic II", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,2,3,"#4","#5",7]},
-        {mode: "Scriabin's Prometheus", fifthShift: -2, accidentals: [0,0,0,0,0,0], degrees: [1,2,3,"#4",6,"b7"]},
-        {mode: "Bythimic", fifthShift: -4, accidentals: [0,0,0,0,0,0], degrees: [1,2,3,5,"b6","b7"]},
-        {mode: "Padimic", fifthShift: -6, accidentals: [0,0,0,0,0,0], degrees: [1,2,4,"b5","b6","b7"]},
-        {mode: "Boptimic", fifthShift: 4, accidentals: [0,0,0,0,0,0], degrees: [1,"#2",3,"b5","b6","b7"]},
-        {mode: "Stogimic", fifthShift: -5, accidentals: [0,0,0,0,0,0], degrees: [1,"b2","b3",4,5,6]}
+        {mode: "Inuit Hexatonic II (Lydian+)", fifthShift: 0, accidentals: [0,0,0,0,0,0], degrees: [1,2,3,"#4","#5",7]},
+        {mode: "Scriabin's Prometheus (Lydian Dominant)", fifthShift: -2, accidentals: [0,0,0,0,0,0], degrees: [1,2,3,"#4",6,"b7"]},
+        {mode: "Bythimic (Aeolian Dominant)", fifthShift: -4, accidentals: [0,0,0,0,0,0], degrees: [1,2,3,5,"b6","b7"]},
+        {mode: "Padimic (Half-Diminished)", fifthShift: -6, accidentals: [0,0,0,0,0,0], degrees: [1,2,4,"b5","b6","b7"]},
+        {mode: "Boptimic (Super Locrian)", fifthShift: 4, accidentals: [0,0,0,0,0,0], degrees: [1,"#2",3,"b5","b6","b7"]},
+        {mode: "Stogimic (Dorian b2)", fifthShift: -5, accidentals: [0,0,0,0,0,0], degrees: [1,"b2","b3",4,5,6]}
     ],
 };
 
